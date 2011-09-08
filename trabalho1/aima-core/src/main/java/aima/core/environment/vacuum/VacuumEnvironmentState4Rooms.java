@@ -18,7 +18,7 @@ public class VacuumEnvironmentState4Rooms extends VacuumEnvironmentState {
 	public VacuumEnvironmentState4Rooms(VacuumEnvironment.LocationState locAState,
 			VacuumEnvironment.LocationState locBState, VacuumEnvironment.LocationState locCState,
 			VacuumEnvironment.LocationState locDState) {
-		this();
+		
 		state.put(VacuumEnvironment.LOCATION_A, locAState);
 		state.put(VacuumEnvironment.LOCATION_B, locBState);
 		state.put(VacuumEnvironment4Rooms.LOCATION_C, locCState);
