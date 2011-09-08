@@ -12,9 +12,9 @@ public abstract class ReflexAgent4Rooms extends AbstractAgent {
 	
 	public ReflexAgent4Rooms() {
 		Set<Rule> rules = getMovementRuleSet();
+		program = new SimpleReflexAgentProgram(rules);
 		rules.addAll(getActionRuleSet());
 		
-		program = new SimpleReflexAgentProgram(rules);
 	}
 	
 	public static Set<Rule> getMovementRuleSet() {
