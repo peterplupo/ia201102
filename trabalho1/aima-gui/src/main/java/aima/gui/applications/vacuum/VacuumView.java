@@ -21,9 +21,11 @@ import aima.gui.framework.EmptyEnvironmentView;
  * @author Ruediger Lunde
  */
 public class VacuumView extends EmptyEnvironmentView {
+	public VacuumView() {
+	}
 	
 	private static final long serialVersionUID = 1L;
-	private Hashtable<Agent, Action> lastActions = new Hashtable<Agent, Action>();
+	Hashtable<Agent, Action> lastActions = new Hashtable<Agent, Action>();
 	
 	@Override
 	public void agentActed(Agent agent, Action action,
