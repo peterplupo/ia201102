@@ -41,9 +41,11 @@ public class VacuumController extends AgentAppController {
 		switch (selState.getValue(VacuumFrame.ENV_SEL)) {
 			case 0:
 				env = new VacuumEnvironment();
+				frame.setEnvView(new VacuumView());
 				break;
 			case 1:
 				env = new VacuumEnvironment4Rooms();
+				frame.setEnvView(new VacuumView4Rooms());
 				break;
 		}
 		agent = null;
