@@ -21,7 +21,10 @@ public class VacuumFrame extends AgentAppFrame {
 				"TableDrivenVacuumAgent",
 				"ReflexVacuumAgent",
 				"SimpleReflexVacuumAgent",
-				"ModelBasedReflexVacuumAgent"},
+				"ModelBasedReflexVacuumAgent",
+				"4Rooms",
+				"BrokenSensor",
+				"Wash/DryAgents"},
 				0);
 		setEnvView(new VacuumView());
 		setSize(800, 400);

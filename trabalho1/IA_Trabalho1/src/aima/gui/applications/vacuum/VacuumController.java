@@ -1,8 +1,12 @@
 package aima.gui.applications.vacuum;
 
+import aima.core.agent.Environment;
 import aima.core.agent.impl.AbstractAgent;
 import aima.core.environment.vacuum.ModelBasedReflexVacuumAgent;
+import aima.core.environment.vacuum.ReflexDryingAgent;
 import aima.core.environment.vacuum.ReflexVacuumAgent;
+import aima.core.environment.vacuum.ReflexVacuumAgent4Rooms;
+import aima.core.environment.vacuum.ReflexWashingAgent;
 import aima.core.environment.vacuum.SimpleReflexVacuumAgent;
 import aima.core.environment.vacuum.TableDrivenVacuumAgent;
 import aima.core.environment.vacuum.VacuumEnvironment;
@@ -21,6 +25,7 @@ public class VacuumController extends AgentAppController {
 	
 	protected VacuumEnvironment env = null;
 	protected AbstractAgent agent = null;
+	protected AbstractAgent agent1 = null;
 	protected boolean isPrepared = false;
 	
 	/** Prepares next simulation if that makes sense. */
@@ -62,14 +67,28 @@ public class VacuumController extends AgentAppController {
 			case 3:
 				agent = new ModelBasedReflexVacuumAgent();
 				break;
+			case 4:
+				agent = new ReflexVacuumAgent4Rooms();
+				break;
+			case 5:
+//				env = new BrokenEnv();
+				break;
+			case 6:
+				agent = new ReflexDryingAgent();
+				agent1 = new ReflexWashingAgent();
 		}
 		if (env != null && agent != null) {
 			frame.getEnvView().setEnvironment(env);
 			env.addAgent(agent);
+			if (agent1 != null) {
+				env.addAgent(agent1);
+				agent1 = null;
+			}
 			isPrepared = true;
 		}
 	}
 	
+
 	/** Checks whether simulation can be started. */
 	@Override
 	public boolean isPrepared() {
