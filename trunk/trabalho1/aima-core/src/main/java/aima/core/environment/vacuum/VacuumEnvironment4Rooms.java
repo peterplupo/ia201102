@@ -1,5 +1,8 @@
 package aima.core.environment.vacuum;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import aima.core.agent.Action;
@@ -103,8 +106,13 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 
 	@Override
 	public void addAgent(Agent a) {
-		int idx = new Random().nextInt(2);
-		envState.setAgentLocation(a, idx == 0 ? LOCATION_A : LOCATION_B);
+		List<String> locations = new ArrayList<String>(4);
+		locations.add(LOCATION_A);
+		locations.add(LOCATION_B);
+		locations.add(LOCATION_C);
+		locations.add(LOCATION_D);
+		Collections.shuffle(locations);
+		envState.setAgentLocation(a, locations.get(0));
 		super.addAgent(a);
 	}
 
