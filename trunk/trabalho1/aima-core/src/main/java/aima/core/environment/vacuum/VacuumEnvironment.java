@@ -32,7 +32,7 @@ public class VacuumEnvironment extends AbstractEnvironment {
 	public static final String LOCATION_B = "B";
 
 	public enum LocationState {
-		Clean, Dirty
+		Clean, Dirty, Unknown
 	};
 
 	//
