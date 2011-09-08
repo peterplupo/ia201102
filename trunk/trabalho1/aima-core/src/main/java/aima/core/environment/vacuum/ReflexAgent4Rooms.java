@@ -10,8 +10,13 @@ import aima.core.agent.impl.aprog.simplerule.Rule;
 
 public abstract class ReflexAgent4Rooms extends AbstractAgent {
 	
-	public ReflexAgent4Rooms(Set<Rule> rules) {
-		super(new SimpleReflexAgentProgram(rules));
+	public ReflexAgent4Rooms() {
+		super();
+		
+		Set<Rule> rules = getMovementRuleSet();
+		rules.addAll(getActionRuleSet());
+		
+		setProgram(new SimpleReflexAgentProgram(rules));
 	}
 	
 	public static Set<Rule> getMovementRuleSet() {
