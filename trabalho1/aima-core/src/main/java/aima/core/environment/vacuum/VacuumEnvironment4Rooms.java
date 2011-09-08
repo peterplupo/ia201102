@@ -48,10 +48,8 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 	public VacuumEnvironment4Rooms(LocationState locAState, LocationState locBState, LocationState locCState, LocationState locDState) {
 		envState = new VacuumEnvironmentState4Rooms(locAState, locBState, locCState, locDState);
 	}
-
-	@Override
-	public EnvironmentState executeAction(Agent a, Action agentAction) {
-
+	
+	public EnvironmentState executeMoveAction(Agent a, Action agentAction) {
 		if (ACTION_MOVE_RIGHT == agentAction) {
 			if (envState.getAgentLocation(a).equals(LOCATION_A)) {
 				envState.setAgentLocation(a, LOCATION_B);
@@ -88,7 +86,13 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 				envState.setAgentLocation(a, LOCATION_D);
 				updatePerformanceMeasure(a, -1);
 			}
-		} else if (ACTION_SUCK == agentAction) {
+		}
+		
+		return envState;
+	}
+	
+	public EnvironmentState executeCleanAction(Agent a, Action agentAction) {
+		if (ACTION_SUCK == agentAction) {
 			if (LocationState.Dirty == envState.getLocationState(envState
 					.getAgentLocation(a))) {
 				envState.setLocationState(envState.getAgentLocation(a),
@@ -99,6 +103,20 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 			// In the Vacuum Environment we consider things done if
 			// the agent generates a NoOp.
 			isDone = true;
+		}
+		
+		return envState;
+	}
+	
+	@Override
+	public EnvironmentState executeAction(Agent a, Action agentAction) {
+
+		if (ACTION_MOVE_RIGHT == agentAction || ACTION_MOVE_LEFT == agentAction ||
+			ACTION_MOVE_UP == agentAction || ACTION_MOVE_DOWN == agentAction) {
+			
+			executeMoveAction(a, agentAction);
+		} else {
+			executeCleanAction(a, agentAction);
 		}
 
 		return envState;
