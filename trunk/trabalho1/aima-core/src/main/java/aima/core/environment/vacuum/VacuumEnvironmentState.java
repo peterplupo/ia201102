@@ -12,8 +12,8 @@ import aima.core.agent.EnvironmentState;
  */
 public class VacuumEnvironmentState implements EnvironmentState {
 
-	private Map<String, VacuumEnvironment.LocationState> state;
-	private Map<Agent, String> agentLocations;
+	Map<String, VacuumEnvironment.LocationState> state;
+	Map<Agent, String> agentLocations;
 
 	public VacuumEnvironmentState() {
 		state = new LinkedHashMap<String, VacuumEnvironment.LocationState>();

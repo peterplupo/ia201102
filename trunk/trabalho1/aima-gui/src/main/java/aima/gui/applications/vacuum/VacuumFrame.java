@@ -16,8 +16,7 @@ public class VacuumFrame extends AgentAppFrame {
 		setTitle("Vacuum Agent Application");
 		setSelectors(new String[] { ENV_SEL, AGENT_SEL }, new String[] {
 				"Select Environment", "Select Agent" });
-//		setSelectorItems(ENV_SEL, new String[] { "A/B/C/D Environment" }, 0);
-		setSelectorItems(ENV_SEL, new String[] { "A/B Environment" }, 0);
+		setSelectorItems(ENV_SEL, new String[] { "A/B Environment", "A/B/C/D Environment" }, 0);
 		setSelectorItems(AGENT_SEL, new String[] {
 				"TableDrivenVacuumAgent",
 				"ReflexVacuumAgent",
