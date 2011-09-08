@@ -38,9 +38,9 @@ public abstract class ReflexAgent4Rooms extends AbstractAgent {
 				VacuumEnvPercept.ATTRIBUTE_AGENT_LOCATION,
 				VacuumEnvironment4Rooms.LOCATION_D),
 				VacuumEnvironment4Rooms.ACTION_MOVE_LEFT));
-
+		
 		return rules;
 	}
 	
-	public abstract void addActionRules(Set<Rule> rules);
+	public abstract Set<Rule> getActionRuleSet();
 }
