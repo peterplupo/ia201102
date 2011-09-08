@@ -22,9 +22,6 @@ public abstract class ReflexAgent4Rooms extends AbstractAgent {
 		// precedence) of rules can be guaranteed.
 		Set<Rule> rules = new LinkedHashSet<Rule>();
 
-//		rules.add(new Rule(new EQUALCondition(VacuumEnvPercept.ATTRIBUTE_STATE,
-//				VacuumEnvironment.LocationState.Dirty),
-//				VacuumEnvironment.ACTION_SUCK));
 		rules.add(new Rule(new EQUALCondition(
 				VacuumEnvPercept.ATTRIBUTE_AGENT_LOCATION,
 				VacuumEnvironment4Rooms.LOCATION_A),
