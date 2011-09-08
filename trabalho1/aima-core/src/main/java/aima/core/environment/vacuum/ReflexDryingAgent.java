@@ -6,9 +6,8 @@ import aima.core.agent.impl.aprog.simplerule.Rule;
 
 public class ReflexDryingAgent extends ReflexAgent4Rooms {
 
-	public ReflexDryingAgent(Set<Rule> rules) {
-		super(rules);
-		// TODO Auto-generated constructor stub
+	public ReflexDryingAgent() {
+		super();
 	}
 
 	@Override
