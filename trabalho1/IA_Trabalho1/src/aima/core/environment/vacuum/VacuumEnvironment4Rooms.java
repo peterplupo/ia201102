@@ -15,6 +15,8 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 	
 	public static final Action ACTION_MOVE_UP = new DynamicAction("Up");
 	public static final Action ACTION_MOVE_DOWN = new DynamicAction("Down");
+	public static final Action ACTION_WASH = new DynamicAction("Wash");
+	public static final Action ACTION_DRY = new DynamicAction("Dry");
 	public static final String LOCATION_C = "C";
 	public static final String LOCATION_D = "D";
 
@@ -28,24 +30,27 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 	 */
 	public VacuumEnvironment4Rooms() {
 		Random r = new Random();
+		LocationState[] locStates = new LocationState[4];
+		for (int i = 0; i < 4; ++i)
+		{
+			switch (r.nextInt(3))
+			{
+			case 0:
+				locStates[i] = LocationState.Clean;
+				break;
+			case 1:
+				locStates[i] = LocationState.Dirty;
+				break;
+			case 2:
+				locStates[i] = LocationState.Wet;
+				break;
+			}
+		}
+		
 		envState = new VacuumEnvironmentState4Rooms(
-				0 == r.nextInt(2) ? LocationState.Clean : LocationState.Dirty,
-				0 == r.nextInt(2) ? LocationState.Clean : LocationState.Dirty,
-				0 == r.nextInt(2) ? LocationState.Clean : LocationState.Dirty,
-				0 == r.nextInt(2) ? LocationState.Clean : LocationState.Dirty);
+				locStates[0], locStates[1], locStates[2], locStates[3]);
 	}
 
-	/**
-	 * Constructs a vacuum environment with two locations, in which dirt is
-	 * placed as specified.
-	 * 
-	 * @param locAState
-	 *            the initial state of location A, which is either
-	 *            <em>Clean</em> or <em>Dirty</em>.
-	 * @param locBState
-	 *            the initial state of location B, which is either
-	 *            <em>Clean</em> or <em>Dirty</em>.
-	 */
 	public VacuumEnvironment4Rooms(LocationState locAState, LocationState locBState, LocationState locCState, LocationState locDState) {
 		envState = new VacuumEnvironmentState4Rooms(locAState, locBState, locCState, locDState);
 	}
@@ -96,6 +101,20 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 		if (ACTION_SUCK == agentAction) {
 			if (LocationState.Dirty == envState.getLocationState(envState
 					.getAgentLocation(a))) {
+				envState.setLocationState(envState.getAgentLocation(a),
+						LocationState.Clean);
+				updatePerformanceMeasure(a, 10);
+			}
+		} else if (ACTION_WASH == agentAction) {
+			if (LocationState.Dirty == envState.getLocationState(envState
+					.getAgentLocation(a))) {
+				envState.setLocationState(envState.getAgentLocation(a),
+						LocationState.Clean);
+				updatePerformanceMeasure(a, 10);
+			}
+		} else if (ACTION_DRY == agentAction) {
+			if (LocationState.Wet == envState.getLocationState(envState.
+					getAgentLocation(a))) {
 				envState.setLocationState(envState.getAgentLocation(a),
 						LocationState.Clean);
 				updatePerformanceMeasure(a, 10);
