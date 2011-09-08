@@ -6,8 +6,8 @@ import aima.core.agent.impl.aprog.simplerule.Rule;
 
 public class ReflexWashingAgent extends ReflexAgent4Rooms {
 
-	public ReflexWashingAgent(Set<Rule> rules) {
-		super(rules);
+	public ReflexWashingAgent() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
