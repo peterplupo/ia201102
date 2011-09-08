@@ -47,7 +47,7 @@ public class TicTacToeApp {
 	/** Simple panel to control the game. */
 	private static class TicTacToePanel extends JPanel implements ActionListener {
 		private static final long serialVersionUID = 1L;
-		JComboBox<String> strategy;
+		JComboBox strategy;
 		JButton clear;
 		JButton proposal;
 		JButton[] squares;
@@ -59,7 +59,7 @@ public class TicTacToeApp {
 			this.setLayout(new BorderLayout());
 			JToolBar tbar = new JToolBar();
 			tbar.setFloatable(false);
-			strategy = new JComboBox<String>(new String[]{"Minimax", "Alpha-Beta"});
+			strategy = new JComboBox(new String[]{"Minimax", "Alpha-Beta"});
 			strategy.setSelectedIndex(1);
 			tbar.add(strategy);
 			tbar.add(Box.createHorizontalGlue());

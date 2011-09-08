@@ -247,7 +247,7 @@ public class AgentAppFrame extends JFrame {
 		pauseButton.setEnabled(!b);
 		stepButton.setEnabled(prep);
 		cancelButton.setEnabled(!b);
-		for (JComboBox<String> combo : selectors.combos)
+		for (JComboBox combo : selectors.combos)
 			combo.setEnabled(b);
 	}
 
@@ -265,7 +265,7 @@ public class AgentAppFrame extends JFrame {
 
 	/** Sends commands to the controller. */
 	private class FrameActionListener implements ActionListener {
-		@SuppressWarnings({ "deprecation", "unchecked" })
+		@SuppressWarnings("deprecation")
 		public void actionPerformed(ActionEvent evt) {
 			String err = "";
 			try {
@@ -308,7 +308,7 @@ public class AgentAppFrame extends JFrame {
 						}
 					} else if (selectors.combos.contains(source)) {
 						err = "when preparing the agent ";
-						selectionChanged(selectors.getName((JComboBox<String>) source));
+						selectionChanged(selectors.getName((JComboBox) source));
 					}
 				}
 			} catch (Exception e) {
@@ -325,16 +325,16 @@ public class AgentAppFrame extends JFrame {
 		String[] selectorNames = new String[] {};
 		int[] selectorDefaults = new int[] {};
 		// JPanel selectorPanel = new JPanel();
-		List<JComboBox<String>> combos = new ArrayList<JComboBox<String>>();
+		List<JComboBox> combos = new ArrayList<JComboBox>();
 
 		public void setSelectors(String[] selectorNames, String[] tooltips) {
 			this.selectorNames = selectorNames;
 			this.selectorDefaults = new int[selectorNames.length];
-			for (JComboBox<String> combo : combos)
+			for (JComboBox combo : combos)
 				toolbar.remove(combo);
 			combos.clear();
 			for (int i = 0; i < selectorNames.length; i++) {
-				JComboBox<String> combo = new JComboBox<String>();
+				JComboBox combo = new JComboBox();
 				combo.addActionListener(actionListener);
 				combo.setVisible(false);
 				combos.add(combo);
@@ -346,7 +346,7 @@ public class AgentAppFrame extends JFrame {
 
 		public void setSelectorItems(String selectorName, String[] items,
 				int defaultIdx) {
-			JComboBox<String> combo = getCombo(selectorName);
+			JComboBox combo = getCombo(selectorName);
 			combo.removeAllItems();
 			for (String item : items)
 				combo.addItem(item);
@@ -369,14 +369,14 @@ public class AgentAppFrame extends JFrame {
 			return result;
 		}
 
-		JComboBox<String> getCombo(String selectorName) {
+		JComboBox getCombo(String selectorName) {
 			for (int i = 0; i < selectorNames.length; i++)
 				if (selectorNames[i].equals(selectorName))
 					return combos.get(i);
 			return null;
 		}
 		
-		String getName(JComboBox<String> combo) {
+		String getName(JComboBox combo) {
 			int idx = combos.indexOf(combo);
 			if (idx != -1)
 				return selectorNames[idx];
