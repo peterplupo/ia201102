@@ -6,10 +6,11 @@ import aima.core.environment.vacuum.ReflexVacuumAgent;
 import aima.core.environment.vacuum.SimpleReflexVacuumAgent;
 import aima.core.environment.vacuum.TableDrivenVacuumAgent;
 import aima.core.environment.vacuum.VacuumEnvironment;
+import aima.core.environment.vacuum.VacuumEnvironment4Rooms;
 import aima.gui.framework.AgentAppController;
 import aima.gui.framework.AgentAppFrame;
-import aima.gui.framework.SimulationThread;
 import aima.gui.framework.MessageLogger;
+import aima.gui.framework.SimulationThread;
 
 /**
  * Defines how to react on user button events.
@@ -38,24 +39,27 @@ public class VacuumController extends AgentAppController {
 		AgentAppFrame.SelectionState selState = frame.getSelection();
 		env = null;
 		switch (selState.getValue(VacuumFrame.ENV_SEL)) {
-		case 0:
-			env = new VacuumEnvironment();
-			break;
+			case 0:
+				env = new VacuumEnvironment();
+				break;
+			case 1:
+				env = new VacuumEnvironment4Rooms();
+				break;
 		}
 		agent = null;
 		switch (selState.getValue(VacuumFrame.AGENT_SEL)) {
-		case 0:
-			agent = new TableDrivenVacuumAgent();
-			break;
-		case 1:
-			agent = new ReflexVacuumAgent();
-			break;
-		case 2:
-			agent = new SimpleReflexVacuumAgent();
-			break;
-		case 3:
-			agent = new ModelBasedReflexVacuumAgent();
-			break;
+			case 0:
+				agent = new TableDrivenVacuumAgent();
+				break;
+			case 1:
+				agent = new ReflexVacuumAgent();
+				break;
+			case 2:
+				agent = new SimpleReflexVacuumAgent();
+				break;
+			case 3:
+				agent = new ModelBasedReflexVacuumAgent();
+				break;
 		}
 		if (env != null && agent != null) {
 			frame.getEnvView().setEnvironment(env);
