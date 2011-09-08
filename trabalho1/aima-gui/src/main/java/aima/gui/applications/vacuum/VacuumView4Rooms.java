@@ -28,48 +28,47 @@ public class VacuumView4Rooms extends VacuumView {
 	 */
 	@Override
 	public void paint(Graphics g) {
+		int windowWidth = 10;
+		int windowHeight = 10;
+		
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setBackground(Color.white);
 		g2.clearRect(0, 0, getWidth(), getHeight());
+		
 		List<String> locations = getLocations();
-		int countLocations = locations.size()/2;
+		int degree = (int) Math.ceil(Math.sqrt(locations.size()));
 		
-		adjustTransformation(0, 0, 11 * countLocations - 1, 10);
+		adjustTransformation(0, 0, 11 * degree, 11 * degree);
 		
-		
-		for (int i = 0; i < countLocations; i++) {
-			String location = locations.get(i);
-			
-			if (isDirty(location)) {
-				paintDirty(g2, i);
+		for (int i = 0; i < degree; i++) {
+			for (int j = 0; j < degree; j++) {
+				int windowX = i * (windowWidth + 1);
+				int windowY = j * (windowHeight + 1);
+				int locationIndex = (j * degree) + i;
+				
+				if (locationIndex < locations.size()) {
+					String location = locations.get(locationIndex);
+					
+					if (isDirty(location)) {
+						g2.setColor(Color.LIGHT_GRAY);
+						g2.fillRect(x(windowX), y(windowY), scale(windowWidth), scale(windowHeight));		
+					}
+					
+					g2.setColor(Color.black);
+					g2.drawRect(x(windowX), y(windowY), scale(windowWidth), scale(windowHeight));
+					g2.drawString(location.toString(), x(windowX) + 10, y(windowY) + 20);
+					
+					Agent agent = getAgent(location);
+					if (agent != null) {
+						Action action = lastActions.get(agent);
+						g2.setColor(Color.RED);
+						if (action == null || !((DynamicAction) action).getAttribute("name").equals("Suck")) 
+							g2.fillArc(x(windowX + 2), y(windowY + 2), scale(6), scale(6), 200, 320);
+						else
+							g2.fillOval(x(windowX + 2), y(windowY + 2), scale(6), scale(6));
+					}
+				} else break;
 			}
-			
-			g2.setColor(Color.GREEN);
-			
-			//room name
-			g2.drawString(location.toString(), x(11 * i) + 10, y(0) + 20);
-			
-			//room border
-			g2.drawRect(x(11 * i), y(0), scale(10), scale(10));
-			
-			drawAgent(g2, i, getAgent(location));
-		}
-	}
-
-	private void paintDirty(Graphics2D g2, int i) {
-		g2.setColor(Color.LIGHT_GRAY);
-		g2.fillRect(x(11 * i), y(0), scale(10), scale(10));
-	}
-
-	private void drawAgent(Graphics2D g2, int i, Agent agent) {
-		if (agent != null) {
-			Action action = lastActions.get(agent);
-			g2.setColor(Color.RED);
-			if (action == null || !((DynamicAction) action).getAttribute("name").equals("Suck")) 
-				g2.fillArc(x(11 * i + 2), y(2), scale(6), scale(6),
-						200, 320);
-			else
-				g2.fillOval(x(11 * i + 2), y(2), scale(6), scale(6));
 		}
 	}
 
