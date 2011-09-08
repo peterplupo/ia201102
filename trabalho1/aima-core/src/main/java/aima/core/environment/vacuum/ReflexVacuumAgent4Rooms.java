@@ -6,8 +6,8 @@ import aima.core.agent.impl.aprog.simplerule.Rule;
 
 public class ReflexVacuumAgent4Rooms extends ReflexAgent4Rooms {
 
-	public ReflexVacuumAgent4Rooms(Set<Rule> rules) {
-		super(rules);
+	public ReflexVacuumAgent4Rooms() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
