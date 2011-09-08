@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="src/main/javadoc"/>
 	<classpathentry kind="src" path="src/test/java"/>
 	<classpathentry kind="src" path="src/test/resource"/>
-	<classpathentry excluding="main/java/|main/resource/|main/javadoc/|test/java/|test/resource/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/aima-core"/>
 	<classpathentry kind="output" path="bin"/>
