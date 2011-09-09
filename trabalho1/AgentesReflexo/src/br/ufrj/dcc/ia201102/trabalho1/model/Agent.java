@@ -5,13 +5,14 @@ public class Agent {
 	private Room room;
 	private Sensor sensor;
 	private int performance;
-	public enum MovementAction {RIGHT, LEFT, UP, DOWN};
-	public enum CleaningAction {SUCK, WASH, DRY};
+	private CleaningAction action;
 	
-	public Agent(Sensor sensor) {
+	public Agent(Room room, Sensor sensor) {
+		super();
+		this.room = room;
 		this.sensor = sensor;
 	}
-	
+
 	public Room getRoom() {
 		return room;
 	}
@@ -24,30 +25,38 @@ public class Agent {
 		return sensor.sense(room);
 	}
 	
-	public void executeMovementAction(MovementAction action) {
-		
+	public void move() {
+		performance = performance - 1;
 	}
 	
-	public void executeCleanAction(CleaningAction action) {
+	public void program() {
+		if(room.getState() == State.DIRTY) {
+			executeCleanAction();
+		} else {
+			move();
+		}
+	}
+	
+	public void executeCleanAction() {
 		switch(action) {
 			case SUCK:
 				if (room.getState() == State.DIRTY) {
 					room.setState(State.CLEAN);
 					performance = performance + 10;
 				}
-			break;
+				break;
 			case WASH:
 				if (room.getState() == State.DIRTY) {
 					room.setState(State.WET);
 					performance = performance + 10;
 				}
-			break;
+				break;
 			case DRY:
 				if (room.getState() == State.WET) {
 					room.setState(State.CLEAN);
 					performance = performance + 10;
 				}
-			break;
+				break;
 		}
 	}
 	
