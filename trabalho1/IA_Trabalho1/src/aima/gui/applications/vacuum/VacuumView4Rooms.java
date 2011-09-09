@@ -3,11 +3,7 @@ package aima.gui.applications.vacuum;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
+import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -81,20 +77,20 @@ public class VacuumView4Rooms extends VacuumView {
 	}
 	
 	
-//	@Override
-//	void paintIdleVacuum(Graphics2D g2, int i) {
-//		try {
-//			g2.drawImage(ImageIO.read(new File("vacuum.png")), null,  x(11 * i + 2), y(2));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	};
-//	
-//	@Override
-//	void paintWorkingVacuum(Graphics2D g2, int i) {
-//		paintIdleVacuum(g2, i);
-//	};
+	@Override
+	void paintIdleVacuum(Graphics2D g2, int i) {
+		try {
+			g2.drawImage(ImageIO.read(new File("vacuum.png")).getScaledInstance(111, 76, 0), x(11 * i + 1), y(2), null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	};
+	
+	@Override
+	void paintWorkingVacuum(Graphics2D g2, int i) {
+		paintIdleVacuum(g2, i);
+	};
 
 	private void paintDirt(int windowWidth, int windowHeight, Graphics2D g2,
 			int windowX, int windowY, String location) {
