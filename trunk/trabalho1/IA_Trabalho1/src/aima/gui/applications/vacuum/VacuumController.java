@@ -1,6 +1,5 @@
 package aima.gui.applications.vacuum;
 
-import aima.core.agent.Environment;
 import aima.core.agent.impl.AbstractAgent;
 import aima.core.environment.vacuum.ModelBasedReflexVacuumAgent;
 import aima.core.environment.vacuum.ReflexDryingAgent;
