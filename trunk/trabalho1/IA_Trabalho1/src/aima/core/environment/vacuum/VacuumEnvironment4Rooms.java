@@ -140,14 +140,27 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 
 	@Override
 	public void addAgent(Agent a) {
+		envState.setAgentLocation(a, getFreeRandomLocation());
+		super.addAgent(a);
+	}
+
+	//very stupid search
+	public String getFreeRandomLocation() {
+		String location = getRandomLocation4Rooms();
+		while (envState.isOccupied(location)) {
+			location = getRandomLocation4Rooms();
+		}
+		return location;
+	}
+
+	public static String getRandomLocation4Rooms() {
 		List<String> locations = new ArrayList<String>(4);
 		locations.add(LOCATION_A);
 		locations.add(LOCATION_B);
 		locations.add(LOCATION_C);
 		locations.add(LOCATION_D);
 		Collections.shuffle(locations);
-		envState.setAgentLocation(a, locations.get(0));
-		super.addAgent(a);
+		return locations.get(0);
 	}
 
 }

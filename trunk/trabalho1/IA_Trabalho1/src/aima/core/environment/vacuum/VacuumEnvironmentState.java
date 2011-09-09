@@ -34,6 +34,10 @@ public class VacuumEnvironmentState implements EnvironmentState {
 	public void setAgentLocation(Agent a, String location) {
 		agentLocations.put(a, location);
 	}
+	
+	public boolean isOccupied(String location) {
+		return agentLocations.values().contains(location);
+	}
 
 	public VacuumEnvironment.LocationState getLocationState(String location) {
 		return state.get(location);
