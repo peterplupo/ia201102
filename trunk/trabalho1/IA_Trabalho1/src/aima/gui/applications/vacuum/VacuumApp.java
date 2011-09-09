@@ -1,5 +1,7 @@
 package aima.gui.applications.vacuum;
 
+import java.io.File;
+
 import aima.gui.framework.AgentAppController;
 import aima.gui.framework.AgentAppEnvironmentView;
 import aima.gui.framework.AgentAppFrame;
