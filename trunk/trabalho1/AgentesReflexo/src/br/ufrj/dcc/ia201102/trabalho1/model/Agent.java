@@ -1,6 +1,8 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
 public class Agent {
+	private Room room;
+	
 	private boolean sensor;
 	private int performance;
 	public enum MovementAction {RIGHT, LEFT, UP, DOWN};
@@ -11,5 +13,12 @@ public class Agent {
 		this.sensor = sensor;
 	}
 	
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 	
 }
