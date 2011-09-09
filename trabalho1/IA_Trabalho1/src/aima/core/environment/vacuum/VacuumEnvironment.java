@@ -80,12 +80,7 @@ public class VacuumEnvironment extends AbstractEnvironment {
 			envState.setAgentLocation(a, LOCATION_A);
 			updatePerformanceMeasure(a, -1);
 		} else if (ACTION_SUCK == agentAction) {
-			if (LocationState.Dirty == envState.getLocationState(envState
-					.getAgentLocation(a))) {
-				envState.setLocationState(envState.getAgentLocation(a),
-						LocationState.Clean);
-				updatePerformanceMeasure(a, 10);
-			}
+			executeCleanAction(a);
 		} else if (agentAction.isNoOp()) {
 			// In the Vacuum Environment we consider things done if
 			// the agent generates a NoOp.
@@ -94,6 +89,18 @@ public class VacuumEnvironment extends AbstractEnvironment {
 
 		return envState;
 	}
+
+	void executeCleanAction(Agent a) {
+		if (LocationState.Dirty == envState.getLocationState(envState
+				.getAgentLocation(a))) {
+			DynamicAction.playVacuum();
+			envState.setLocationState(envState.getAgentLocation(a),
+					LocationState.Clean);
+			updatePerformanceMeasure(a, 10);
+		}
+	}
+	
+	
 
 	@Override
 	public Percept getPerceptSeenBy(Agent anAgent) {

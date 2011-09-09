@@ -99,12 +99,7 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 	
 	public EnvironmentState executeCleanAction(Agent a, Action agentAction) {
 		if (ACTION_SUCK == agentAction) {
-			if (LocationState.Dirty == envState.getLocationState(envState
-					.getAgentLocation(a))) {
-				envState.setLocationState(envState.getAgentLocation(a),
-						LocationState.Clean);
-				updatePerformanceMeasure(a, 10);
-			}
+			super.executeCleanAction(a);
 		} else if (ACTION_WASH == agentAction) {
 			if (LocationState.Dirty == envState.getLocationState(envState
 					.getAgentLocation(a))) {
@@ -127,6 +122,7 @@ public class VacuumEnvironment4Rooms extends VacuumEnvironment {
 		
 		return envState;
 	}
+	
 	
 	@Override
 	public EnvironmentState executeAction(Agent a, Action agentAction) {
