@@ -67,13 +67,21 @@ public class VacuumView extends EmptyEnvironmentView {
 			if (agent != null) {
 				Action action = lastActions.get(agent);
 				g2.setColor(Color.RED);
-				if (action == null || !((DynamicAction) action).getAttribute("name").equals("Suck")) 
-					g2.fillArc(x(11 * i + 2), y(2), scale(6), scale(6),
-							200, 320);
+				if (action == null || !((DynamicAction) action).getAttribute("name").equals("Suck"))
+					paintIdleVacuum(g2, i);
 				else
-					g2.fillOval(x(11 * i + 2), y(2), scale(6), scale(6));
+					paintWorkingVacuum(g2, i);
 			}
 		}
+	}
+
+	void paintWorkingVacuum(Graphics2D g2, int i) {
+		g2.fillOval(x(11 * i + 2), y(2), scale(6), scale(6));
+	}
+
+	void paintIdleVacuum(Graphics2D g2, int i) {
+		g2.fillArc(x(11 * i + 2), y(2), scale(6), scale(6),
+				200, 320);
 	}
 	
 	/** Returns the names of all locations used. */

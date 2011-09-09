@@ -3,7 +3,16 @@ package aima.gui.applications.vacuum;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import aima.core.agent.Action;
 import aima.core.agent.Agent;
@@ -55,11 +64,37 @@ public class VacuumView4Rooms extends VacuumView {
 					g2.drawRect(x(windowX), y(windowY), scale(windowWidth), scale(windowHeight));
 					g2.drawString(location.toString(), x(windowX) + 10, y(windowY) + 20);
 					
-					paintAgent(g2, windowX, windowY, getAgent(location));
+					Agent agent = getAgent(location);
+					
+					if (agent != null) {
+						Action action = lastActions.get(agent);
+						g2.setColor(Color.RED);
+						if (action == null || !((DynamicAction) action).getAttribute("name").equals("Suck")) 
+							paintIdleVacuum(g2, locationIndex);
+						else
+							paintWorkingVacuum(g2, locationIndex);
+					}
+					
 				} else break;
 			}
 		}
 	}
+	
+	
+//	@Override
+//	void paintIdleVacuum(Graphics2D g2, int i) {
+//		try {
+//			g2.drawImage(ImageIO.read(new File("vacuum.png")), null,  x(11 * i + 2), y(2));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	};
+//	
+//	@Override
+//	void paintWorkingVacuum(Graphics2D g2, int i) {
+//		paintIdleVacuum(g2, i);
+//	};
 
 	private void paintDirt(int windowWidth, int windowHeight, Graphics2D g2,
 			int windowX, int windowY, String location) {
@@ -69,16 +104,6 @@ public class VacuumView4Rooms extends VacuumView {
 		}
 	}
 
-	private void paintAgent(Graphics2D g2, int windowX, int windowY, Agent agent) {
-		if (agent != null) {
-			Action action = lastActions.get(agent);
-			g2.setColor(Color.RED);
-			if (action == null || !((DynamicAction) action).getAttribute("name").equals("Suck")) 
-				g2.fillArc(x(windowX + 2), y(windowY + 2), scale(6), scale(6), 200, 320);
-			else
-				g2.fillOval(x(windowX + 2), y(windowY + 2), scale(6), scale(6));
-		}
-	}
 
 	@Override
 	/** Returns the names of all locations used. */
