@@ -1,31 +1,30 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Environment {
 	
-	private List<Room> rooms;
+	private Room[][] rooms;
 	
 	public Environment() {
-		rooms = new ArrayList<Room>();
-		rooms.add(new Room(State.getRandomState()));
-		rooms.add(new Room(State.getRandomState()));
-		rooms.add(new Room(State.getRandomState()));
-		rooms.add(new Room(State.getRandomState()));
+		rooms = new Room[2][2];
+		rooms[0][0] = new Room(State.getRandomState());
+		rooms[0][1] = new Room(State.getRandomState());
+		rooms[1][0] = new Room(State.getRandomState());
+		rooms[1][1] = new Room(State.getRandomState());
 	}
 	
-	public List<Room> getRooms() {
+	public Room[][] getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(List<Room> rooms) {
+	public void setRooms(Room[][] rooms) {
 		this.rooms = rooms;
 	}
 	
 	public void addAgent(Agent agent) {
-		Room room = rooms.get(new Random().nextInt(4));
+		Random random = new Random();
+		Room room = rooms[random.nextInt(2)][random.nextInt(2)];
 		room.setAgent(agent);
 		agent.setRoom(room);
 	}
