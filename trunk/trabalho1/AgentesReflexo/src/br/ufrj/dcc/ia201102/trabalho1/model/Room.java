@@ -12,20 +12,19 @@ public class Room {
 		this.state = state;
 	}
 	
-	Room up() {
-		return env.getRoom(i-1, j);
-	}
-	
-	Room down() {
-		return env.getRoom(i+1, j);
-	}
-	
-	Room left() {
-		return env.getRoom(i, j-1);
-	}
-	
-	Room right() {
-		return env.getRoom(i, j+1);
+	public Room get(Direction dir) {
+		switch (dir) {
+		case UP:
+			return env.getRoom(i-1, j);
+		case DOWN:
+			return env.getRoom(i+1, j);
+		case LEFT:
+			return env.getRoom(i, j-1);
+		case RIGHT:
+			return env.getRoom(i, j+1);
+		}
+		
+		return null;
 	}
 	
 	public Agent getAgent() {
