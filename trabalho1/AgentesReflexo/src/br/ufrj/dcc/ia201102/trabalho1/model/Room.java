@@ -47,7 +47,7 @@ public class Room {
 	}
 	
 	public boolean hasAdjacence(Direction dir) {
-		return env.hasAdjacence(dir);
+		return env.hasAdjacence(i, j, dir);
 	}
 
 	public RoomListener getRoomListener() {
