@@ -21,6 +21,7 @@ import javax.swing.ScrollPaneConstants;
 public class ReflexAgents {
 
 	private JFrame frame;
+	JList list = new JList();
 	
 	final AgentsController agentsController = new AgentsController();
 	
@@ -154,7 +155,6 @@ public class ReflexAgents {
 		lblSteps.setBounds(318, 10, 46, 14);
 		panel_1.add(lblSteps);
 		
-		JList list = new JList();
 		list.setModel(listModel);
 		list.ensureIndexIsVisible(listModel.getSize()-1);
 		
@@ -169,6 +169,6 @@ public class ReflexAgents {
 	
 	public void addStep(String step) {
 		listModel.addElement(step);
-		this.frame.repaint();
+		this.list.repaint();
 	}
 }
