@@ -20,6 +20,7 @@ public class MoveAction implements Action {
 				Room next = room.get(direction);
 				next.setAgent(agent);
 				room.setAgent(null);
+				agent.setRoom(next);
 				break;
 			}
 		}

@@ -2,19 +2,23 @@ package br.ufrj.dcc.ia201102.trabalho1.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class Environment {
 	private Room[][] rooms;
+	Set<Agent> agents;
 
 	public Environment() {
+		agents = new HashSet<Agent>();
 		rooms = new Room[2][2];
-		rooms[0][0] = new Room(this, getRandomState());
-		rooms[0][1] = new Room(this, getRandomState());
-		rooms[1][0] = new Room(this, getRandomState());
-		rooms[1][1] = new Room(this, getRandomState());
-		rooms[1][1] = new Room(this, getRandomState());
+		for (int i = 0; i < rooms.length; i++) {
+			for (int j = 0; j < rooms[i].length; j++) {
+				rooms[i][j] = new Room(this, getRandomState());		
+			}
+		}
 	}
 	
 	public Room[][] getRooms() {
@@ -46,9 +50,22 @@ public class Environment {
 		}
 		room.setAgent(agent);
 		agent.setRoom(room);
+		agents.add(agent);
+	}
+	
+	public Set<Agent> getAgents() {
+		return agents;
 	}
 
-	public boolean hasAdjacence(Direction dir) {
-		return true;
+	public boolean hasAdjacence(int i, int j, Direction dir) {
+		if (dir == Direction.UP) {
+			return i > 0;
+		} else if (dir == Direction.DOWN) {
+			return i < rooms.length - 1;
+		} else if (dir == Direction.LEFT) {
+			return j > 0;
+		} else {
+			return j < rooms[i].length - 1;
+		}
 	}
 }
