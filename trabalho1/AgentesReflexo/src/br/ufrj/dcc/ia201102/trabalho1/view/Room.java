@@ -10,10 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import br.ufrj.dcc.ia201102.trabalho1.model.RoomListener;
 import br.ufrj.dcc.ia201102.trabalho1.model.State;
 
 @SuppressWarnings("serial")
-public class Room extends JPanel {
+public class Room extends JPanel implements RoomListener {
 	
 	private State state;
 
@@ -22,24 +23,35 @@ public class Room extends JPanel {
 	private static Image dirty;
 	private static Image wet;
 	private static Image vacuum;
+	private static Image washer;
 	
 	static {
 		try {
 			dirty = ImageIO.read(new File("dirt.jpg"));
 			wet = ImageIO.read(new File("water.jpg"));
 			vacuum = ImageIO.read(new File("vacuum.png"));
+			washer = ImageIO.read(new File("vacuum.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public Room(State state, boolean hasVacuum) {
+	public Room() {
 		super();
 		setBackground(Color.WHITE);
 		setBorder(new LineBorder(new Color(0, 0, 0)));
-		this.state = state;
-		this.hasVacuum = hasVacuum;
+	}
+	
+	public void bind(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
+		updateView(room);
+		room.setRoomListener(this);
+	}
+
+	private void updateView(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
+		this.state = room.getState();
+		this.hasVacuum = room.getAgent() != null;
+		repaint();
 	}
 	
 	@Override
@@ -67,12 +79,17 @@ public class Room extends JPanel {
 		this.state = state;
 	}
 
-	public boolean isHasVacuum() {
+	public boolean hasVacuum() {
 		return hasVacuum;
 	}
 
 	public void setHasVacuum(boolean hasVacuum) {
 		this.hasVacuum = hasVacuum;
+	}
+
+	@Override
+	public void roomChanged(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
+		updateView(room);
 	}
 	
 }

@@ -14,6 +14,7 @@ public class Environment {
 		rooms[0][1] = new Room(this, getRandomState());
 		rooms[1][0] = new Room(this, getRandomState());
 		rooms[1][1] = new Room(this, getRandomState());
+		rooms[1][1] = new Room(this, getRandomState());
 	}
 	
 	public Room[][] getRooms() {

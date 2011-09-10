@@ -6,6 +6,7 @@ public class Room {
 	private Agent agent;
 	private int i;
 	private int j;
+	private RoomListener roomListener;
 	
 	public Room(Environment env, State state) {
 		this.env = env;
@@ -33,6 +34,7 @@ public class Room {
 	
 	public void setAgent(Agent agent) {
 		this.agent = agent;
+		roomListener.roomChanged(this);
 	}
 
 	public State getState() {
@@ -41,9 +43,20 @@ public class Room {
 
 	public void setState(State state) {
 		this.state = state;
+		roomListener.roomChanged(this);
 	}
 	
 	public boolean hasAdjacence(Direction dir) {
 		return env.hasAdjacence(dir);
 	}
+
+	public RoomListener getRoomListener() {
+		return roomListener;
+	}
+
+	public void setRoomListener(RoomListener roomListener) {
+		this.roomListener = roomListener;
+	}
+	
+	
 }
