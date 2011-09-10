@@ -161,6 +161,7 @@ public class ReflexAgents {
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				agentsController.start(environment);
+				listModel.clear();
 			}
 		});
 		btnStart.setBounds(319, 286, 75, 23);
