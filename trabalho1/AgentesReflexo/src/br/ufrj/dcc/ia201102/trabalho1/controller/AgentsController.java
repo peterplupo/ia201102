@@ -8,6 +8,9 @@ import br.ufrj.dcc.ia201102.trabalho1.model.WashReflexAgent;
 
 public class AgentsController {
 	
+	Thread thread;
+	Executor executor;
+	
 	public Environment newEnvironment() {
 		Environment environment = new Environment();
 		environment.addAgent(new ReflexAgent());
@@ -25,6 +28,16 @@ public class AgentsController {
 		Environment environment = new Environment();
 		environment.addAgent(new ReflexAgentBrokenSensor());
 		return environment;
+	}
+	
+	public void start() {
+		executor = new Executor();
+		thread = new Thread(executor);
+		thread.start();
+	}
+	
+	public void stop() {
+		executor.stopEvent();
 	}
 	
 }
