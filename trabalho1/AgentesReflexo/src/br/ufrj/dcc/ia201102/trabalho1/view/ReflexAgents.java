@@ -84,12 +84,12 @@ public class ReflexAgents {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 510, 397);
+		frame.setBounds(100, 100, 616, 397);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 504, 54);
+		panel.setBounds(0, 0, 610, 54);
 		frame.getContentPane().add(panel);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -102,22 +102,41 @@ public class ReflexAgents {
 		buttonGroup.add(rdbtnReflexAgent);
 		
 		rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
-		rdbtnBrokenSensorReflex.setBounds(128, 5, 207, 23);
+		rdbtnBrokenSensorReflex.setBounds(143, 5, 219, 23);
 		panel.add(rdbtnBrokenSensorReflex);
 		buttonGroup.add(rdbtnBrokenSensorReflex);
 		
 		rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
-		rdbtnDrywashAgents.setBounds(337, 5, 161, 23);
+		rdbtnDrywashAgents.setBounds(6, 31, 123, 23);
 		panel.add(rdbtnDrywashAgents);
 		buttonGroup.add(rdbtnDrywashAgents);
 		
 		JButton button = new JButton("Change");
-		button.setBounds(185, 31, 117, 23);
+		button.setBounds(143, 31, 117, 23);
 		button.addActionListener(new EnvironmentActionListener(this));
 		panel.add(button);
 		
+		JButton btnStart = new JButton("Start");
+		btnStart.setBounds(362, 11, 75, 23);
+		panel.add(btnStart);
+		
+		JButton btnStop = new JButton("Stop");
+		btnStop.setBounds(499, 11, 75, 23);
+		panel.add(btnStop);
+		btnStop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agentsController.stop();
+			}
+		});
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				agentsController.start(environment);
+				listModel.clear();
+			}
+		});
+		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 54, 504, 312);
+		panel_1.setBounds(0, 54, 610, 315);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -136,8 +155,8 @@ public class ReflexAgents {
 		JLabel lblPerformanceMeasure = new JLabel("Performance measure:");
 		lblPerformanceMeasure.setBounds(319, 10, 145, 14);
 		panel_1.add(lblPerformanceMeasure);
-		label.setSize(20, 14);
-		label.setLocation(474, 10);
+		label.setSize(26, 14);
+		label.setLocation(574, 10);
 		
 		
 		panel_1.add(label);
@@ -152,29 +171,10 @@ public class ReflexAgents {
 		
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(319, 60, 175, 215);
+		scrollPane.setBounds(319, 60, 281, 249);
 		panel_1.add(scrollPane);
 		
 		panel_1.add(scrollPane);
-		
-		JButton btnStart = new JButton("Start");
-		btnStart.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				agentsController.start(environment);
-				listModel.clear();
-			}
-		});
-		btnStart.setBounds(319, 286, 75, 23);
-		panel_1.add(btnStart);
-		
-		JButton btnStop = new JButton("Stop");
-		btnStop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				agentsController.stop();
-			}
-		});
-		btnStop.setBounds(419, 286, 75, 23);
-		panel_1.add(btnStop);
 		
 	}
 	
