@@ -6,7 +6,7 @@ import br.ufrj.dcc.ia201102.trabalho1.model.sensors.Sensor;
 public class ReflexAgent extends Agent {
 
 	public ReflexAgent() {
-		super(new Sensor());
+		super("ReflexAgent", new Sensor());
 		
 		ruleset.add(new Rule(Rule.Context.DIRTY, Rule.Action.CLEAN));
 		ruleset.add(new Rule(Rule.Context.ROOM00, Rule.Action.MOVE_RIGHT));

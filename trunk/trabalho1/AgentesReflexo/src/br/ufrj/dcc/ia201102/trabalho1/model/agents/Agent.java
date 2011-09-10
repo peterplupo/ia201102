@@ -11,15 +11,15 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
 import br.ufrj.dcc.ia201102.trabalho1.model.sensors.Sensor;
 
 public class Agent {
+	private String name;
 	private Room room;
 	private Sensor sensor;
 	private int performance;
 	Set<Rule> ruleset = new LinkedHashSet<Rule>();
 	private ActionListener actionListener;
 	
-	
-	
-	public Agent(Sensor sensor) {
+	public Agent(String name, Sensor sensor) {
+		this.name = name;
 		this.sensor = sensor;
 		this.performance = 0;
 	}
@@ -29,7 +29,7 @@ public class Agent {
 		Action action = RuleEngine.match(ruleset, room, state);
 		performance += action.cost();
 		String step = action.execute(room);
-		actionListener.update(step, performance);
+		actionListener.update(name + ":" + step, performance);
 	}
 	
 	public void setRoom(Room room) {
