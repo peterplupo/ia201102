@@ -21,6 +21,7 @@ public class MoveAction implements Action {
 	
 	public MoveAction(Direction direction) {
 		super();
+		this.cost = -1;
 		this.direction = direction;
 	}
 
