@@ -1,8 +1,9 @@
 package br.ufrj.dcc.ia201102.trabalho1.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -11,10 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.border.LineBorder;
 
 import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
-import br.ufrj.dcc.ia201102.trabalho1.model.State;
 
 public class AgentesReflexo {
 
@@ -25,10 +24,15 @@ public class AgentesReflexo {
 	JRadioButton rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
 	JRadioButton rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
 	
-	Room room00 = new Room(State.CLEAN, false);
-	Room room01 = new Room(State.CLEAN, false);
-	Room room10 = new Room(State.CLEAN, false);
-	Room room11 = new Room(State.CLEAN, false);
+	Room room00 = new Room();
+	Room room01 = new Room();
+	Room room10 = new Room();
+	Room room11 = new Room();
+	
+//	JPanel room00 = new JPanel();
+//	JPanel room01 = new JPanel();
+//	JPanel room10 = new JPanel();
+//	JPanel room11 = new JPanel();
 	
 	/**
 	 * Launch the application.
@@ -48,14 +52,10 @@ public class AgentesReflexo {
 	
 	public void setEnvironment(Environment environment) {
 		this.environment = environment;
-		room00.setHasVacuum(environment.getRoom(0, 0).getAgent()!=null);
-		room00.setState(environment.getRoom(0, 0).getState());
-		room01.setHasVacuum(environment.getRoom(0, 1).getAgent()!=null);
-		room01.setState(environment.getRoom(0, 1).getState());
-		room10.setHasVacuum(environment.getRoom(1, 0).getAgent()!=null);
-		room10.setState(environment.getRoom(1, 0).getState());
-		room11.setHasVacuum(environment.getRoom(1, 1).getAgent()!=null);
-		room11.setState(environment.getRoom(1, 1).getState());
+		room00.bind(environment.getRoom(0, 0));
+		room01.bind(environment.getRoom(0, 1));
+		room10.bind(environment.getRoom(1, 0));
+		room11.bind(environment.getRoom(1, 1));
 		this.frame.repaint();
 	}
 
@@ -110,11 +110,8 @@ public class AgentesReflexo {
 		room10.setBounds(10, 159, 150, 150);
 		panel_1.add(room10);
 
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.WHITE);
-		panel_5.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_5.setBounds(159, 159, 150, 150);
-		panel_1.add(panel_5);
+		room11.setBounds(159, 159, 150, 150);
+		panel_1.add(room11);
 		
 		JLabel lblPerformanceMeasure = new JLabel("Performance measure:");
 		lblPerformanceMeasure.setBounds(319, 10, 133, 14);
@@ -134,8 +131,20 @@ public class AgentesReflexo {
 		panel_1.add(editorPane);
 		
 		JButton btnStart = new JButton("Start");
-		btnStart.setBounds(319, 286, 168, 23);
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnStart.setBounds(319, 286, 75, 23);
 		panel_1.add(btnStart);
+		
+		JButton btnStop = new JButton("Stop");
+		btnStop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnStop.setBounds(412, 286, 75, 23);
+		panel_1.add(btnStop);
 		
 	}
 }
