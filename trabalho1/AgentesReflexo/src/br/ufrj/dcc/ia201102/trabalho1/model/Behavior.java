@@ -9,8 +9,7 @@ public class Behavior {
 	
 	public Action getAction(Room room) {
 		Room.State state = sensor.sense(room);
-		
-		return null;
+		return actionFor.get(state);
 	}
 
 }
