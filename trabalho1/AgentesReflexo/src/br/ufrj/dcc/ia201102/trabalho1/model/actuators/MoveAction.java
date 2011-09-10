@@ -17,7 +17,7 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.Room;
 public class MoveAction implements Action {
 	
 	Direction direction;
-	private int cost;
+	int cost;
 	
 	public MoveAction(Direction direction) {
 		super();

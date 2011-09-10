@@ -3,8 +3,8 @@ package br.ufrj.dcc.ia201102.trabalho1.model;
 import java.util.Set;
 
 import br.ufrj.dcc.ia201102.trabalho1.model.actuators.Action;
-import br.ufrj.dcc.ia201102.trabalho1.model.actuators.CleanAction;
-import br.ufrj.dcc.ia201102.trabalho1.model.actuators.CleanMoveAction;
+import br.ufrj.dcc.ia201102.trabalho1.model.actuators.SuckAction;
+import br.ufrj.dcc.ia201102.trabalho1.model.actuators.SuckMoveAction;
 import br.ufrj.dcc.ia201102.trabalho1.model.actuators.Direction;
 import br.ufrj.dcc.ia201102.trabalho1.model.actuators.DryAction;
 import br.ufrj.dcc.ia201102.trabalho1.model.actuators.MoveAction;
@@ -29,13 +29,13 @@ public class RuleEngine {
 
 	private static Action selectAction(br.ufrj.dcc.ia201102.trabalho1.model.Rule.Action action) {
 		switch(action) {
-			case CLEAN: return new CleanAction();
+			case SUCK: return new SuckAction();
 			case WASH: return new WetAction();
 			case DRY: return new DryAction();
-			case MOVE_DOWN_CLEAN: return new CleanMoveAction(Direction.DOWN);
-			case MOVE_UP_CLEAN: return new CleanMoveAction(Direction.UP);
-			case MOVE_LEFT_CLEAN: return new CleanMoveAction(Direction.LEFT);
-			case MOVE_RIGHT_CLEAN: return new CleanMoveAction(Direction.RIGHT);
+			case MOVE_DOWN_SUCK: return new SuckMoveAction(Direction.DOWN);
+			case MOVE_UP_SUCK: return new SuckMoveAction(Direction.UP);
+			case MOVE_LEFT_SUCK: return new SuckMoveAction(Direction.LEFT);
+			case MOVE_RIGHT_SUCK: return new SuckMoveAction(Direction.RIGHT);
 			case MOVE_DOWN: return new MoveAction(Direction.DOWN);
 			case MOVE_UP: return new MoveAction(Direction.UP);
 			case MOVE_LEFT: return new MoveAction(Direction.LEFT);

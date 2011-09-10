@@ -4,13 +4,12 @@ import br.ufrj.dcc.ia201102.trabalho1.model.agents.Agent;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.Room;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
 
-public class CleanMoveAction extends MoveAction {
+public class SuckMoveAction extends MoveAction {
 	
-	public CleanMoveAction(Direction direction) {
+	public SuckMoveAction(Direction direction) {
 		super(direction);
 	}
 	
-	int cost = -11;
 	
 	@Override
 	public String execute(Room room) {
@@ -30,7 +29,7 @@ public class CleanMoveAction extends MoveAction {
 		next.setAgent(agent);
 		room.setAgent(null);
 		agent.setRoom(next);
-		return "Clean and move " + direction.toString();
+		return "Suck and move " + direction.toString();
 	}
 
 }
