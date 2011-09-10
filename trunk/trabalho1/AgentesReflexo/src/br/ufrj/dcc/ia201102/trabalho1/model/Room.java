@@ -1,6 +1,7 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
 
+
 public class Room {
 	enum State {
 		DIRTY, WET, CLEAN;
@@ -38,5 +39,9 @@ public class Room {
 
 	public State getState() {
 		return this.state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 }
