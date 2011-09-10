@@ -34,7 +34,7 @@ public class ReflexAgents {
 	Room room10 = new Room();
 	Room room11 = new Room();
 	
-	JLabel label = new JLabel("0");
+	JLabel label = new JLabel("000");
 	DefaultListModel listModel = new DefaultListModel();
 	
 //	JPanel room00 = new JPanel();
@@ -137,8 +137,10 @@ public class ReflexAgents {
 		panel_1.add(room11);
 		
 		JLabel lblPerformanceMeasure = new JLabel("Performance measure:");
-		lblPerformanceMeasure.setBounds(319, 10, 133, 14);
+		lblPerformanceMeasure.setBounds(319, 10, 145, 14);
 		panel_1.add(lblPerformanceMeasure);
+		label.setSize(20, 14);
+		label.setLocation(474, 10);
 		
 		
 		panel_1.add(label);
@@ -153,7 +155,7 @@ public class ReflexAgents {
 		
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(319, 60, 168, 215);
+		scrollPane.setBounds(319, 60, 175, 215);
 		panel_1.add(scrollPane);
 		
 		panel_1.add(scrollPane);
@@ -173,7 +175,7 @@ public class ReflexAgents {
 				agentsController.stop();
 			}
 		});
-		btnStop.setBounds(412, 286, 75, 23);
+		btnStop.setBounds(419, 286, 75, 23);
 		panel_1.add(btnStop);
 		
 	}
