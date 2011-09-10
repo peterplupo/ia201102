@@ -14,13 +14,13 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.Room;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
 
 
-public class CleanAction implements Action {
+public class SuckAction implements Action {
 
 	@Override
 	public String execute(Room room) {
 		room.setState(State.CLEAN);
 		playVacuum();
-		return "Clean";
+		return "Suck";
 	}
 
 	@Override
