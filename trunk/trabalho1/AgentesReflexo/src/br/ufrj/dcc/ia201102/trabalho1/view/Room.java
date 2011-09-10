@@ -12,10 +12,10 @@ import javax.swing.border.LineBorder;
 
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.DryReflexAgent;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgentBrokenSensor;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.WashReflexAgent;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.RoomListener;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
-import br.ufrj.dcc.ia201102.trabalho1.model.sensors.ReflexAgentBrokenSensor;
 
 @SuppressWarnings("serial")
 public class Room extends JPanel implements RoomListener {
