@@ -16,7 +16,14 @@ public class Agent {
 
 	public void act() {
 		State state = sensor.sense(room);
-		Action action = actions.get(state);
+		Action action;
+		
+		if (actions.containsKey(state)) {
+			action = actions.get(state);
+		} else {
+			action = new MoveAction();
+		}
+		
 		performance += action.cost();
 		action.execute(room);
 	}
