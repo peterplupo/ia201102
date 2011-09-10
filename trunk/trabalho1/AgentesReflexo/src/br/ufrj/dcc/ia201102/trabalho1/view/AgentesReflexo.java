@@ -3,10 +3,7 @@ package br.ufrj.dcc.ia201102.trabalho1.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -16,11 +13,17 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 
+import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
 import br.ufrj.dcc.ia201102.trabalho1.model.State;
 
 public class AgentesReflexo {
 
 	private JFrame frame;
+	
+	Environment environment;
+	JRadioButton rdbtnReflexAgent = new JRadioButton("Reflex Agent");
+	JRadioButton rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
+	JRadioButton rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
 	
 	/**
 	 * Launch the application.
@@ -64,34 +67,35 @@ public class AgentesReflexo {
 		panel.add(rdbtnReflexAgent);
 		buttonGroup.add(rdbtnReflexAgent);
 		
-		JRadioButton rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
+		final JRadioButton rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
 		panel.add(rdbtnBrokenSensorReflex);
 		buttonGroup.add(rdbtnBrokenSensorReflex);
 		
-		JRadioButton rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
+		final JRadioButton rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
 		panel.add(rdbtnDrywashAgents);
 		buttonGroup.add(rdbtnDrywashAgents);
 		
 		JButton button = new JButton("Change");
+		button.addActionListener(new EnvironmentActionListener(this));
 		panel.add(button);
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
 		
-		JPanel panel_2 = new Room(State.DIRTY);
+		JPanel panel_2 = new JPanel();//Room(State.DIRTY, false);
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setBounds(10, 10, 150, 150);
 		panel_1.add(panel_2);
 
-		JPanel panel_3 = new Room(State.WET);
+		JPanel panel_3 = new JPanel();//Room(State.WET, false);
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3.setBounds(159, 10, 150, 150);
 		panel_1.add(panel_3);
 
-		JPanel panel_4 = new JPanel();
+		JPanel panel_4 = new Room(State.WET, true);
 		panel_4.setBackground(Color.WHITE);
 		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_4.setBounds(10, 159, 150, 150);
@@ -117,8 +121,12 @@ public class AgentesReflexo {
 		panel_1.add(lblSteps);
 		
 		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBounds(319, 60, 168, 249);
+		editorPane.setBounds(319, 60, 168, 215);
 		panel_1.add(editorPane);
+		
+		JButton btnStart = new JButton("Start");
+		btnStart.setBounds(319, 286, 168, 23);
+		panel_1.add(btnStart);
 		
 	}
 }
