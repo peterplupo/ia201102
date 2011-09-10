@@ -1,20 +1,22 @@
 package br.ufrj.dcc.ia201102.trabalho1.view;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import br.ufrj.dcc.ia201102.trabalho1.controller.AgentsController;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class ReflexAgents {
 
@@ -32,6 +34,9 @@ public class ReflexAgents {
 	Room room10 = new Room();
 	Room room11 = new Room();
 	
+	JLabel label = new JLabel("0");
+	DefaultListModel listModel = new DefaultListModel();
+	
 //	JPanel room00 = new JPanel();
 //	JPanel room01 = new JPanel();
 //	JPanel room10 = new JPanel();
@@ -47,11 +52,16 @@ public class ReflexAgents {
 					ReflexAgents window = new ReflexAgents();
 					window.frame.setTitle("Trabalho 1 de IA");
 					window.frame.setVisible(true);
+					for (int i = 0; i<40; i++) {
+						window.addStep("Step " + i);
+					}
+					window.frame.repaint();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 	
 	public void setEnvironment(Environment environment) {
@@ -89,23 +99,23 @@ public class ReflexAgents {
 		panel.setLayout(null);
 		
 		rdbtnReflexAgent = new JRadioButton("Reflex Agent");
-		rdbtnReflexAgent.setBounds(32, 5, 123, 23);
+		rdbtnReflexAgent.setBounds(6, 5, 123, 23);
 		rdbtnReflexAgent.setSelected(true);
 		panel.add(rdbtnReflexAgent);
 		buttonGroup.add(rdbtnReflexAgent);
 		
 		rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
-		rdbtnBrokenSensorReflex.setBounds(157, 5, 196, 23);
+		rdbtnBrokenSensorReflex.setBounds(128, 5, 207, 23);
 		panel.add(rdbtnBrokenSensorReflex);
 		buttonGroup.add(rdbtnBrokenSensorReflex);
 		
 		rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
-		rdbtnDrywashAgents.setBounds(355, 5, 143, 23);
+		rdbtnDrywashAgents.setBounds(337, 5, 161, 23);
 		panel.add(rdbtnDrywashAgents);
 		buttonGroup.add(rdbtnDrywashAgents);
 		
 		JButton button = new JButton("Change");
-		button.setBounds(215, 31, 69, 23);
+		button.setBounds(185, 31, 117, 23);
 		button.addActionListener(new EnvironmentActionListener(this));
 		panel.add(button);
 		
@@ -131,17 +141,22 @@ public class ReflexAgents {
 		panel_1.add(lblPerformanceMeasure);
 		
 		
-		JLabel label = new JLabel("0");
-		label.setBounds(462, 10, 25, 14);
 		panel_1.add(label);
 		
 		JLabel lblSteps = new JLabel("Steps");
 		lblSteps.setBounds(319, 35, 46, 14);
 		panel_1.add(lblSteps);
 		
-		JEditorPane editorPane = new JEditorPane();
-		editorPane.setBounds(319, 60, 168, 215);
-		panel_1.add(editorPane);
+		JList list = new JList();
+		list.setModel(listModel);
+		list.ensureIndexIsVisible(listModel.getSize()-1);
+		
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(319, 60, 168, 215);
+		panel_1.add(scrollPane);
+		
+		panel_1.add(scrollPane);
 		
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
@@ -161,5 +176,13 @@ public class ReflexAgents {
 		btnStop.setBounds(412, 286, 75, 23);
 		panel_1.add(btnStop);
 		
+	}
+	
+	public void setPerformance(int performance) {
+		label.setText(String.valueOf(performance));
+	}
+	
+	public void addStep(String step) {
+		listModel.addElement(step);
 	}
 }
