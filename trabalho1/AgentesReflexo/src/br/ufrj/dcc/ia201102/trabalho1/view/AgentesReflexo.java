@@ -56,6 +56,7 @@ public class AgentesReflexo {
 	
 	public void setEnvironment(Environment environment) {
 		this.environment = environment;
+		
 		room00.bind(environment.getRoom(0, 0));
 		room01.bind(environment.getRoom(0, 1));
 		room10.bind(environment.getRoom(1, 0));
@@ -137,7 +138,7 @@ public class AgentesReflexo {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				agentsController.start();
+				agentsController.start(environment);
 			}
 		});
 		btnStart.setBounds(319, 286, 75, 23);

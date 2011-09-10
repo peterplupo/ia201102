@@ -30,8 +30,8 @@ public class AgentsController {
 		return environment;
 	}
 	
-	public void start() {
-		executor = new Executor();
+	public void start(Environment env) {
+		executor = new Executor(env, 3000);
 		thread = new Thread(executor);
 		thread.start();
 	}
