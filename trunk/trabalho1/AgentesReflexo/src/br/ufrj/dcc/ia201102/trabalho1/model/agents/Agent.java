@@ -15,6 +15,9 @@ public class Agent {
 	private Sensor sensor;
 	private int performance;
 	Set<Rule> ruleset = new LinkedHashSet<Rule>();
+	private ActionListener actionListener;
+	
+	
 	
 	public Agent(Sensor sensor) {
 		this.sensor = sensor;
@@ -25,7 +28,8 @@ public class Agent {
 		State state = sensor.sense(room);
 		Action action = RuleEngine.match(ruleset, room, state);
 		performance += action.cost();
-		action.execute(room);
+		String step = action.execute(room);
+		actionListener.update(step);
 	}
 	
 	public void setRoom(Room room) {
@@ -34,5 +38,13 @@ public class Agent {
 
 	public int getPerformance() {
 		return performance;
+	}
+
+	public ActionListener getActionListener() {
+		return actionListener;
+	}
+
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
 	}
 }
