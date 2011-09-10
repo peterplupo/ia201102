@@ -19,7 +19,7 @@ public class Environment {
 		rooms = new Room[2][2];
 		for (int i = 0; i < rooms.length; i++) {
 			for (int j = 0; j < rooms[i].length; j++) {
-				rooms[i][j] = new Room(this, getRandomState());		
+				rooms[i][j] = new Room(this, getRandomState(), i, j);		
 			}
 		}
 	}

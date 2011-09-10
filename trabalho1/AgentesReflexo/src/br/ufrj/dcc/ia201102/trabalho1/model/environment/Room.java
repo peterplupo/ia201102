@@ -11,9 +11,11 @@ public class Room {
 	private int j;
 	private RoomListener roomListener;
 	
-	public Room(Environment env, State state) {
+	public Room(Environment env, State state, int i, int j) {
 		this.env = env;
 		this.state = state;
+		this.i = i;
+		this.j = j;
 	}
 	
 	public Room get(Direction dir) {
