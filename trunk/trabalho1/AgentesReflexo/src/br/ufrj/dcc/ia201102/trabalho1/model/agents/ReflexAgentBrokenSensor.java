@@ -7,11 +7,10 @@ public class ReflexAgentBrokenSensor extends Agent {
 
 	public ReflexAgentBrokenSensor() {
 		super("ReflexAgentBrokenSensor", new BrokenSensor());
-		ruleset.add(new Rule(Rule.Context.DIRTY, Rule.Action.CLEAN));
-		ruleset.add(new Rule(Rule.Context.ROOM00, Rule.Action.MOVE_RIGHT));
-		ruleset.add(new Rule(Rule.Context.ROOM01, Rule.Action.MOVE_DOWN));
-		ruleset.add(new Rule(Rule.Context.ROOM11, Rule.Action.MOVE_LEFT));
-		ruleset.add(new Rule(Rule.Context.ROOM10, Rule.Action.MOVE_UP));
+		ruleset.add(new Rule(Rule.Context.ROOM00, Rule.Action.MOVE_RIGHT_CLEAN));
+		ruleset.add(new Rule(Rule.Context.ROOM01, Rule.Action.MOVE_DOWN_CLEAN));
+		ruleset.add(new Rule(Rule.Context.ROOM11, Rule.Action.MOVE_LEFT_CLEAN));
+		ruleset.add(new Rule(Rule.Context.ROOM10, Rule.Action.MOVE_UP_CLEAN));
 	}
 	
 }
