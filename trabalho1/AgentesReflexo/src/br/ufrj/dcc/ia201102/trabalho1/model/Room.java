@@ -1,29 +1,32 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
 public class Room {
+	enum State {
+		DIRTY, WET, CLEAN;
+	}
 	
-	private State state;
+	private Environment env;
 	private Agent agent;
+	private int i;
+	private int j;
 	
-	public Room(State state) {
-		super();
-		this.state = state;
+	Room up() {
+		return env.getRoom(i-1, j);
 	}
-
-	public State getState() {
-		return state;
+	
+	Room down() {
+		return env.getRoom(i+1, j);
 	}
-
-	public void setState(State state) {
-		this.state = state;
+	
+	Room left() {
+		return env.getRoom(i, j-1);
 	}
-
-	public Agent getAgent() {
-		return agent;
+	
+	Room right() {
+		return env.getRoom(i, j+1);
 	}
-
+	
 	public void setAgent(Agent agent) {
 		this.agent = agent;
 	}
-
 }
