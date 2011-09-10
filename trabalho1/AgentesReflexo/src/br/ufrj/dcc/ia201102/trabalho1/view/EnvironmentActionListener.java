@@ -7,26 +7,27 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
 
 public class EnvironmentActionListener implements ActionListener {
 	
-	private ReflexAgents agentesReflexo;
+	private ReflexAgents reflexAgents;
 	
 
-	public EnvironmentActionListener(ReflexAgents agentesReflexo) {
-		this.agentesReflexo = agentesReflexo;
+	public EnvironmentActionListener(ReflexAgents reflexAgents) {
+		this.reflexAgents = reflexAgents;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Environment env = null;
-		if (agentesReflexo.rdbtnReflexAgent.isSelected()) {
-			env = agentesReflexo.agentsController.newEnvironment();
-		} else if (agentesReflexo.rdbtnBrokenSensorReflex.isSelected()) {
-			env = agentesReflexo.agentsController.newEnvironmentAgentBrokenSensor();
-		} else if (agentesReflexo.rdbtnDrywashAgents.isSelected()) {
-			env = agentesReflexo.agentsController.newDryWashEnvironment();
+		StepsActionListener actionListener = new StepsActionListener(reflexAgents);
+		if (reflexAgents.rdbtnReflexAgent.isSelected()) {
+			env = reflexAgents.agentsController.newEnvironment(actionListener);
+		} else if (reflexAgents.rdbtnBrokenSensorReflex.isSelected()) {
+			env = reflexAgents.agentsController.newEnvironmentAgentBrokenSensor(actionListener);
+		} else if (reflexAgents.rdbtnDrywashAgents.isSelected()) {
+			env = reflexAgents.agentsController.newDryWashEnvironment(actionListener);
 		}
 		
 		if (env != null) {
-			agentesReflexo.setEnvironment(env);
+			reflexAgents.setEnvironment(env);
 		}
 	}
 

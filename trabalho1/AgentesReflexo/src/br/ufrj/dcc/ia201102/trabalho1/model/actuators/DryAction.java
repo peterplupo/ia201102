@@ -16,10 +16,13 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
 public class DryAction implements Action {
 
 	@Override
-	public void execute(Room room) {
+	public String execute(Room room) {
 		if (room.getState() == State.WET) {
 			room.setState(State.CLEAN);
 			playVacuum();
+			return "Clean";
+		} else {
+			return "No operation";
 		}
 	}
 

@@ -14,12 +14,13 @@ public class MoveAction implements Action {
 	}
 
 	@Override
-	public void execute(Room room) {
+	public String execute(Room room) {
 		Agent agent = room.getAgent(); 
 		Room next = room.get(direction);
 		next.setAgent(agent);
 		room.setAgent(null);
 		agent.setRoom(next);
+		return "Move " + direction.toString();
 	}
 
 	@Override

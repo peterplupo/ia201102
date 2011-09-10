@@ -5,8 +5,8 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.Room;
 public class NoAction implements Action {
 
 	@Override
-	public void execute(Room room) {
-		
+	public String execute(Room room) {
+		return "No operation";
 	}
 
 	@Override

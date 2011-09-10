@@ -1,5 +1,6 @@
 package br.ufrj.dcc.ia201102.trabalho1.controller;
 
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.ActionListener;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.DryReflexAgent;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgent;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgentBrokenSensor;
@@ -11,20 +12,20 @@ public class AgentsController {
 	Thread thread;
 	Executor executor;
 	
-	public Environment newEnvironment() {
+	public Environment newEnvironment(ActionListener actionListener) {
 		Environment environment = new Environment();
 		environment.addAgent(new ReflexAgent());
 		return environment;
 	}
 
-	public Environment newDryWashEnvironment() {
+	public Environment newDryWashEnvironment(ActionListener actionListener) {
 		Environment environment = new Environment();
 		environment.addAgent(new DryReflexAgent());
 		environment.addAgent(new WashReflexAgent());
 		return environment;
 	}
 	
-	public Environment newEnvironmentAgentBrokenSensor() {
+	public Environment newEnvironmentAgentBrokenSensor(ActionListener actionListener) {
 		Environment environment = new Environment();
 		environment.addAgent(new ReflexAgentBrokenSensor());
 		return environment;

@@ -52,9 +52,6 @@ public class ReflexAgents {
 					ReflexAgents window = new ReflexAgents();
 					window.frame.setTitle("Trabalho 1 de IA");
 					window.frame.setVisible(true);
-					for (int i = 0; i<40; i++) {
-						window.addStep("Step " + i);
-					}
 					window.frame.repaint();
 				} catch (Exception e) {
 					e.printStackTrace();
