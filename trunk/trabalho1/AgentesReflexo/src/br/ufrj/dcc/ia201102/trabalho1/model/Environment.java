@@ -26,9 +26,11 @@ public class Environment {
 	}
 	
 	public void addAgent(Agent agent) {
-		//TODO verificar existencia de um agente no local sorteado
 		Random random = new Random();
 		Room room = rooms[random.nextInt(2)][random.nextInt(2)];
+		while (room.getAgent() != null) {
+			room = rooms[random.nextInt(2)][random.nextInt(2)];
+		}
 		room.setAgent(agent);
 		agent.setRoom(room);
 	}
