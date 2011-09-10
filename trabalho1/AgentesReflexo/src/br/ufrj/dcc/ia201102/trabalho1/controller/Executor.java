@@ -5,8 +5,15 @@ import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
 
 public class Executor implements Runnable {
 	Environment env;
+	
 	private boolean isRunning;
 	private int waitTime;
+	
+	public Executor(Environment env, int waitTime) {
+		this.env = env;
+		this.isRunning = false;
+		this.waitTime = waitTime;
+	}
 	
 	@Override
 	public void run() {
