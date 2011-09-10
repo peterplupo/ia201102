@@ -1,7 +1,7 @@
 package br.ufrj.dcc.ia201102.trabalho1.controller;
 
-import br.ufrj.dcc.ia201102.trabalho1.model.Agent;
-import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.Agent;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
 
 public class Executor implements Runnable {
 	Environment env;

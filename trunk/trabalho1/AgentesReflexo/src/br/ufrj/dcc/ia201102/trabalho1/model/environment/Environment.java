@@ -1,4 +1,4 @@
-package br.ufrj.dcc.ia201102.trabalho1.model;
+package br.ufrj.dcc.ia201102.trabalho1.model.environment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
+import br.ufrj.dcc.ia201102.trabalho1.model.actuators.Direction;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.Agent;
 
 public class Environment {
 	private Room[][] rooms;
