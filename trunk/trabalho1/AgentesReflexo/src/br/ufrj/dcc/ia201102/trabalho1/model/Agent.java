@@ -2,14 +2,17 @@ package br.ufrj.dcc.ia201102.trabalho1.model;
 
 public class Agent {
 	private Room room;
-	private Sensor sensor;
 	private Behavior behavior;
 	private int performance;
 	
+	public Agent(Behavior behavior) {
+		this.behavior = behavior;
+		this.performance = 0;
+	}
+
 	public void act() {
-		Room.State previous = sensor.sense(room);
 		Action action = behavior.getAction(room);
-		Room.State next = action.execute(); 
+		Room.State next = action.execute(room); 
 		performance += action.cost();
 	}
 	
