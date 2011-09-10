@@ -42,7 +42,7 @@ public class Environment {
 			room = rooms[random.nextInt(2)][random.nextInt(2)];
 		}
 		room.setAgent(agent);
-		agent.setRoom(room);;
+		agent.setRoom(room);
 	}
 
 	public boolean hasAdjacence(Direction dir) {
