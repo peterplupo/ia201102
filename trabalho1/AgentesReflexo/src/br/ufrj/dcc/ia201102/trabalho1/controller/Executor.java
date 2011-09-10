@@ -23,9 +23,14 @@ public class Executor implements Runnable {
 			try {
 				for (Agent agent : env.getAgents()) {
 					agent.act();
+					if (!this.isRunning) {
+						break;
+					}
+					Thread.sleep(this.waitTime);
+					if (!this.isRunning) {
+						break;
+					}
 				}
-				
-				Thread.sleep(this.waitTime);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

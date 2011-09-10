@@ -14,7 +14,12 @@ public class CleanMoveAction extends MoveAction {
 	
 	@Override
 	public String execute(Room room) {
-		Agent agent = room.getAgent();
+		Room next = room.get(direction);
+		if (next.getAgent() != null) {
+			cost = 0;
+			return "Next room blocked";
+		}
+		Agent agent = room.getAgent(); 
 		if (room.getState() == State.CLEAN) {
 			cost = -6; //-1 for movement, -5 for cleaning a clean room
 		} else {
@@ -22,7 +27,6 @@ public class CleanMoveAction extends MoveAction {
 		}
 		room.setState(State.CLEAN);
 		playVacuum();
-		Room next = room.get(direction);
 		next.setAgent(agent);
 		room.setAgent(null);
 		agent.setRoom(next);

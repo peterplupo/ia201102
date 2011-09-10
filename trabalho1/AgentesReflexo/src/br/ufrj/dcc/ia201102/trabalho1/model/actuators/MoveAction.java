@@ -17,6 +17,7 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.Room;
 public class MoveAction implements Action {
 	
 	Direction direction;
+	private int cost;
 	
 	public MoveAction(Direction direction) {
 		super();
@@ -25,8 +26,13 @@ public class MoveAction implements Action {
 
 	@Override
 	public String execute(Room room) {
-		Agent agent = room.getAgent(); 
 		Room next = room.get(direction);
+		if (next.getAgent() != null) {
+			cost = 0;
+			return "Next room blocked";
+		}
+		cost = -1;
+		Agent agent = room.getAgent(); 
 		next.setAgent(agent);
 		room.setAgent(null);
 		agent.setRoom(next);
@@ -35,7 +41,7 @@ public class MoveAction implements Action {
 
 	@Override
 	public int cost() {
-		return -1;
+		return cost;
 	}
 	
 	public static synchronized void playVacuum() {
