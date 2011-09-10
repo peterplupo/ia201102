@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Environment {
 	private Room[][] rooms;
+	
+	
 
 	public Room getRoom(int i, int j) {
 		return rooms[i][j];
