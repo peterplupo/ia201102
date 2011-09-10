@@ -1,0 +1,12 @@
+package br.ufrj.dcc.ia201102.trabalho1.model.sensors;
+
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.Room;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
+
+public class Sensor {
+
+	public State sense(Room room) {
+		return room.getState();
+	}
+
+}

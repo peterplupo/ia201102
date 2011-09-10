@@ -10,12 +10,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import br.ufrj.dcc.ia201102.trabalho1.model.DryReflexAgent;
-import br.ufrj.dcc.ia201102.trabalho1.model.ReflexAgent;
-import br.ufrj.dcc.ia201102.trabalho1.model.ReflexAgentBrokenSensor;
-import br.ufrj.dcc.ia201102.trabalho1.model.RoomListener;
-import br.ufrj.dcc.ia201102.trabalho1.model.State;
-import br.ufrj.dcc.ia201102.trabalho1.model.WashReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.DryReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.WashReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.RoomListener;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.State;
+import br.ufrj.dcc.ia201102.trabalho1.model.sensors.ReflexAgentBrokenSensor;
 
 @SuppressWarnings("serial")
 public class Room extends JPanel implements RoomListener {
@@ -47,12 +47,12 @@ public class Room extends JPanel implements RoomListener {
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 	
-	public void bind(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
+	public void bind(br.ufrj.dcc.ia201102.trabalho1.model.environment.Room room) {
 		updateView(room);
 		room.setRoomListener(this);
 	}
 
-	private void updateView(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
+	private void updateView(br.ufrj.dcc.ia201102.trabalho1.model.environment.Room room) {
 		this.state = room.getState();
 		if (room.getAgent() instanceof ReflexAgent || room.getAgent() instanceof DryReflexAgent|| room.getAgent() instanceof ReflexAgentBrokenSensor) {
 			this.hasVacuum = 1;
@@ -105,7 +105,7 @@ public class Room extends JPanel implements RoomListener {
 	}
 
 	@Override
-	public void roomChanged(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
+	public void roomChanged(br.ufrj.dcc.ia201102.trabalho1.model.environment.Room room) {
 		updateView(room);
 	}
 	

@@ -1,4 +1,7 @@
-package br.ufrj.dcc.ia201102.trabalho1.model;
+package br.ufrj.dcc.ia201102.trabalho1.model.environment;
+
+import br.ufrj.dcc.ia201102.trabalho1.model.actuators.Direction;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.Agent;
 
 public class Room {
 	private Environment env;
@@ -62,6 +65,10 @@ public class Room {
 
 	public void setRoomListener(RoomListener roomListener) {
 		this.roomListener = roomListener;
+	}
+	
+	public String getIdentifier() {
+		return "" + i + j;
 	}
 	
 	

@@ -1,10 +1,10 @@
 package br.ufrj.dcc.ia201102.trabalho1.controller;
 
-import br.ufrj.dcc.ia201102.trabalho1.model.DryReflexAgent;
-import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
-import br.ufrj.dcc.ia201102.trabalho1.model.ReflexAgent;
-import br.ufrj.dcc.ia201102.trabalho1.model.ReflexAgentBrokenSensor;
-import br.ufrj.dcc.ia201102.trabalho1.model.WashReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.DryReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.WashReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
+import br.ufrj.dcc.ia201102.trabalho1.model.sensors.ReflexAgentBrokenSensor;
 
 public class AgentsController {
 	

@@ -3,7 +3,7 @@ package br.ufrj.dcc.ia201102.trabalho1.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
 
 public class EnvironmentActionListener implements ActionListener {
 	

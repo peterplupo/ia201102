@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import br.ufrj.dcc.ia201102.trabalho1.controller.AgentsController;
-import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
+import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
 
 public class AgentesReflexo {
 
