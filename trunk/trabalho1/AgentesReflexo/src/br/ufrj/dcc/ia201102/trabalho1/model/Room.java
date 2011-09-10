@@ -34,7 +34,13 @@ public class Room {
 	
 	public void setAgent(Agent agent) {
 		this.agent = agent;
-		roomListener.roomChanged(this);
+		notifyListener();
+	}
+
+	private void notifyListener() {
+		if (roomListener != null) {
+			roomListener.roomChanged(this);
+		}
 	}
 
 	public State getState() {
@@ -43,7 +49,7 @@ public class Room {
 
 	public void setState(State state) {
 		this.state = state;
-		roomListener.roomChanged(this);
+		notifyListener();
 	}
 	
 	public boolean hasAdjacence(Direction dir) {

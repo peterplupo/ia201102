@@ -13,11 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import br.ufrj.dcc.ia201102.trabalho1.controller.AgentsController;
 import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
 
 public class AgentesReflexo {
 
 	private JFrame frame;
+	
+	final AgentsController agentsController = new AgentsController();
 	
 	private Environment environment;
 	JRadioButton rdbtnReflexAgent = new JRadioButton("Reflex Agent");
@@ -42,6 +45,7 @@ public class AgentesReflexo {
 			public void run() {
 				try {
 					AgentesReflexo window = new AgentesReflexo();
+					window.frame.setTitle("Trabalho 1 de IA");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -133,6 +137,7 @@ public class AgentesReflexo {
 		JButton btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				agentsController.start();
 			}
 		});
 		btnStart.setBounds(319, 286, 75, 23);
@@ -141,6 +146,7 @@ public class AgentesReflexo {
 		JButton btnStop = new JButton("Stop");
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				agentsController.stop();
 			}
 		});
 		btnStop.setBounds(412, 286, 75, 23);

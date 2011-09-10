@@ -8,7 +8,7 @@ import br.ufrj.dcc.ia201102.trabalho1.controller.AgentsController;
 public class EnvironmentActionListener implements ActionListener {
 	
 	private AgentesReflexo agentesReflexo;
-	private AgentsController agentsController = new AgentsController();
+	
 
 	public EnvironmentActionListener(AgentesReflexo agentesReflexo) {
 		super();
@@ -18,11 +18,11 @@ public class EnvironmentActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (agentesReflexo.rdbtnReflexAgent.isSelected()) {
-			agentesReflexo.setEnvironment(agentsController.newEnvironment());
+			agentesReflexo.setEnvironment(agentesReflexo.agentsController.newEnvironment());
 		} else if (agentesReflexo.rdbtnBrokenSensorReflex.isSelected()) {
-			agentesReflexo.setEnvironment(agentsController.newEnvironmentAgentBrokenSensor());
+			agentesReflexo.setEnvironment(agentesReflexo.agentsController.newEnvironmentAgentBrokenSensor());
 		} else if (agentesReflexo.rdbtnDrywashAgents.isSelected()) {
-			agentesReflexo.setEnvironment(agentsController.newDryWashEnvironment());
+			agentesReflexo.setEnvironment(agentesReflexo.agentsController.newDryWashEnvironment());
 		}
 	}
 

@@ -10,15 +10,19 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import br.ufrj.dcc.ia201102.trabalho1.model.DryReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.ReflexAgent;
+import br.ufrj.dcc.ia201102.trabalho1.model.ReflexAgentBrokenSensor;
 import br.ufrj.dcc.ia201102.trabalho1.model.RoomListener;
 import br.ufrj.dcc.ia201102.trabalho1.model.State;
+import br.ufrj.dcc.ia201102.trabalho1.model.WashReflexAgent;
 
 @SuppressWarnings("serial")
 public class Room extends JPanel implements RoomListener {
 	
-	private State state;
+	private State state = State.CLEAN;
 
-	private boolean hasVacuum;
+	private int hasVacuum = 0;
 	
 	private static Image dirty;
 	private static Image wet;
@@ -30,7 +34,7 @@ public class Room extends JPanel implements RoomListener {
 			dirty = ImageIO.read(new File("dirt.jpg"));
 			wet = ImageIO.read(new File("water.jpg"));
 			vacuum = ImageIO.read(new File("vacuum.png"));
-			washer = ImageIO.read(new File("vacuum.png"));
+			washer = ImageIO.read(new File("washer.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -50,7 +54,15 @@ public class Room extends JPanel implements RoomListener {
 
 	private void updateView(br.ufrj.dcc.ia201102.trabalho1.model.Room room) {
 		this.state = room.getState();
-		this.hasVacuum = room.getAgent() != null;
+		if (room.getAgent() instanceof ReflexAgent || room.getAgent() instanceof DryReflexAgent|| room.getAgent() instanceof ReflexAgentBrokenSensor) {
+			this.hasVacuum = 1;
+		}
+		if (room.getAgent() instanceof WashReflexAgent) {
+			this.hasVacuum = 2;
+		}
+		if (room.getAgent() == null) {
+			this.hasVacuum = 0;
+		}
 		repaint();
 	}
 	
@@ -66,8 +78,13 @@ public class Room extends JPanel implements RoomListener {
 			g.drawImage(wet.getScaledInstance(100, 100, 0), 25, 20, null);
 		}
 		
-		if (hasVacuum) {
+		switch (hasVacuum) {
+		case 1:
 			g.drawImage(vacuum.getScaledInstance(70, 45, 0), 70, 10, null);
+			break;
+		case 2:
+			g.drawImage(washer.getScaledInstance(70, 45, 0), 70, 10, null);
+			break;
 		}
 	}
 
@@ -79,11 +96,11 @@ public class Room extends JPanel implements RoomListener {
 		this.state = state;
 	}
 
-	public boolean hasVacuum() {
+	public int hasVacuum() {
 		return hasVacuum;
 	}
 
-	public void setHasVacuum(boolean hasVacuum) {
+	public void setHasVacuum(int hasVacuum) {
 		this.hasVacuum = hasVacuum;
 	}
 
