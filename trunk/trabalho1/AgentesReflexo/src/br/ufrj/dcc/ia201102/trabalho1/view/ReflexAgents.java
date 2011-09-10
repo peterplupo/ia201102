@@ -169,5 +169,6 @@ public class ReflexAgents {
 	
 	public void addStep(String step) {
 		listModel.addElement(step);
+		this.frame.repaint();
 	}
 }
