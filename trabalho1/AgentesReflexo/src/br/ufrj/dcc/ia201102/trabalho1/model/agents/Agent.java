@@ -27,9 +27,9 @@ public class Agent {
 	public void act() {
 		State state = sensor.sense(room);
 		Action action = RuleEngine.match(ruleset, room, state);
-		performance += action.cost();
 		String step = action.execute(room);
-		actionListener.update(name + ":" + step, performance);
+		performance = performance + action.cost();
+		actionListener.update(name + ": " + step, performance);
 	}
 	
 	public void setRoom(Room room) {

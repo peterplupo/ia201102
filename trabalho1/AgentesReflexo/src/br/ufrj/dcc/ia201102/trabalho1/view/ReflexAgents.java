@@ -33,8 +33,6 @@ public class ReflexAgents {
 	Room room01 = new Room();
 	Room room10 = new Room();
 	Room room11 = new Room();
-	
-	JLabel label = new JLabel("000");
 	DefaultListModel listModel = new DefaultListModel();
 	
 //	JPanel room00 = new JPanel();
@@ -84,12 +82,12 @@ public class ReflexAgents {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 616, 397);
+		frame.setBounds(100, 100, 661, 397);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 610, 54);
+		panel.setBounds(0, 0, 655, 54);
 		frame.getContentPane().add(panel);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -112,16 +110,16 @@ public class ReflexAgents {
 		buttonGroup.add(rdbtnDrywashAgents);
 		
 		JButton button = new JButton("Change");
-		button.setBounds(143, 31, 117, 23);
+		button.setBounds(143, 31, 158, 23);
 		button.addActionListener(new EnvironmentActionListener(this));
 		panel.add(button);
 		
 		JButton btnStart = new JButton("Start");
-		btnStart.setBounds(362, 11, 75, 23);
+		btnStart.setBounds(362, 11, 81, 32);
 		panel.add(btnStart);
 		
 		JButton btnStop = new JButton("Stop");
-		btnStop.setBounds(499, 11, 75, 23);
+		btnStop.setBounds(514, 11, 81, 32);
 		panel.add(btnStop);
 		btnStop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,7 +134,7 @@ public class ReflexAgents {
 		});
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 54, 610, 315);
+		panel_1.setBounds(0, 54, 655, 315);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -152,17 +150,8 @@ public class ReflexAgents {
 		room11.setBounds(159, 159, 150, 150);
 		panel_1.add(room11);
 		
-		JLabel lblPerformanceMeasure = new JLabel("Performance measure:");
-		lblPerformanceMeasure.setBounds(319, 10, 145, 14);
-		panel_1.add(lblPerformanceMeasure);
-		label.setSize(26, 14);
-		label.setLocation(574, 10);
-		
-		
-		panel_1.add(label);
-		
 		JLabel lblSteps = new JLabel("Steps");
-		lblSteps.setBounds(319, 35, 46, 14);
+		lblSteps.setBounds(318, 10, 46, 14);
 		panel_1.add(lblSteps);
 		
 		JList list = new JList();
@@ -171,15 +160,11 @@ public class ReflexAgents {
 		
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(319, 60, 281, 249);
+		scrollPane.setBounds(319, 35, 326, 274);
 		panel_1.add(scrollPane);
 		
 		panel_1.add(scrollPane);
 		
-	}
-	
-	public void setPerformance(int performance) {
-		label.setText(String.valueOf(performance));
 	}
 	
 	public void addStep(String step) {
