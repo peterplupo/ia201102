@@ -36,7 +36,7 @@ public class RuleEngine {
 			case MOVE_UP_CLEAN: return new CleanMoveAction(Direction.UP);
 			case MOVE_LEFT_CLEAN: return new CleanMoveAction(Direction.LEFT);
 			case MOVE_RIGHT_CLEAN: return new CleanMoveAction(Direction.RIGHT);
-			case MOVE_DOWN: return new CleanMoveAction(Direction.DOWN);
+			case MOVE_DOWN: return new MoveAction(Direction.DOWN);
 			case MOVE_UP: return new MoveAction(Direction.UP);
 			case MOVE_LEFT: return new MoveAction(Direction.LEFT);
 			case MOVE_RIGHT: return new MoveAction(Direction.RIGHT);
