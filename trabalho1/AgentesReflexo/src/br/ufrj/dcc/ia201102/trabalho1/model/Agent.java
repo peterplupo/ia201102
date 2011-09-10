@@ -12,11 +12,15 @@ public class Agent {
 
 	public void act() {
 		Action action = behavior.getAction(room);
-		Room.State next = action.execute(room); 
 		performance += action.cost();
+		action.execute(room);
 	}
 	
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public int getPerformance() {
+		return performance;
 	}
 }
