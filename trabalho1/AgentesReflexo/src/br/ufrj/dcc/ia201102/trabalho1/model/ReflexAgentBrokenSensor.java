@@ -11,9 +11,7 @@ public class ReflexAgentBrokenSensor extends Agent {
 	
 	private static Map<State, Action> getActions() {
 		Map<State, Action> actions = new LinkedHashMap<State, Action>();
-		actions.put(State.DIRTY, new CleanAction());
-		actions.put(State.CLEAN, new MoveAction());
-		actions.put(State.UNKNOWN, new NoAction());
+		actions.put(State.UNKNOWN, new CleanAction());
 		return actions;
 	}
 }

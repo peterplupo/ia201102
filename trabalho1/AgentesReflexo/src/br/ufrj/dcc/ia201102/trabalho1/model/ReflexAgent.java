@@ -12,7 +12,6 @@ public class ReflexAgent extends Agent {
 	private static Map<State, Action> getActions() {
 		Map<State, Action> actions = new LinkedHashMap<State, Action>();
 		actions.put(State.DIRTY, new CleanAction());
-		actions.put(State.CLEAN, new MoveAction());
 		return actions;
 	}
 }
