@@ -3,7 +3,7 @@ package br.ufrj.dcc.ia201102.trabalho1.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import br.ufrj.dcc.ia201102.trabalho1.controller.AgentsController;
+import br.ufrj.dcc.ia201102.trabalho1.model.Environment;
 
 public class EnvironmentActionListener implements ActionListener {
 	
@@ -11,18 +11,22 @@ public class EnvironmentActionListener implements ActionListener {
 	
 
 	public EnvironmentActionListener(AgentesReflexo agentesReflexo) {
-		super();
 		this.agentesReflexo = agentesReflexo;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Environment env = null;
 		if (agentesReflexo.rdbtnReflexAgent.isSelected()) {
-			agentesReflexo.setEnvironment(agentesReflexo.agentsController.newEnvironment());
+			env = agentesReflexo.agentsController.newEnvironment();
 		} else if (agentesReflexo.rdbtnBrokenSensorReflex.isSelected()) {
-			agentesReflexo.setEnvironment(agentesReflexo.agentsController.newEnvironmentAgentBrokenSensor());
+			env = agentesReflexo.agentsController.newEnvironmentAgentBrokenSensor();
 		} else if (agentesReflexo.rdbtnDrywashAgents.isSelected()) {
-			agentesReflexo.setEnvironment(agentesReflexo.agentsController.newDryWashEnvironment());
+			env = agentesReflexo.agentsController.newDryWashEnvironment();
+		}
+		
+		if (env != null) {
+			agentesReflexo.setEnvironment(env);
 		}
 	}
 
