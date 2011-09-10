@@ -1,17 +1,22 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
+import java.util.Map;
+
 public class Agent {
 	private Room room;
-	private Behavior behavior;
+	private Sensor sensor;
 	private int performance;
+	private Map<State, Action> actions;
 	
-	public Agent(Behavior behavior) {
-		this.behavior = behavior;
+	
+	public Agent(Map<State, Action> actions) {
+		this.actions = actions;
 		this.performance = 0;
 	}
 
 	public void act() {
-		Action action = behavior.getAction(room);
+		State state = sensor.sense(room);
+		Action action = actions.get(state);
 		performance += action.cost();
 		action.execute(room);
 	}
