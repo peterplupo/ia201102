@@ -7,10 +7,10 @@ import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
 
 public class EnvironmentActionListener implements ActionListener {
 	
-	private AgentesReflexo agentesReflexo;
+	private ReflexAgents agentesReflexo;
 	
 
-	public EnvironmentActionListener(AgentesReflexo agentesReflexo) {
+	public EnvironmentActionListener(ReflexAgents agentesReflexo) {
 		this.agentesReflexo = agentesReflexo;
 	}
 

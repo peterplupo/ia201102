@@ -16,7 +16,7 @@ import javax.swing.JRadioButton;
 import br.ufrj.dcc.ia201102.trabalho1.controller.AgentsController;
 import br.ufrj.dcc.ia201102.trabalho1.model.environment.Environment;
 
-public class AgentesReflexo {
+public class ReflexAgents {
 
 	private JFrame frame;
 	
@@ -44,7 +44,7 @@ public class AgentesReflexo {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AgentesReflexo window = new AgentesReflexo();
+					ReflexAgents window = new ReflexAgents();
 					window.frame.setTitle("Trabalho 1 de IA");
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -67,7 +67,7 @@ public class AgentesReflexo {
 	/**
 	 * Create the application.
 	 */
-	public AgentesReflexo() {
+	public ReflexAgents() {
 		initialize();
 	}
 
@@ -77,33 +77,41 @@ public class AgentesReflexo {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 510, 394);
+		frame.setBounds(100, 100, 510, 397);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.NORTH);
+		panel.setBounds(0, 0, 504, 54);
+		frame.getContentPane().add(panel);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
+		panel.setLayout(null);
 		
 		rdbtnReflexAgent = new JRadioButton("Reflex Agent");
+		rdbtnReflexAgent.setBounds(32, 5, 123, 23);
 		rdbtnReflexAgent.setSelected(true);
 		panel.add(rdbtnReflexAgent);
 		buttonGroup.add(rdbtnReflexAgent);
 		
 		rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
+		rdbtnBrokenSensorReflex.setBounds(157, 5, 196, 23);
 		panel.add(rdbtnBrokenSensorReflex);
 		buttonGroup.add(rdbtnBrokenSensorReflex);
 		
 		rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
+		rdbtnDrywashAgents.setBounds(355, 5, 143, 23);
 		panel.add(rdbtnDrywashAgents);
 		buttonGroup.add(rdbtnDrywashAgents);
 		
 		JButton button = new JButton("Change");
+		button.setBounds(215, 31, 69, 23);
 		button.addActionListener(new EnvironmentActionListener(this));
 		panel.add(button);
 		
 		JPanel panel_1 = new JPanel();
-		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
+		panel_1.setBounds(0, 54, 504, 312);
+		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
 		room00.setBounds(10, 10, 150, 150);
