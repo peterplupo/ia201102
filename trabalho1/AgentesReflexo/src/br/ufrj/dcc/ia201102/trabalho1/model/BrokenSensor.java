@@ -4,7 +4,7 @@ public class BrokenSensor extends Sensor {
 	
 	@Override
 	public State sense(Room room) {
-		return null;
+		return State.UNKNOWN;
 	}
 
 }

@@ -7,19 +7,13 @@ import java.util.Random;
 
 public class Environment {
 	private Room[][] rooms;
-	
-	
 
 	public Environment() {
 		rooms = new Room[2][2];
-		rooms[0][0] = new Room();
-		rooms[0][1] = new Room();
-		rooms[1][0] = new Room();
-		rooms[1][1] = new Room();
-		rooms[0][0].setState(getRandomState());
-		rooms[0][1].setState(getRandomState());
-		rooms[1][0].setState(getRandomState());
-		rooms[1][1].setState(getRandomState());
+		rooms[0][0] = new Room(this, getRandomState());
+		rooms[0][1] = new Room(this, getRandomState());
+		rooms[1][0] = new Room(this, getRandomState());
+		rooms[1][1] = new Room(this, getRandomState());
 	}
 	
 	public Room[][] getRooms() {
@@ -49,5 +43,9 @@ public class Environment {
 		}
 		room.setAgent(agent);
 		agent.setRoom(room);;
+	}
+
+	public boolean hasAdjacence(Direction dir) {
+		return true;
 	}
 }

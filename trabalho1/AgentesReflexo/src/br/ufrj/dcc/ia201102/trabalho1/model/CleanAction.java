@@ -5,9 +5,7 @@ public class CleanAction implements Action {
 
 	@Override
 	public void execute(Room room) {
-		if (room.getState() == State.DIRTY) {
-			room.setState(State.CLEAN);
-		}
+		room.setState(State.CLEAN);
 	}
 
 	@Override

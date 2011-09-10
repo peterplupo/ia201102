@@ -1,14 +1,16 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
-
-
 public class Room {
-	
 	private Environment env;
 	private State state;
 	private Agent agent;
 	private int i;
 	private int j;
+	
+	public Room(Environment env, State state) {
+		this.env = env;
+		this.state = state;
+	}
 	
 	Room up() {
 		return env.getRoom(i-1, j);
@@ -40,5 +42,9 @@ public class Room {
 
 	public void setState(State state) {
 		this.state = state;
+	}
+	
+	public boolean hasAdjacence(Direction dir) {
+		return env.hasAdjacence(dir);
 	}
 }

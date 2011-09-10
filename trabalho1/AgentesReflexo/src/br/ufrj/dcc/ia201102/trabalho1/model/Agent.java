@@ -8,7 +8,6 @@ public class Agent {
 	private int performance;
 	private Map<State, Action> actions;
 	
-	
 	public Agent(Map<State, Action> actions) {
 		this.actions = actions;
 		this.performance = 0;
