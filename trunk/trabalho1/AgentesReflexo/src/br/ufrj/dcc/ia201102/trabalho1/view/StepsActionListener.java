@@ -15,8 +15,9 @@ public class StepsActionListener implements ActionListener {
 
 
 	@Override
-	public void update(String action) {
+	public void update(String action, int performance) {
 		reflexAgents.addStep(action);
+		reflexAgents.setPerformance(performance);
 	}
 
 }

@@ -29,7 +29,7 @@ public class Agent {
 		Action action = RuleEngine.match(ruleset, room, state);
 		performance += action.cost();
 		String step = action.execute(room);
-		actionListener.update(step);
+		actionListener.update(step, performance);
 	}
 	
 	public void setRoom(Room room) {

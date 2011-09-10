@@ -12,7 +12,7 @@ public class ReflexAgent extends Agent {
 		ruleset.add(new Rule(Rule.Context.ROOM00, Rule.Action.MOVE_RIGHT));
 		ruleset.add(new Rule(Rule.Context.ROOM01, Rule.Action.MOVE_DOWN));
 		ruleset.add(new Rule(Rule.Context.ROOM11, Rule.Action.MOVE_LEFT));
-		ruleset.add(new Rule(Rule.Context.ROOM11, Rule.Action.MOVE_UP));
+		ruleset.add(new Rule(Rule.Context.ROOM10, Rule.Action.MOVE_UP));
 		
 	}
 	

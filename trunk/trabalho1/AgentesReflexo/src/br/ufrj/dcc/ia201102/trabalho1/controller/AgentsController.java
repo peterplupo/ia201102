@@ -1,6 +1,7 @@
 package br.ufrj.dcc.ia201102.trabalho1.controller;
 
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.ActionListener;
+import br.ufrj.dcc.ia201102.trabalho1.model.agents.Agent;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.DryReflexAgent;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgent;
 import br.ufrj.dcc.ia201102.trabalho1.model.agents.ReflexAgentBrokenSensor;
@@ -14,20 +15,35 @@ public class AgentsController {
 	
 	public Environment newEnvironment(ActionListener actionListener) {
 		Environment environment = new Environment();
-		environment.addAgent(new ReflexAgent());
+		
+		Agent agent = new ReflexAgent();
+		agent.setActionListener(actionListener);
+		environment.addAgent(agent);
+		
 		return environment;
 	}
 
 	public Environment newDryWashEnvironment(ActionListener actionListener) {
 		Environment environment = new Environment();
-		environment.addAgent(new DryReflexAgent());
-		environment.addAgent(new WashReflexAgent());
+		
+		Agent agent = new DryReflexAgent();
+		agent.setActionListener(actionListener);
+		environment.addAgent(agent);
+		
+		agent = new WashReflexAgent();
+		agent.setActionListener(actionListener);
+		environment.addAgent(agent);
+		
 		return environment;
 	}
 	
 	public Environment newEnvironmentAgentBrokenSensor(ActionListener actionListener) {
 		Environment environment = new Environment();
-		environment.addAgent(new ReflexAgentBrokenSensor());
+		
+		Agent agent = new ReflexAgentBrokenSensor();
+		agent.setActionListener(actionListener);
+		environment.addAgent(agent);
+		
 		return environment;
 	}
 	
