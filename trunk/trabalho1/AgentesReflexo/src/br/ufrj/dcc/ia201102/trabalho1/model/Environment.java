@@ -1,6 +1,6 @@
 package br.ufrj.dcc.ia201102.trabalho1.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +26,9 @@ public class Environment {
 	}
 	
 	private State getRandomState() {
-		List<State> states = Arrays.asList(State.values());
+		List<State> states = new ArrayList<State>();
+		states.add(State.CLEAN);
+		states.add(State.DIRTY);
 		Collections.shuffle(states);
 		return states.get(0);
 	}
