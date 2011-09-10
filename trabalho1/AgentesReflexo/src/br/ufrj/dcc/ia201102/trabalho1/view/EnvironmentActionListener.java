@@ -18,11 +18,11 @@ public class EnvironmentActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (agentesReflexo.rdbtnReflexAgent.isSelected()) {
-			agentesReflexo.environment = agentsController.newEnvironment();
+			agentesReflexo.setEnvironment(agentsController.newEnvironment());
 		} else if (agentesReflexo.rdbtnBrokenSensorReflex.isSelected()) {
-			agentesReflexo.environment = agentsController.newEnvironmentAgentBrokenSensor();
+			agentesReflexo.setEnvironment(agentsController.newEnvironmentAgentBrokenSensor());
 		} else if (agentesReflexo.rdbtnDrywashAgents.isSelected()) {
-			agentesReflexo.environment = agentsController.newDryWashEnvironment();
+			agentesReflexo.setEnvironment(agentsController.newDryWashEnvironment());
 		}
 	}
 

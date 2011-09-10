@@ -27,7 +27,7 @@ public class Room extends JPanel {
 		try {
 			dirty = ImageIO.read(new File("dirt.jpg"));
 			wet = ImageIO.read(new File("water.jpg"));
-			vacuum = ImageIO.read(new File("vacuum.jpg"));
+			vacuum = ImageIO.read(new File("vacuum.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,8 +55,24 @@ public class Room extends JPanel {
 		}
 		
 		if (hasVacuum) {
-			g.drawImage(vacuum.getScaledInstance(50, 50, 0), 100, 20, null);
+			g.drawImage(vacuum.getScaledInstance(70, 45, 0), 70, 10, null);
 		}
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public boolean isHasVacuum() {
+		return hasVacuum;
+	}
+
+	public void setHasVacuum(boolean hasVacuum) {
+		this.hasVacuum = hasVacuum;
 	}
 	
 }

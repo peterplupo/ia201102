@@ -20,10 +20,15 @@ public class AgentesReflexo {
 
 	private JFrame frame;
 	
-	Environment environment;
+	private Environment environment;
 	JRadioButton rdbtnReflexAgent = new JRadioButton("Reflex Agent");
 	JRadioButton rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
 	JRadioButton rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
+	
+	Room room00 = new Room(State.CLEAN, false);
+	Room room01 = new Room(State.CLEAN, false);
+	Room room10 = new Room(State.CLEAN, false);
+	Room room11 = new Room(State.CLEAN, false);
 	
 	/**
 	 * Launch the application.
@@ -39,6 +44,19 @@ public class AgentesReflexo {
 				}
 			}
 		});
+	}
+	
+	public void setEnvironment(Environment environment) {
+		this.environment = environment;
+		room00.setHasVacuum(environment.getRoom(0, 0).getAgent()!=null);
+		room00.setState(environment.getRoom(0, 0).getState());
+		room01.setHasVacuum(environment.getRoom(0, 1).getAgent()!=null);
+		room01.setState(environment.getRoom(0, 1).getState());
+		room10.setHasVacuum(environment.getRoom(1, 0).getAgent()!=null);
+		room10.setState(environment.getRoom(1, 0).getState());
+		room11.setHasVacuum(environment.getRoom(1, 1).getAgent()!=null);
+		room11.setState(environment.getRoom(1, 1).getState());
+		this.frame.repaint();
 	}
 
 	/**
@@ -62,16 +80,16 @@ public class AgentesReflexo {
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		
-		JRadioButton rdbtnReflexAgent = new JRadioButton("Reflex Agent");
+		rdbtnReflexAgent = new JRadioButton("Reflex Agent");
 		rdbtnReflexAgent.setSelected(true);
 		panel.add(rdbtnReflexAgent);
 		buttonGroup.add(rdbtnReflexAgent);
 		
-		final JRadioButton rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
+		rdbtnBrokenSensorReflex = new JRadioButton("Broken Sensor Reflex Agent");
 		panel.add(rdbtnBrokenSensorReflex);
 		buttonGroup.add(rdbtnBrokenSensorReflex);
 		
-		final JRadioButton rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
+		rdbtnDrywashAgents = new JRadioButton("Dry/Wash Agents");
 		panel.add(rdbtnDrywashAgents);
 		buttonGroup.add(rdbtnDrywashAgents);
 		
@@ -83,23 +101,14 @@ public class AgentesReflexo {
 		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();//Room(State.DIRTY, false);
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_2.setBounds(10, 10, 150, 150);
-		panel_1.add(panel_2);
+		room00.setBounds(10, 10, 150, 150);
+		panel_1.add(room00);
 
-		JPanel panel_3 = new JPanel();//Room(State.WET, false);
-		panel_3.setBackground(Color.WHITE);
-		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_3.setBounds(159, 10, 150, 150);
-		panel_1.add(panel_3);
+		room01.setBounds(159, 10, 150, 150);
+		panel_1.add(room01);
 
-		JPanel panel_4 = new Room(State.WET, true);
-		panel_4.setBackground(Color.WHITE);
-		panel_4.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_4.setBounds(10, 159, 150, 150);
-		panel_1.add(panel_4);
+		room10.setBounds(10, 159, 150, 150);
+		panel_1.add(room10);
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(Color.WHITE);
