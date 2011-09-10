@@ -3,9 +3,6 @@ package br.ufrj.dcc.ia201102.trabalho1.model;
 
 
 public class Room {
-	enum State {
-		DIRTY, WET, CLEAN;
-	}
 	
 	private Environment env;
 	private State state;
