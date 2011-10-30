@@ -61,7 +61,7 @@ public class TestGraph extends TestCase {
 	}
 	
 	@Test
-	public void testNoHasPath() {
+	public void testHasNoPath() {
 		graph.addVertex(0);
 		graph.addVertex(1);
 		assertFalse(graph.hasPath(0, 1));
