@@ -18,11 +18,13 @@ public class MazeWalker {
 	
 	// Environment
 	Maze maze;
+	private LocationSensor sensor = new LocationSensor();	
 	
-	private LocationSensor sensor = new LocationSensor();
+	public MazeWalker(Maze maze) {
+		this.maze = maze;
+	}
 	
-	
-	private void walk() {
+	public double walk() {
 		int row = locationPercept[0];
 		int column = locationPercept[1];
 		
@@ -41,8 +43,9 @@ public class MazeWalker {
 					}
 				}
 			}
-			
 		}
+		
+		return getSteps();
 	}
 	
 	public Vertex<Position> getSpot(Maze maze, Position position) {
