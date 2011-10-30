@@ -5,14 +5,13 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 
-public class Graph {
-	LinkedHashMap<Integer, Vertex> adj;
+public class Graph<K> {
+	LinkedHashMap<K, Vertex<K>> adj;
 
 	public Graph() {
-		adj = new LinkedHashMap<Integer, Vertex>();
+		adj = new LinkedHashMap<K, Vertex<K>>();
 	}
 	
 	public int getVertexNumber() {
@@ -22,82 +21,42 @@ public class Graph {
 	public int getEdgeNumber() {
 		int sum = 0;
 		
-		for (Vertex vertex : adj.values()) {
+		for (Vertex<K> vertex : adj.values()) {
 			sum += vertex.getEdgeNumber();
 		}
 		
 		return sum / 2;
 	}
 
-	public void addVertex(int vertexId) {
-		if (!adj.containsKey(vertexId)) {
-			adj.put(vertexId, new Vertex(vertexId));
+	public void addVertex(K i) {
+		if (!adj.containsKey(i)) {
+			adj.put(i, new Vertex<K>(i));
 		}
 	}
 
-	public void addEdge(int i, int j) {
+	public void addEdge(K i, K j) {
 		if (!adj.containsKey(i))
 			addVertex(i);
 		
 		if (!adj.containsKey(j))
 			addVertex(j);
 		
-		Vertex v = adj.get(i);
-		Vertex w = adj.get(j);
+		Vertex<K> v = adj.get(i);
+		Vertex<K> w = adj.get(j);
 		
 		v.addEdge(w);
 		w.addEdge(v);
 	}
 	
-	protected Map<Vertex, Vertex> bfsTree(int i, int j) {
-		Map<Vertex, Vertex> parent = new LinkedHashMap<Vertex, Vertex>();
-		Queue<Vertex> queue = new LinkedList<Vertex>();
-		queue.add(adj.values().iterator().next());
-		
-		
-		while (!queue.isEmpty())
-		{
-			Vertex v = queue.poll();
-			
-			for (Vertex w : v.getAdjacence()) {
-				if (! parent.containsKey(w)) {
-					parent.put(w, v);
-					queue.add(w);
-				}
-			}
-		}
-		
-		return parent;
+	public boolean hasPath(K i, K j) {
+		return hasPath(i, j, new Search<K>(new LinkedList<Vertex<K>>()));
 	}
 	
-	public List<Integer> getPath(int i, int j) {
-		Map<Vertex, Vertex> tree = bfsTree(i, j);
-		
-		if (!tree.containsValue(adj.get(i)) ||
-			!tree.containsKey(adj.get(j))) {
-			return null;
-		}
-				
-		LinkedList<Integer> path = new LinkedList<Integer>();
-		
-		Vertex v = adj.get(j);
-		
-		while (true)
-		{
-			path.add(v.getId());
-			
-			if (v.getId() == i)
-				break;
-			
-			v = tree.get(v);
-		}
-		
-		Collections.reverse(path);
-		
-		return path;
+	public List<K> getPath(K i, K j) {
+		return getPath(i, j, new Search<K>(new LinkedList<Vertex<K>>())); 
 	}
 	
-	public boolean hasPath(int i, int j) {
+	public boolean hasPath(K i, K j, Search<K> strategy) {
 		if (adj.size() == 0)
 			return false;
 		
@@ -110,6 +69,33 @@ public class Graph {
 		if (i == j)
 			return true;
 		
-		return bfsTree(i, j).containsValue(adj.get(i));
+		return strategy.search(adj, i, j).containsValue(adj.get(i));
+	}
+
+	public List<K> getPath(K i, K j, Search<K> strategy) {
+		Map<Vertex<K>, Vertex<K>> tree = strategy.search(adj, i, j);
+		LinkedList<K> path = new LinkedList<K>();
+		
+		Vertex<K> source = adj.get(i);
+		Vertex<K> sink = adj.get(j);
+		
+		
+		if (source == null || sink == null) {
+			return path;
+		}
+		
+		while (true)
+		{
+			path.add(source.getId());
+			
+			if (source.getId() == i)
+				break;
+			
+			source = tree.get(source);
+		}
+		
+		Collections.reverse(path);
+		
+		return path;
 	}
 }

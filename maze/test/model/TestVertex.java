@@ -7,15 +7,15 @@ import org.junit.Test;
  
 public class TestVertex extends TestCase {
 
-	private Vertex vertex;
+	private Vertex<Integer> vertex;
 	
 	@Before
 	protected void setUp() {
-		vertex = new Vertex(0);
+		vertex = new Vertex<Integer>(0);
 	}
 	
 	public void testState(int id, int edges) {
-		assertEquals(vertex.getId(), id);
+		assertEquals(vertex.getId(), (Integer)id);
 		assertEquals(vertex.getEdgeNumber(), edges);
 	}
 	
@@ -27,7 +27,7 @@ public class TestVertex extends TestCase {
 	@Test
 	public void testAddEdge() {
 		testState(0, 0);
-		vertex.addEdge(new Vertex(1));
+		vertex.addEdge(new Vertex<Integer>(1));
 		testState(0, 1);
 	}
 
