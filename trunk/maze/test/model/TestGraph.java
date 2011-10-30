@@ -8,16 +8,23 @@ import org.junit.Test;
 
 public class TestGraph extends TestCase {
 
-	private Graph graph;
+	private Graph<Integer> graph;
 
 	@Override
 	protected void setUp() {
-		this.graph = new Graph();
+		this.graph = new Graph<Integer>();
 	}
 	
 	protected void assertState(int vertices, int edges) {
 		assertEquals(graph.getVertexNumber(), vertices);
 		assertEquals(graph.getEdgeNumber(), edges);
+	}
+	
+	protected void insertTree() {
+		graph.addEdge(0, 1);
+		graph.addEdge(0, 2);
+		graph.addEdge(1, 3);
+		graph.addEdge(1, 4);
 	}
 	
 	protected void insertP(int n) {
@@ -72,5 +79,12 @@ public class TestGraph extends TestCase {
 		for (int i = 1; i < 100; i++) {
 			assertPathSize(i);			
 		}
+	}
+	
+	@Test
+	public void testBfsPath() {
+		insertTree();
+		
+		
 	}
 }
