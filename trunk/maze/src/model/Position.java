@@ -8,7 +8,22 @@ public class Position {
 		this.i = i;
 		this.j = j;
 	}
-
+	
+	public static Position getNorth(int i, int j) {
+		return new Position(i, j-1);
+	}
+	
+	public static Position getSouth(int i, int j) {
+		return new Position(i, j+1);
+	}
+	
+	public static Position getEast(int i, int j) {
+		return new Position(i+1, j);
+	}
+	
+	public static Position getWest(int i, int j) {
+		return new Position(i-1, j);
+	}
 	
 	@Override
 	public int hashCode() {

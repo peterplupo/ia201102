@@ -10,8 +10,8 @@ public class Maze {
 		return new Position(i, j);
 	}
 	
-	public Vertex<Position> getVertex(int i, int j) {
-		return graph.getVertex(id(i, j));
+	public Vertex<Position> getVertex(Position position) {
+		return graph.getVertex(position);
 	}
 	
 	public Maze(int size) {
