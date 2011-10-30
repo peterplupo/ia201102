@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -30,19 +31,18 @@ public class TestGraph extends TestCase {
 	protected void insertP(int n) {
 		graph.addVertex(0);
 		
-		for (int i = 0; i < n-1; i++) {
-			graph.addEdge(i, i+1);
+		for (int i = 1; i < n; i++) {
+			graph.addEdge(i-1, i);
 		}
 		
 		assertState(n, n-1);
 	}
 	
 	protected void assertPathSize(int n) {
-		insertP(n);
+		insertP(n+1);
 		
 		List<Integer> path = graph.getPath(0, n);
-		//System.out.println(path.size());
-		assertEquals(n, path.size());
+		assertEquals(n+1, path.size());
 		
 		for (int i = 0; i < n; i++) {
 			assertEquals((Integer)i, path.get(i));
