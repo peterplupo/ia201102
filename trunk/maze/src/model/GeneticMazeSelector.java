@@ -14,13 +14,13 @@ public class GeneticMazeSelector {
 	}
 	
 	public void generateRandomPopulation(int populationSize, int mazeSize) {
-		this.population = new LinkedHashMap<Double, Maze>();
+		MazeFitnessFunction fitness = new MazeFitnessFunction();
+		population = new LinkedHashMap<Double, Maze>();
 		
 		for (int i = 0; i < populationSize; i++) {
 			Maze maze = new Maze(mazeSize);
-			
+			population.put(fitness.eval(maze), maze);
 		}
-		
 	}
 	
 }
