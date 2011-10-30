@@ -48,6 +48,10 @@ public class Graph<K> {
 		w.addEdge(v);
 	}
 	
+	public boolean hasVertex(K i) {
+		return adj.containsKey(i);
+	}
+	
 	public boolean hasPath(K i, K j) {
 		return hasPath(i, j, new Search<K>(new LinkedList<Vertex<K>>()));
 	}
@@ -74,24 +78,24 @@ public class Graph<K> {
 
 	public List<K> getPath(K i, K j, Search<K> strategy) {
 		Map<Vertex<K>, Vertex<K>> tree = strategy.search(adj, i, j);
+		
 		LinkedList<K> path = new LinkedList<K>();
 		
-		Vertex<K> source = adj.get(i);
-		Vertex<K> sink = adj.get(j);
-		
-		
-		if (source == null || sink == null) {
+		if (!tree.containsValue(adj.get(i)) ||
+			!tree.containsKey(adj.get(j))) {
 			return path;
 		}
 		
+		Vertex<K> v = adj.get(j);
+		path.add(v.getId());
+		
 		while (true)
 		{
-			path.add(source.getId());
+			v = tree.get(v);
+			path.add(v.getId());
 			
-			if (source.getId() == i)
+			if (v.getId() == i)
 				break;
-			
-			source = tree.get(source);
 		}
 		
 		Collections.reverse(path);
