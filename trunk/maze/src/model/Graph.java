@@ -102,4 +102,8 @@ public class Graph<K> {
 		
 		return path;
 	}
+
+	public Vertex<K> getVertex(K id) {
+		return adj.get(id);
+	}
 }

@@ -3,15 +3,19 @@ package model;
 import java.util.Random;
 
 public class Maze {
-	private Graph<Entry> graph;
+	private Graph<Position> graph;
 	private int size;
 
-	public Entry id(int i, int j) {
-		return new Entry(i, j);
+	public Position id(int i, int j) {
+		return new Position(i, j);
+	}
+	
+	public Vertex<Position> getVertex(int i, int j) {
+		return graph.getVertex(id(i, j));
 	}
 	
 	public Maze(int size) {
-		this.graph = new Graph<Entry>();
+		this.graph = new Graph<Position>();
 		this.size = size;
 		
 		Random rand = new Random();

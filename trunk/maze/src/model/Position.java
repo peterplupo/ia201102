@@ -1,10 +1,10 @@
 package model;
 
-public class Entry {
+public class Position {
 	int i;
 	int j;
 	
-	Entry(int i, int j) {
+	Position(int i, int j) {
 		this.i = i;
 		this.j = j;
 	}
@@ -27,7 +27,7 @@ public class Entry {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entry other = (Entry) obj;
+		Position other = (Position) obj;
 		if (i != other.i)
 			return false;
 		if (j != other.j)
