@@ -27,6 +27,7 @@ public class MazeWalker {
 		this.maze = maze;
 	}
 	
+	//FIXME this is supposed to be an actuator!
 	public double walk() {
 		int row = locationPercept[0];
 		int column = locationPercept[1];
