@@ -1,5 +1,7 @@
 package agent;
 
+import java.util.Map;
+
 import model.Maze;
 import model.Position;
 import model.Vertex;
@@ -14,7 +16,7 @@ public class MazeWalker {
 	private int steps;
 	
 	//Internal state
-	private State[][] states;
+	private Map<Vertex, State> states;
 	
 	// Environment
 	Maze maze;
@@ -28,17 +30,17 @@ public class MazeWalker {
 		int row = locationPercept[0];
 		int column = locationPercept[1];
 		
-		Vertex<Position> vertex = getSpot(maze, Position.getEast(row, column));
-		if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+		Vertex<Position> spot = getSpot(maze, Position.getEast(row, column));
+		if (sensor.getPercept(spot) == LocationSensor.WallPercept.WALL) {
 			
-			vertex = getSpot(maze, Position.getNorth(row, column));
-			if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+			spot = getSpot(maze, Position.getNorth(row, column));
+			if (sensor.getPercept(spot) == LocationSensor.WallPercept.WALL) {
 				
-				vertex = getSpot(maze, Position.getSouth(row, column));
-				if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+				spot = getSpot(maze, Position.getSouth(row, column));
+				if (sensor.getPercept(spot) == LocationSensor.WallPercept.WALL) {
 					
-					vertex = getSpot(maze, Position.getWest(row, column));
-					if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+					spot = getSpot(maze, Position.getWest(row, column));
+					if (sensor.getPercept(spot) == LocationSensor.WallPercept.WALL) {
 						
 					}
 				}
