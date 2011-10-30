@@ -7,7 +7,7 @@ import model.Vertex;
 //agent
 public class MazeWalker {
 	private enum State {VISITED, NOT_VISITED, EXPLORED};
-	private enum WallPercept {FREE, WALL};
+	
 	private int[] locationPercept;
 	
 	//Performance
@@ -19,40 +19,34 @@ public class MazeWalker {
 	// Environment
 	Maze maze;
 	
-	private Sensor sensor = new Sensor();
+	private LocationSensor sensor = new LocationSensor();
 	
 	
 	private void walk() {
 		int row = locationPercept[0];
 		int column = locationPercept[1];
 		
-		Vertex<Position> vertex = sensor.getVertex(maze, Position.getEast(row, column));
-		
-		if (vertex == null) {
+		Vertex<Position> vertex = getSpot(maze, Position.getEast(row, column));
+		if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+			
+			vertex = getSpot(maze, Position.getNorth(row, column));
+			if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+				
+				vertex = getSpot(maze, Position.getSouth(row, column));
+				if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+					
+					vertex = getSpot(maze, Position.getWest(row, column));
+					if (sensor.getPercept(vertex) == LocationSensor.WallPercept.WALL) {
+						
+					}
+				}
+			}
 			
 		}
 	}
 	
-	private WallPercept[] wallSensor() {
-		int row = locationPercept[0];
-		int column = locationPercept[1];
-		
-		WallPercept[] wallPercepts = new WallPercept[4];
-		wallPercepts[0] = getPercept(Position.getNorth(row, column));
-		wallPercepts[1] = getPercept(Position.getEast(row, column));
-		wallPercepts[2] = getPercept(Position.getSouth(row, column));
-		wallPercepts[3] = getPercept(Position.getWest(row, column));
-		
-		return wallPercepts; 
-	}
-
-
-	private WallPercept getPercept(Position position) {
-		if (maze.getVertex(position) == null) {
-			return WallPercept.WALL;
-		} else {
-			return WallPercept.FREE;
-		}
+	public Vertex<Position> getSpot(Maze maze, Position position) {
+		return maze.getVertex(position);
 	}
 
 	public int getSteps() {
