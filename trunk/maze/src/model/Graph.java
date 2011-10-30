@@ -81,13 +81,13 @@ public class Graph<K> {
 		
 		LinkedList<K> path = new LinkedList<K>();
 		
+		Vertex<K> v = adj.get(j);
+		path.add(v.getId());
+		
 		if (!tree.containsValue(adj.get(i)) ||
 			!tree.containsKey(adj.get(j))) {
 			return path;
 		}
-		
-		Vertex<K> v = adj.get(j);
-		path.add(v.getId());
 		
 		while (true)
 		{
