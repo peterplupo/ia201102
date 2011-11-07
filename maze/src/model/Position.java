@@ -9,20 +9,24 @@ public class Position {
 		this.j = j;
 	}
 	
-	public static Position getNorth(int i, int j) {
-		return new Position(i, j-1);
+	public Position getNorth() {
+		return new Position(this.i, this.j-1);
 	}
 	
-	public static Position getSouth(int i, int j) {
-		return new Position(i, j+1);
+	public Position getSouth() {
+		return new Position(this.i, this.j+1);
 	}
 	
-	public static Position getEast(int i, int j) {
-		return new Position(i+1, j);
+	public Position getEast() {
+		return new Position(this.i+1, this.j);
 	}
 	
-	public static Position getWest(int i, int j) {
-		return new Position(i-1, j);
+	public Position getWest() {
+		return new Position(this.i-1, this.j);
+	}
+	
+	public int getColumn() {
+		return j;
 	}
 	
 	@Override

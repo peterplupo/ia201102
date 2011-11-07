@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class Graph<K> {
@@ -105,5 +106,29 @@ public class Graph<K> {
 
 	public Vertex<K> getVertex(K id) {
 		return adj.get(id);
+	}
+
+	public Set<K> getVertexKeys() {
+		return Collections.unmodifiableSet(adj.keySet());
+	}
+	
+	public static Graph<Position> addSubGraph(int begin, int end, Graph<Position> from) {
+		return addSubGraph(begin, end, new Graph<Position>(), from);
+	}
+	
+	public static Graph<Position> addSubGraph(int begin, int end, Graph<Position> to, Graph<Position> from) {
+		for (Position p : from.getVertexKeys()) {
+			if (begin <= p.getColumn() && p.getColumn() < end) {
+				if (from.hasVertex(p.getSouth())) {
+					to.addEdge(p, p.getSouth());
+				}
+				
+				if (from.hasVertex(p.getEast())) {
+					to.addEdge(p, p.getEast());
+				}
+			}
+		}
+		
+		return to;
 	}
 }
