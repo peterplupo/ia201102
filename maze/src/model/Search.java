@@ -36,14 +36,14 @@ public class Search<K> implements SearchStrategy<K> {
 			Vertex<K> v = list.get(0);
 			list.remove(0);
 			
-			for (Vertex<K> w : v.getAdjacence()) {
+			for (K w : v.getAdjacence()) {
 				if (! parent.containsKey(w)) {
-					parent.put(w, v);
+					parent.put(adj.get(w), v);
 					
-					if (!complete && w.getId() == sink.getId())
+					if (!complete && w == sink.getId())
 						return parent;
 					
-					list.add(w);
+					list.add(adj.get(w));
 				}
 			}
 		}

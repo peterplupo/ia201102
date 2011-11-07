@@ -13,7 +13,7 @@ public class Maze {
 		return new Position(i, j);
 	}
 	
-	public Vertex<Position> getVertex(Position position) {
+	public Slot<Position> getSlot(Position position) {
 		return graph.getVertex(position);
 	}
 	
@@ -106,10 +106,10 @@ public class Maze {
 			graph.addEdge(p, p.getWest());
 	}
 
-	public Vertex<Position> getBeginning() {
-		Vertex<Position> vertex = null;
+	public Slot<Position> getBeginning() {
+		Slot<Position> vertex = null;
 		for (int j = 0; j<50; j++) {
-			vertex = getVertex(new Position(0,j));
+			vertex = getSlot(new Position(0,j));
 			if (vertex != null) {
 				return vertex;
 			}

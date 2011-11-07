@@ -45,8 +45,8 @@ public class Graph<K> {
 		Vertex<K> v = adj.get(i);
 		Vertex<K> w = adj.get(j);
 		
-		v.addEdge(w);
-		w.addEdge(v);
+		v.addEdge(w.getId());
+		w.addEdge(v.getId());
 	}
 	
 	public boolean hasVertex(K i) {

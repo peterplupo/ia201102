@@ -1,13 +1,13 @@
 package agent;
 
-import model.Vertex;
+import model.Slot;
 
 public class LocationSensor {
 	
 	enum WallPercept {FREE, WALL};
 	
-	WallPercept getPercept(Vertex<?> vertex) {
-		if (vertex == null) {
+	WallPercept getPercept(Slot<?> slot) {
+		if (slot == null) {
 			return WallPercept.WALL;
 		} else {
 			return WallPercept.FREE;

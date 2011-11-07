@@ -27,7 +27,7 @@ public class TestVertex extends TestCase {
 	@Test
 	public void testAddEdge() {
 		testState(0, 0);
-		vertex.addEdge(new Vertex<Integer>(1));
+		vertex.addEdge(1);
 		testState(0, 1);
 	}
 
