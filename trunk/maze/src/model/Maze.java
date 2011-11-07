@@ -105,4 +105,15 @@ public class Maze {
 		if (graph.hasVertex(p.getWest()))
 			graph.addEdge(p, p.getWest());
 	}
+
+	public Vertex<Position> getBeginning() {
+		Vertex<Position> vertex = null;
+		for (int j = 0; j<50; j++) {
+			vertex = getVertex(new Position(0,j));
+			if (vertex != null) {
+				return vertex;
+			}
+		}
+		return null;
+	}
 }
