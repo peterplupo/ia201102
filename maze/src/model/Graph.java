@@ -15,11 +15,11 @@ public class Graph<K> {
 		adj = new LinkedHashMap<K, Vertex<K>>();
 	}
 	
-	public int getVertexNumber() {
+	public int getVertexesSize() {
 		return adj.size();
 	}
 
-	public int getEdgeNumber() {
+	public int getEdgesSize() {
 		int sum = 0;
 		
 		for (Vertex<K> vertex : adj.values()) {
