@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import maze.Slot;
+
 public class Vertex<K> implements Slot<K> {
 
 	private K id;

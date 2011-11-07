@@ -1,9 +1,12 @@
-package model;
+package maze;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import model.Graph;
+import model.Position;
 
 public class Maze {
 	private Graph<Position> graph;

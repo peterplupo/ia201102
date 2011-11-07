@@ -1,6 +1,8 @@
-package model;
+package maze;
 
 import junit.framework.TestCase;
+
+import maze.Maze;
 
 import org.junit.Test;
 
