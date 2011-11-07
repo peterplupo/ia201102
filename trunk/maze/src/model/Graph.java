@@ -15,7 +15,7 @@ public class Graph<K> {
 		adj = new LinkedHashMap<K, Vertex<K>>();
 	}
 	
-	public int getVertexesSize() {
+	public int getVerticesSize() {
 		return adj.size();
 	}
 
