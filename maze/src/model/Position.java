@@ -26,6 +26,10 @@ public class Position {
 	}
 	
 	public int getColumn() {
+		return i;
+	}
+	
+	public int getRow() {
 		return j;
 	}
 	

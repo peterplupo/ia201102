@@ -10,7 +10,6 @@ import model.Vertex;
 public class MazeWalker {
 	private enum State {VISITED, NOT_VISITED, EXPLORED};
 	
-	private int[] locationPercept;
 	
 	//Performance
 	private int steps;
@@ -18,32 +17,57 @@ public class MazeWalker {
 	//Internal state
 	private Map<Vertex<Position>, State> states;
 	
+	private Vertex<Position> vertex;
+	
 	// Environment
 	private Maze maze;
 	
 	private LocationSensor sensor = new LocationSensor();	
 	
-	public MazeWalker(Maze maze) {
+	public MazeWalker(Maze maze, Vertex<Position> beginingVertex) {
 		this.maze = maze;
+		this.vertex = beginingVertex;
 	}
 	
 	//FIXME this is supposed to be an actuator!
 	public double walk() {
-		int row = locationPercept[0];
-		int column = locationPercept[1];
 		
-		Vertex<Position> vertex = getNextVertex(row, column, State.NOT_VISITED);
-		if (vertex != null) {
-			//TODO walk on not visited - remember cycles
+		Vertex<Position> nextVertex = getNextVertex(vertex);
+		if (nextVertex == null) {
+			//TODO walk backwards marking explored until there is a new exit.
 		} else {
-			vertex = getNextVertex(row, column, State.VISITED);
-			if (vertex == null) {
-				return steps;
-			} else {
-				//TODO walk on visited - remember explored
+			
+			switch(getState(nextVertex)) {
+				case NOT_VISITED:
+					states.put(vertex, State.VISITED);
+					vertex = nextVertex;
+					steps = steps + 1;
+					break;
+				case VISITED:
+					if (getState(vertex) == State.NOT_VISITED) {
+						
+					}
+					break;
+				case EXPLORED:
+					break;
 			}
+			
+			
 		}
 		return getSteps();
+	}
+	
+	private Vertex<Position> getNextVertex(Vertex<Position> vertex) {
+		return getNextVertex(vertex.getId().getRow(), vertex.getId().getColumn());
+	}
+
+	private Vertex<Position> getNextVertex(int row, int column) {
+		Vertex<Position> position = getNextVertex(row, column, State.NOT_VISITED);
+		if (position != null) {
+			return position;
+		} else {
+			return getNextVertex(row, column, State.VISITED);
+		}
 	}
 
 	private Vertex<Position> getNextVertex(int row, int column, State state) {
@@ -92,4 +116,11 @@ public class MazeWalker {
 		this.steps = steps;
 	}
 	
+	public boolean hasExits(Vertex<Position> vertex) {
+		Vertex<Position> nextVertex = getNextVertex(vertex.getId().getRow(), vertex.getId().getColumn());
+		if (nextVertex == null) {
+			return false;
+		}
+		return true;
+	}
 }
