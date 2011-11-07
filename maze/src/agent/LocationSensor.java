@@ -1,6 +1,6 @@
 package agent;
 
-import model.Slot;
+import maze.Slot;
 
 public class LocationSensor {
 	

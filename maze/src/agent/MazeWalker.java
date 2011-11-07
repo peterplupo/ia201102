@@ -2,9 +2,9 @@ package agent;
 
 import java.util.Map;
 
-import model.Maze;
+import maze.Maze;
+import maze.Slot;
 import model.Position;
-import model.Slot;
 
 //agent
 public class MazeWalker {

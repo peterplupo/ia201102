@@ -1,5 +1,6 @@
-package model;
+package maze;
 
+import model.FitnessFunction;
 import agent.MazeWalker;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;

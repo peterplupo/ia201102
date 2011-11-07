@@ -1,4 +1,4 @@
-package model;
+package maze;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
+
+import model.Position;
 
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
