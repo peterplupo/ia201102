@@ -4,7 +4,7 @@ import java.util.Map;
 
 import model.Maze;
 import model.Position;
-import model.Vertex;
+import model.Slot;
 
 //agent
 public class MazeWalker {
@@ -15,36 +15,36 @@ public class MazeWalker {
 	private int steps;
 	
 	//Internal state
-	private Map<Vertex<Position>, State> states;
+	private Map<Slot<Position>, State> states;
 	
-	private Vertex<Position> vertex;
+	private Slot<Position> slot;
 	
 	// Environment
 	private Maze maze;
 	
 	private LocationSensor sensor = new LocationSensor();	
 	
-	public MazeWalker(Maze maze, Vertex<Position> beginingVertex) {
+	public MazeWalker(Maze maze) {
 		this.maze = maze;
-		this.vertex = beginingVertex;
+		this.slot = maze.getBeginning();
 	}
 	
 	//FIXME this is supposed to be an actuator!
 	public double walk() {
 		
-		Vertex<Position> nextVertex = getNextVertex(vertex);
-		if (nextVertex == null) {
+		Slot<Position> nextSlot = getNextSlot(slot);
+		if (nextSlot == null) {
 			//TODO walk backwards marking explored until there is a new exit.
 		} else {
 			
-			switch(getState(nextVertex)) {
+			switch(getState(nextSlot)) {
 				case NOT_VISITED:
-					states.put(vertex, State.VISITED);
-					vertex = nextVertex;
+					states.put(slot, State.VISITED);
+					slot = nextSlot;
 					steps = steps + 1;
 					break;
 				case VISITED:
-					if (getState(vertex) == State.NOT_VISITED) {
+					if (getState(slot) == State.NOT_VISITED) {
 						
 					}
 					break;
@@ -57,12 +57,12 @@ public class MazeWalker {
 		return getSteps();
 	}
 	
-	private Vertex<Position> getNextVertex(Vertex<Position> vertex) {
-		return getNextVertex(vertex.getId().getRow(), vertex.getId().getColumn());
+	private Slot<Position> getNextSlot(Slot<Position> slot) {
+		return getNextSlot(slot.getId().getRow(), slot.getId().getColumn());
 	}
 
-	private Vertex<Position> getNextVertex(int row, int column) {
-		Vertex<Position> position = getNextVertex(row, column, State.NOT_VISITED);
+	private Slot<Position> getNextSlot(int row, int column) {
+		Slot<Position> position = getNextVertex(row, column, State.NOT_VISITED);
 		if (position != null) {
 			return position;
 		} else {
@@ -70,42 +70,42 @@ public class MazeWalker {
 		}
 	}
 
-	private Vertex<Position> getNextVertex(int row, int column, State state) {
+	private Slot<Position> getNextVertex(int row, int column, State state) {
 		Position p = new Position(row, column);
 		
-		Vertex<Position> spot = getSpot(maze, p.getEast());
-		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
-			return spot;
+		Slot<Position> slot = getSpot(maze, p.getEast());
+		if (sensor.getPercept(slot) != LocationSensor.WallPercept.WALL && getState(slot) == state) {
+			return slot;
 		}
 			
-		spot = getSpot(maze, p.getNorth());
-		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
-			return spot;
+		slot = getSpot(maze, p.getNorth());
+		if (sensor.getPercept(slot) != LocationSensor.WallPercept.WALL && getState(slot) == state) {
+			return slot;
 		}
 				
-		spot = getSpot(maze, p.getSouth());
-		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
-			return spot;
+		slot = getSpot(maze, p.getSouth());
+		if (sensor.getPercept(slot) != LocationSensor.WallPercept.WALL && getState(slot) == state) {
+			return slot;
 		}
 					
-		spot = getSpot(maze, p.getWest());
-		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
-			return spot;
+		slot = getSpot(maze, p.getWest());
+		if (sensor.getPercept(slot) != LocationSensor.WallPercept.WALL && getState(slot) == state) {
+			return slot;
 		}
 		
 		return null;
 	}
 
-	private State getState(Vertex<Position> spot) {
-		if (states.get(spot) == null) {
+	private State getState(Slot<Position> slot) {
+		if (states.get(slot) == null) {
 			return State.NOT_VISITED;
 		} else {
-			return states.get(spot);
+			return states.get(slot);
 		}
 	}
 	
-	public Vertex<Position> getSpot(Maze maze, Position position) {
-		return maze.getVertex(position);
+	public Slot<Position> getSpot(Maze maze, Position position) {
+		return maze.getSlot(position);
 	}
 
 	public int getSteps() {
@@ -116,11 +116,15 @@ public class MazeWalker {
 		this.steps = steps;
 	}
 	
-	public boolean hasExits(Vertex<Position> vertex) {
-		Vertex<Position> nextVertex = getNextVertex(vertex.getId().getRow(), vertex.getId().getColumn());
-		if (nextVertex == null) {
+	public boolean hasExits(Slot<Position> vertex) {
+		Slot<Position> nextSlot = getNextSlot(vertex.getId().getRow(), vertex.getId().getColumn());
+		if (nextSlot == null) {
 			return false;
 		}
 		return true;
+	}
+
+	public Slot<Position> getLastSlot() {
+		return slot;
 	}
 }
