@@ -16,7 +16,7 @@ public class TestGraph extends TestCase {
 	}
 	
 	protected void assertState(int vertices, int edges) {
-		assertEquals(vertices, graph.getVertexesSize());
+		assertEquals(vertices, graph.getVerticesSize());
 		assertEquals(edges, graph.getEdgesSize());
 	}
 	
