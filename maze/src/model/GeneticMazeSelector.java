@@ -9,9 +9,15 @@ import java.util.Random;
 
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
+	private int selectedSize;
+	private int crossoverSize;
+	private int mutateSize;
 
-	public GeneticMazeSelector(int populationSize, int mazeSize) {
+	public GeneticMazeSelector(int populationSize, int mazeSize, float selectionRate, float crossoverRate, float mutationRate) {
 		generateRandomPopulation(populationSize, mazeSize);
+		selectedSize = (int)(populationSize * selectionRate);
+		crossoverSize = (int)(populationSize * crossoverRate);
+		mutateSize = (int)(populationSize * mutationRate);
 	}
 	
 	public GeneticMazeSelector(int populationSize) {
@@ -28,17 +34,23 @@ public class GeneticMazeSelector {
 		}
 	}
 	
-	public List<Maze> selectGenerationCandidates(int selectedSize) {
+	public void updatePopulation(List<Maze> generation) {
+		MazeFitnessFunction fitness = new MazeFitnessFunction();
+		population = new LinkedHashMap<Maze, Double>();
+		
+		for (Maze maze : generation) {
+			population.put(maze, fitness.eval(maze));
+		}
+	}
+	
+	public List<Maze> selectGenerationCandidates() {
 		List<Maze> selected = new ArrayList<Maze>(population.keySet());
 		
 		Collections.sort(selected, new Comparator<Maze>() {
 
 			@Override
 			public int compare(Maze m1, Maze m2) {
-				double diff = population.get(m1) - population.get(m2);
-				if (diff < 0) return -1;
-				if (diff > 0) return 1;
-				return 0;
+				return (int)(population.get(m1) - population.get(m2));
 			}
 			
 		});
@@ -46,7 +58,7 @@ public class GeneticMazeSelector {
 		return selected.subList(0, selectedSize);
 	}
 	
-	public List<Maze> crossoverGeneration(List<Maze> selected, int crossoverSize) {
+	public List<Maze> crossoverGeneration(List<Maze> selected) {
 		List<Maze> crossoverPopulation = new ArrayList<Maze>();
 		Collections.shuffle(selected);
 		
@@ -63,28 +75,31 @@ public class GeneticMazeSelector {
 		return selected;
 	}
 	
-	public List<Maze> mutateGeneration(List<Maze> selected, int mutateSize) {
+	public List<Maze> mutateGeneration(List<Maze> selected) {
 		List<Maze> mutatedPopulation = new ArrayList<Maze>();
 		Collections.shuffle(selected);
 		
 		for (int k = 0; k < mutateSize; k++) {
-			Maze maze = selected.remove(0);
-			int mazeSize = maze.getSize();
-			
 			Random random = new Random();
+			Maze maze = selected.remove(0);
 			
-			if (random.nextInt() % 2 == 0) {
-				int i = random.nextInt() % mazeSize;
-				int j = random.nextInt() % mazeSize;
-				
-				maze.addSlot(new Position(i, j));
-			} else {
-				
-			}
+			int mazeSize = maze.getSize();
+			int i = random.nextInt() % mazeSize;
+			int j = random.nextInt() % mazeSize;
+			maze.addSlot(new Position(i, j));
 			
 			mutatedPopulation.add(maze);
 		}
 		
+		selected.addAll(mutatedPopulation);
+		
 		return selected;
+	}
+	
+	public void newGeneration() {
+		List<Maze> selected = selectGenerationCandidates();
+		List<Maze> crossover = crossoverGeneration(selected);
+		List<Maze> mutated = mutateGeneration(crossover);
+		updatePopulation(mutated);
 	}
 }
