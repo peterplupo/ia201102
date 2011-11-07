@@ -47,22 +47,24 @@ public class MazeWalker {
 	}
 
 	private Vertex<Position> getNextVertex(int row, int column, State state) {
-		Vertex<Position> spot = getSpot(maze, Position.getEast(row, column));
+		Position p = new Position(row, column);
+		
+		Vertex<Position> spot = getSpot(maze, p.getEast());
 		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
 			return spot;
 		}
 			
-		spot = getSpot(maze, Position.getNorth(row, column));
+		spot = getSpot(maze, p.getNorth());
 		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
 			return spot;
 		}
 				
-		spot = getSpot(maze, Position.getSouth(row, column));
+		spot = getSpot(maze, p.getSouth());
 		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
 			return spot;
 		}
 					
-		spot = getSpot(maze, Position.getWest(row, column));
+		spot = getSpot(maze, p.getWest());
 		if (sensor.getPercept(spot) != LocationSensor.WallPercept.WALL && getState(spot) == state) {
 			return spot;
 		}
