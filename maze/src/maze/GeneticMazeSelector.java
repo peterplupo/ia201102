@@ -11,6 +11,7 @@ import model.Position;
 
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
+	private Maze selected;
 	private int selectedSize;
 	private int crossoverSize;
 	private int mutateSize;
@@ -20,6 +21,7 @@ public class GeneticMazeSelector {
 		selectedSize = (int)(populationSize * selectionRate);
 		crossoverSize = (int)(populationSize * crossoverRate);
 		mutateSize = (int)(populationSize * mutationRate);
+		selected = null;
 	}
 	
 	public GeneticMazeSelector(int populationSize) {
@@ -103,5 +105,23 @@ public class GeneticMazeSelector {
 		List<Maze> crossover = crossoverGeneration(selected);
 		List<Maze> mutated = mutateGeneration(crossover);
 		updatePopulation(mutated);
+	}
+
+	public Maze getSelectedMaze() {
+		return selected;
+	}
+
+	public boolean hasSelectedMaze() {
+		MazeFitnessFunction function = new MazeFitnessFunction();
+		selected = Collections.max(population.keySet(), new Comparator<Maze>() {
+
+			@Override
+			public int compare(Maze o1, Maze o2) {
+				return population.get(o1).compareTo(population.get(o2));
+			}
+			
+		});
+		
+		return function.eval(selected) >= 88;
 	}
 }
