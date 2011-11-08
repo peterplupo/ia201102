@@ -8,6 +8,9 @@ public class Search<K> implements SearchStrategy<K> {
 
 	private List<Vertex<K>> list;
 	private boolean complete;
+	protected K j;
+	protected K i;
+	protected Map<Vertex<K>, Vertex<K>> parent;
 
 	public Search(List<Vertex<K>> list) {
 		this.list = list;
@@ -21,10 +24,12 @@ public class Search<K> implements SearchStrategy<K> {
 	
 	@Override
 	public Map<Vertex<K>, Vertex<K>> search(Map<K, Vertex<K>> adj, K i, K j) {
+		this.j = j;
+		this.i = i;
 		Vertex<K> source = adj.get(i);
 		Vertex<K> sink = adj.get(j);
 		
-		Map<Vertex<K>, Vertex<K>> parent = new LinkedHashMap<Vertex<K>, Vertex<K>>();
+		parent = new LinkedHashMap<Vertex<K>, Vertex<K>>();
 		
 		if (source == null || sink == null)
 			return parent;
@@ -33,6 +38,7 @@ public class Search<K> implements SearchStrategy<K> {
 		
 		while (!list.isEmpty())
 		{
+			sort(list);
 			Vertex<K> v = list.get(0);
 			list.remove(0);
 			
@@ -49,5 +55,8 @@ public class Search<K> implements SearchStrategy<K> {
 		}
 		
 		return parent;
+	}
+
+	protected void sort(List<Vertex<K>> list2) {
 	}
 }

@@ -119,4 +119,15 @@ public class Maze {
 		}
 		return null;
 	}
+	
+	public Slot<Position> getEnd() {
+		Slot<Position> vertex = null;
+		for (int j = 0; j<50; j++) {
+			vertex = getSlot(new Position(49,j));
+			if (vertex != null) {
+				return vertex;
+			}
+		}
+		return null;
+	}
 }
