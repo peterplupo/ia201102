@@ -109,23 +109,12 @@ public class Maze {
 			graph.addEdge(p, p.getWest());
 	}
 
-	public Slot<Position> getBeginning() {
-		Slot<Position> vertex = null;
-		for (int j = 0; j<50; j++) {
-			vertex = getSlot(new Position(0,j));
-			if (vertex != null) {
-				return vertex;
-			}
-		}
-		return null;
-	}
-	
-	public Slot<Position> getEnd() {
-		Slot<Position> vertex = null;
-		for (int j = 0; j<50; j++) {
-			vertex = getSlot(new Position(49,j));
-			if (vertex != null) {
-				return vertex;
+	public Position getBegin() {
+		for (int j = 0; j < size; j++) {
+			Position p =new Position(0, j);
+			
+			if (containsSlot(p)) {
+				return p;
 			}
 		}
 		return null;

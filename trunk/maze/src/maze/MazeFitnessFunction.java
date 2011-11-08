@@ -13,7 +13,7 @@ public class MazeFitnessFunction implements FitnessFunction<Maze> {
 	public double eval(Maze maze) {
 		MazeWalker mazeWalker = new MazeWalker(maze);
 		if (mazeWalker.hasFinished()) {
-			return (int)round(100 * pow(E,-abs(1 - (mazeWalker.walk()/80)))); //normal curve with max on 80 steps * 40
+			return (int)round(100 * pow(E,-abs(1 - (mazeWalker.pathSize()/80)))); //normal curve with max on 80 steps * 40
 		} else {
 			return 0;
 		}
