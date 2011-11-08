@@ -119,4 +119,21 @@ public class Maze {
 		}
 		return null;
 	}
+	
+	public Position getEnd() {
+		for (int j = 0; j < size; j++) {
+			Position p =new Position(size-1, j);
+			
+			if (containsSlot(p)) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public boolean isValid() {
+		Position begin = getBegin();
+		Position end = getEnd();
+		return graph.hasPath(begin, end);
+	}
 }

@@ -59,7 +59,7 @@ public class GeneticMazeSelector {
 			
 		});
 		
-		return selected.subList(0, selectedSize);
+		return selected;//.subList(0, selectedSize);
 	}
 	
 	public List<Maze> crossoverGeneration(List<Maze> selected) {
@@ -68,14 +68,14 @@ public class GeneticMazeSelector {
 		
 		for (int i = 0; i < crossoverSize; i++) {
 			Maze parent0 = selected.remove(0);
-			Maze parent1 = selected.remove(1);
+			Maze parent1 = selected.remove(0);
 			Maze child = parent0.merge(parent1);
 			
 			crossoverPopulation.add(child);
 		}
 		
 		selected.addAll(crossoverPopulation);
-		
+		System.out.println(selected.size());
 		return selected;
 	}
 	
