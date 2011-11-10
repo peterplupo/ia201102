@@ -59,7 +59,7 @@ public class GeneticMazeSelector {
 			
 		});
 		
-		return selected;//.subList(0, selectedSize);
+		return selected.subList(0, selectedSize);
 	}
 	
 	public List<Maze> crossoverGeneration(List<Maze> selected) {
