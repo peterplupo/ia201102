@@ -25,15 +25,19 @@ public class Maze {
 		this.size = size;
 		
 		Random rand = new Random();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				if (j+1 < size && rand.nextInt() % 8 == 0)
+		for (int i = 1; i < size; i++) {
+			for (int j = 0; j < size-1; j++) {
+				if (j+1 < size && rand.nextInt(8) == 0)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
-				if (i+1 < size && rand.nextInt() % 8 == 0)
+				if (i+1 < size && rand.nextInt(8) == 0)
 					graph.addEdge(id(i, j), id(i+1, j));
 			}
 		}
+		int jBegin = rand.nextInt(size);
+		graph.addEdge(id(0, jBegin), id(1, jBegin));
+		int jEnd = rand.nextInt(size);
+		graph.addEdge(id(size-2, jEnd), id(size-1, jEnd));
 	}
 	
 	private Maze(Graph<Position> graph, int size) {
@@ -111,7 +115,7 @@ public class Maze {
 
 	public Position getBegin() {
 		for (int j = 0; j < size; j++) {
-			Position p =new Position(0, j);
+			Position p = new Position(0, j);
 			
 			if (containsSlot(p)) {
 				return p;
