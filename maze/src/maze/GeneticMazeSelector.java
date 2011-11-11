@@ -156,6 +156,9 @@ public class GeneticMazeSelector {
 			for (int i = 0; i < numberOfInstances; i++) {
 				matingPool.add(maze);
 				--populationSize;
+				if (populationSize == 0) {
+					break;
+				}
 			}
 		}
 		
