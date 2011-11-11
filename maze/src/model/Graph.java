@@ -53,46 +53,34 @@ public class Graph<K> {
 	}
 
 	public boolean hasPath(K i, K j) {
-		return hasPath(i, j, new Search<K>(new LinkedList<Vertex<K>>()));
+		return hasPath(i, j, new Search<K>(new LinkedList<K>()));
 	}
 
 	public List<K> getPath(K i, K j) {
-		return getPath(i, j, new Search<K>(new LinkedList<Vertex<K>>()));
+		return getPath(i, j, new Search<K>(new LinkedList<K>()));
 	}
 
-	public boolean hasPath(K i, K j, Search<K> strategy) {
+	public boolean hasPath(K source, K sink, Search<K> strategy) {
 		if (adj.size() == 0)
 			return false;
 
-		if (!adj.containsKey(i))
+		if (!adj.containsKey(source) || !adj.containsKey(sink))
 			return false;
 
-		if (!adj.containsKey(j))
-			return false;
-
-		if (i == j)
-			return true;
-
-		return strategy.search(adj, i, j).containsValue(adj.get(i));
+		return strategy.search(adj, source, sink).containsKey(sink);
 	}
 
-	public List<K> getPath(K i, K j, Search<K> strategy) {
-		Map<Vertex<K>, Vertex<K>> tree = strategy.search(adj, i, j);
-
+	public List<K> getPath(K source, K sink, Search<K> strategy) {
+		Map<K, K> tree = strategy.search(adj, source, sink);
 		LinkedList<K> path = new LinkedList<K>();
 
-		Vertex<K> v = adj.get(j);
-		path.add(v.getId());
-
-		if (!tree.containsValue(adj.get(i)) || !tree.containsKey(adj.get(j))) {
+		if (!tree.containsValue(source) || !tree.containsKey(sink))
 			return path;
+		
+		while (!sink.equals(source)) {
+			path.add(sink);
+			sink = tree.get(sink);
 		}
-
-		do {
-			v = tree.get(v);
-			path.add(v.getId());
-
-		} while (v.getId() != i);
 
 		Collections.reverse(path);
 
@@ -128,4 +116,31 @@ public class Graph<K> {
 		return to;
 	}
 
+	public void removeVertex(K vId) {
+		if (!adj.containsKey(vId))
+			return;
+		
+		Vertex<K> v = adj.get(vId);
+		
+		for (K wId : v.getAdjacence()) {
+			Vertex<K> w = adj.get(wId);
+			w.removeEdge(vId);
+		}
+		
+		adj.remove(vId);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for (Map.Entry<K, Vertex<K>> entry : adj.entrySet()) {
+			sb.append(entry.getKey()+"->");
+			for (K adjacence : entry.getValue().getAdjacence()) {
+				sb.append(adjacence+",");
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 }

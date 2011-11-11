@@ -22,8 +22,8 @@ public class GeneticMazeSelector {
 
 	public GeneticMazeSelector(int populationSize, int mazeSize, float eliteRate, float mutationProbability) {
 		generateRandomPopulation(populationSize, mazeSize);
-		this.populationSize = populationSize;
 		eliteSize = (int)(populationSize * eliteRate);
+		this.populationSize = populationSize;
 		this.mutationProbability = mutationProbability;
 		selected = null;
 	}
