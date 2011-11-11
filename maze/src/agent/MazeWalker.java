@@ -10,11 +10,16 @@ import model.Position;
 public class MazeWalker {
 	enum SpotState {VISITED, EXPLORED};
 	
+	//environment
 	private Maze maze;
+	
+	//internal state
 	private Position current;
 	private Stack<Position> stack;
-	private LinkedList<Position> path;
 	private LinkedHashMap<Position, SpotState> spotState;
+	
+	//performance (path size)
+	private LinkedList<Position> path;
 	
 	public MazeWalker(Maze maze) {
 		this.maze = maze;
@@ -26,6 +31,7 @@ public class MazeWalker {
 		stack.add(current);
 	}
 
+	//actuator
 	public void step() {
 		current = stack.get(0);
 		path.add(current);
@@ -50,14 +56,17 @@ public class MazeWalker {
 		}
 	}
 	
+	//sensor
 	public boolean hasFinished() {
 		return current.getColumn() == maze.getSize()-1;
 	}
 	
+	//sensor
 	public Position getFinish() {
 		return current;
 	}
 
+	//performance
 	public int pathSize() {
 		return path.size();
 	}
