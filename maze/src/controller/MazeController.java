@@ -5,7 +5,7 @@ import maze.Maze;
 
 public class MazeController {
 	public static void main(String[] args) {
-		GeneticMazeSelector selector = new GeneticMazeSelector(100, 5, 0.40f, 0.5f, 0.01f);
+		GeneticMazeSelector selector = new GeneticMazeSelector(100, 5, 0.30f, 0.01f);
 		
 		while (!selector.hasSelectedMaze()) {
 			selector.newGeneration();
