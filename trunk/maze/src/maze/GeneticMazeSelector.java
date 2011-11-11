@@ -75,6 +75,7 @@ public class GeneticMazeSelector {
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
 		List<Maze> crossoverPopulation = new ArrayList<Maze>();
 		Random random = new Random();
+		
 		while (crossoverPopulation.size() < populationSize - eliteSize) {
 			Maze parent0 = matingPool.get(random.nextInt(matingPool.size()));
 			Maze parent1 = matingPool.get(random.nextInt(matingPool.size()));
