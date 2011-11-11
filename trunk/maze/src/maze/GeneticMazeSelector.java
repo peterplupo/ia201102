@@ -7,21 +7,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
-import model.FitnessFunction;
 import model.Position;
 
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
 	private Maze selected;
 	private int eliteSize;
-	private float mutationRate;
+	private float mutationProbability;
 	private int populationSize;
 
-	public GeneticMazeSelector(int populationSize, int mazeSize, float eliteRate, float mutationRate) {
+	public GeneticMazeSelector(int populationSize, int mazeSize, float eliteRate, float mutationProbability) {
 		generateRandomPopulation(populationSize, mazeSize);
 		this.populationSize = populationSize;
 		eliteSize = (int)(populationSize * eliteRate);
-		this.mutationRate = mutationRate;
+		this.mutationProbability = mutationProbability;
 		selected = null;
 	}
 	
@@ -67,19 +66,37 @@ public class GeneticMazeSelector {
 	public List<Maze> crossoverGeneration(List<Maze> matingPool) {
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
 		List<Maze> crossoverPopulation = new ArrayList<Maze>();
-		Collections.shuffle(matingPool);
-		int i = 0;
+		Random random = new Random();
 		while (crossoverPopulation.size() < populationSize - eliteSize) {
-			Maze parent0 = matingPool.get(i % matingPool.size());
-			Maze parent1 = matingPool.get((i+1) % matingPool.size());
+			Maze parent0 = matingPool.get(random.nextInt(matingPool.size()));
+			Maze parent1 = matingPool.get(random.nextInt(matingPool.size()));
+			
 			Maze child = parent0.merge(parent1);
+			
+			mutation(child);
+			
 			if (fitness.eval(child) > 0) {
 				crossoverPopulation.add(child);
-				i++;
 			}
 		}
 		
 		return crossoverPopulation;
+	}
+	
+	public void mutation(Maze maze) {
+		Random random = new Random();
+		
+		for (int i = 0; i < maze.getSize(); ++i) {
+			if (random.nextFloat() < mutationProbability) {
+				int j = random.nextInt(maze.getSize());
+				Slot<Position> slot = maze.getSlot(maze.id(i, j));
+				if (slot == null) {
+					maze.addSlot(new Position(i, j));
+				} else {
+					// a ser implementado: maze.removeSlot(new Position(i, j));
+				}
+			}
+		}
 	}
 	
 	public List<Maze> mutateGeneration(List<Maze> selected) {
