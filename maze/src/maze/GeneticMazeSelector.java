@@ -99,39 +99,39 @@ public class GeneticMazeSelector {
 		}
 	}
 	
-	public List<Maze> mutateGeneration(List<Maze> selected) {
-		List<Maze> mutatedPopulation = new ArrayList<Maze>();
-		Collections.shuffle(selected);
-		
-		for (int k = 0; k < mutateSize; k++) {
-			Random random = new Random();
-			Maze maze = selected.remove(0);
-			
-			int mazeSize = maze.getSize();
-			int i = random.nextInt() % mazeSize;
-			int j = random.nextInt() % mazeSize;
-			maze.addSlot(new Position(i, j));
-			
-			mutatedPopulation.add(maze);
-		}
-		
-		selected.addAll(mutatedPopulation);
-		
-		return selected;
-	}
-	
 	public void newGeneration() {
-		List<Maze> elite = getElite();
-		List<Maze> matingPool = getMatingPool();
-		
 		startNewPopulation();
+		
+		List<Maze> elite = getElite();
 		updatePopulation(elite);
+		
+		List<Maze> matingPool = getMatingPool();
 		List<Maze> crossover = crossoverGeneration(matingPool);
-		List<Maze> mutated = mutateGeneration(crossover);
-		updatePopulation(mutated);
+		
+		updatePopulation(crossover);
 	}
 
 	private List<Maze> getMatingPool() {
+		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
+		Collections.sort(sortedByFitness, new Comparator<Maze>() {
+
+			@Override
+			public int compare(Maze o1, Maze o2) {
+				return population.get(o1).compareTo(population.get(o2));
+			}
+		});
+		
+		List<Maze> matingPool = new ArrayList<Maze>();
+		
+		double fitnessSum = 0.0;
+		for (double fitness : population.values()) {
+			fitnessSum += fitness;
+		}
+		
+		for (Maze maze : sortedByFitness) {
+			double numberOfInstances = population.get(maze) / fitnessSum;
+		}
+		
 		return null;
 	}
 
