@@ -23,7 +23,6 @@ public class MazeWalker {
 		this.spotState = new LinkedHashMap<Position, SpotState>();
 		
 		current = maze.getBegin();
-		System.out.println(current);
 		stack.add(current);
 	}
 

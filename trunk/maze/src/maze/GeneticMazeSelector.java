@@ -12,15 +12,15 @@ import model.Position;
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
 	private Maze selected;
-	private int selectedSize;
-	private int crossoverSize;
-	private int mutateSize;
+	private int eliteSize;
+	private float mutationRate;
+	private int populationSize;
 
-	public GeneticMazeSelector(int populationSize, int mazeSize, float selectionRate, float crossoverRate, float mutationRate) {
+	public GeneticMazeSelector(int populationSize, int mazeSize, float eliteRate, float mutationRate) {
 		generateRandomPopulation(populationSize, mazeSize);
-		selectedSize = (int)(populationSize * selectionRate);
-		crossoverSize = (int)(populationSize * crossoverRate);
-		mutateSize = (int)(populationSize * mutationRate);
+		this.populationSize = populationSize;
+		eliteSize = (int)(populationSize * eliteRate);
+		this.mutationRate = mutationRate;
 		selected = null;
 	}
 	
@@ -40,14 +40,16 @@ public class GeneticMazeSelector {
 	
 	public void updatePopulation(List<Maze> generation) {
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
-		population = new LinkedHashMap<Maze, Double>();
-		
 		for (Maze maze : generation) {
 			population.put(maze, fitness.eval(maze));
 		}
 	}
 	
-	public List<Maze> selectGenerationCandidates() {
+	private void startNewPopulation() {
+		population = new LinkedHashMap<Maze, Double>();
+	}
+	
+	public List<Maze> getElite() {
 		List<Maze> selected = new ArrayList<Maze>(population.keySet());
 		
 		Collections.sort(selected, new Comparator<Maze>() {
@@ -58,24 +60,22 @@ public class GeneticMazeSelector {
 			}
 			
 		});
-		
-		return selected.subList(0, selectedSize);
+		return selected.subList(0, eliteSize);
 	}
 	
 	public List<Maze> crossoverGeneration(List<Maze> selected) {
 		List<Maze> crossoverPopulation = new ArrayList<Maze>();
 		Collections.shuffle(selected);
 		
-		for (int i = 0; i < crossoverSize; i++) {
-			Maze parent0 = selected.remove(0);
-			Maze parent1 = selected.remove(0);
+		for (int i = 0; i < populationSize; i++) {
+			Maze parent0 = selected.get(0);
+			Maze parent1 = selected.get(0);
 			Maze child = parent0.merge(parent1);
 			
 			crossoverPopulation.add(child);
 		}
 		
 		selected.addAll(crossoverPopulation);
-		System.out.println(selected.size());
 		return selected;
 	}
 	
@@ -101,7 +101,9 @@ public class GeneticMazeSelector {
 	}
 	
 	public void newGeneration() {
-		List<Maze> selected = selectGenerationCandidates();
+		startNewPopulation();
+		List<Maze> elite = getElite();
+		updatePopulation(elite);
 		List<Maze> crossover = crossoverGeneration(selected);
 		List<Maze> mutated = mutateGeneration(crossover);
 		updatePopulation(mutated);
