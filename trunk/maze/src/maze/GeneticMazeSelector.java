@@ -9,12 +9,16 @@ import java.util.Random;
 
 import model.Position;
 
+import org.apache.log4j.Logger;
+
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
 	private Maze selected;
 	private int eliteSize;
 	private float mutationProbability;
 	private int populationSize;
+	
+	private static Logger logger = Logger.getLogger(GeneticMazeSelector.class);
 
 	public GeneticMazeSelector(int populationSize, int mazeSize, float eliteRate, float mutationProbability) {
 		generateRandomPopulation(populationSize, mazeSize);
@@ -29,6 +33,9 @@ public class GeneticMazeSelector {
 	}
 	
 	public void generateRandomPopulation(int populationSize, int mazeSize) {
+		logger.info("Generating " + populationSize + "square mazes of side " + mazeSize + "." );
+		
+		//Fitness evaluation
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
 		population = new LinkedHashMap<Maze, Double>();
 		
@@ -36,6 +43,7 @@ public class GeneticMazeSelector {
 			Maze maze = new Maze(mazeSize);
 			population.put(maze, fitness.eval(maze));
 		}
+		logger.info("Initial mazes generated and added to the population.");
 	}
 	
 	public void updatePopulation(List<Maze> generation) {
@@ -100,14 +108,24 @@ public class GeneticMazeSelector {
 	}
 	
 	public void newGeneration() {
+		logger.info("Generating a new generation");
+		
+		logger.info("\t getting the elite group.");
+		List<Maze> elite = getElite();
+		
+		logger.info("\t getting the mating pool.");
+		List<Maze> matingPool = getMatingPool();
+		
+		logger.info("\t wiping the current population and starting a new one.");
 		startNewPopulation();
 		
-		List<Maze> elite = getElite();
+		logger.info("\t adding the elite group");
 		updatePopulation(elite);
 		
-		List<Maze> matingPool = getMatingPool();
+		logger.info("\t crossing over, mutating and generating new children from mating pool.");
 		List<Maze> crossover = crossoverGeneration(matingPool);
 		
+		logger.info("\t adding new children to the next generation.");
 		updatePopulation(crossover);
 	}
 
@@ -141,6 +159,9 @@ public class GeneticMazeSelector {
 
 	public boolean hasSelectedMaze() {
 		MazeFitnessFunction function = new MazeFitnessFunction();
+		
+		logger.info("Checking if the highest evaluated maze complies with the 70-90 steps constraint.");
+		
 		selected = Collections.max(population.keySet(), new Comparator<Maze>() {
 
 			@Override
@@ -150,6 +171,7 @@ public class GeneticMazeSelector {
 			
 		});
 		
+		//higher than 88 means the agent has completed it between 70 and 90 steps.
 		return function.eval(selected) >= 88;
 	}
 }
