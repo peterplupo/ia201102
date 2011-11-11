@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
 
+import model.FitnessFunction;
 import model.Position;
 
 public class GeneticMazeSelector {
@@ -63,20 +64,22 @@ public class GeneticMazeSelector {
 		return selected.subList(0, eliteSize);
 	}
 	
-	public List<Maze> crossoverGeneration(List<Maze> selected) {
+	public List<Maze> crossoverGeneration(List<Maze> matingPool) {
+		MazeFitnessFunction fitness = new MazeFitnessFunction();
 		List<Maze> crossoverPopulation = new ArrayList<Maze>();
-		Collections.shuffle(selected);
-		
-		for (int i = 0; i < populationSize; i++) {
-			Maze parent0 = selected.get(0);
-			Maze parent1 = selected.get(0);
+		Collections.shuffle(matingPool);
+		int i = 0;
+		while (crossoverPopulation.size() < populationSize - eliteSize) {
+			Maze parent0 = matingPool.get(i % matingPool.size());
+			Maze parent1 = matingPool.get((i+1) % matingPool.size());
 			Maze child = parent0.merge(parent1);
-			
-			crossoverPopulation.add(child);
+			if (fitness.eval(child) > 0) {
+				crossoverPopulation.add(child);
+				i++;
+			}
 		}
 		
-		selected.addAll(crossoverPopulation);
-		return selected;
+		return crossoverPopulation;
 	}
 	
 	public List<Maze> mutateGeneration(List<Maze> selected) {
@@ -101,12 +104,18 @@ public class GeneticMazeSelector {
 	}
 	
 	public void newGeneration() {
-		startNewPopulation();
 		List<Maze> elite = getElite();
+		List<Maze> matingPool = getMatingPool();
+		
+		startNewPopulation();
 		updatePopulation(elite);
-		List<Maze> crossover = crossoverGeneration(selected);
+		List<Maze> crossover = crossoverGeneration(matingPool);
 		List<Maze> mutated = mutateGeneration(crossover);
 		updatePopulation(mutated);
+	}
+
+	private List<Maze> getMatingPool() {
+		return null;
 	}
 
 	public Maze getSelectedMaze() {

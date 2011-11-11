@@ -25,8 +25,8 @@ public class Maze {
 		this.size = size;
 		
 		Random rand = new Random();
-		for (int i = 1; i < size; i++) {
-			for (int j = 0; j < size-1; j++) {
+		for (int i = 1; i < size - 1; i++) {
+			for (int j = 0; j < size; j++) {
 				if (j+1 < size && rand.nextInt(8) == 0)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
