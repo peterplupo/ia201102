@@ -131,6 +131,11 @@ public class GeneticMazeSelector {
 	}
 
 	private List<Maze> getMatingPool() {
+		double fitnessSum = 0.0;
+		for (double fitness : population.values()) {
+			fitnessSum += fitness;
+		}
+		
 		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
 		Collections.sort(sortedByFitness, new Comparator<Maze>() {
 
@@ -139,19 +144,22 @@ public class GeneticMazeSelector {
 				return population.get(o1).compareTo(population.get(o2));
 			}
 		});
-		
 		List<Maze> matingPool = new ArrayList<Maze>();
-		
-		double fitnessSum = 0.0;
-		for (double fitness : population.values()) {
-			fitnessSum += fitness;
-		}
-		
+		int populationSize = population.size();
 		for (Maze maze : sortedByFitness) {
-			double numberOfInstances = population.get(maze) / fitnessSum;
+			if (populationSize <= 0) {
+				break;
+			}
+			
+			int numberOfInstances = (int) (population.get(maze) / fitnessSum) * population.size();
+			
+			for (int i = 0; i < numberOfInstances; i++) {
+				matingPool.add(maze);
+				--populationSize;
+			}
 		}
 		
-		return null;
+		return matingPool;
 	}
 
 	public Maze getSelectedMaze() {
