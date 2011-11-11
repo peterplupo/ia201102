@@ -33,6 +33,16 @@ public class Position {
 		return j;
 	}
 	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("(");
+		sb.append(i);
+		sb.append(",");
+		sb.append(j);
+		sb.append(")");
+		return sb.toString();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

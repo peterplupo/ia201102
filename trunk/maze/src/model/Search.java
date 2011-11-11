@@ -1,60 +1,52 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Search<K> implements SearchStrategy<K> {
+	enum VertexState {VISITED, EXPLORED};
+	private Map<K, VertexState> state;
+	private Map<K, K> parent;
+	private Set<K> list;
+//	private boolean complete;
 
-	private List<Vertex<K>> list;
-	private boolean complete;
-	protected K j;
-	protected K i;
-	protected Map<Vertex<K>, Vertex<K>> parent;
-
-	public Search(List<Vertex<K>> list) {
-		this.list = list;
-		this.complete = false;
+	public Search(List<K> list) {
+		//this.list = list;
+//		this.complete = false;
+		this.parent = new LinkedHashMap<K, K>();
 	}
 	
-	public Search(List<Vertex<K>> list, boolean complete) {
-		this.list = list;
-		this.complete = complete;
+	public Search(List<K> list, boolean complete) {
+		//this.list = list;
+//		this.complete = complete;
+		this.parent = new LinkedHashMap<K, K>();
 	}
 	
 	@Override
-	public Map<Vertex<K>, Vertex<K>> search(Map<K, Vertex<K>> adj, K i, K j) {
-		this.j = j;
-		this.i = i;
-		Vertex<K> source = adj.get(i);
-		Vertex<K> sink = adj.get(j);
+	public Map<K, K> search(Map<K, Vertex<K>> adj, K i, K j) {
+		List<K> list = new ArrayList<K>();
 		
-		parent = new LinkedHashMap<Vertex<K>, Vertex<K>>();
+		list.add(i);
+		parent.clear();
+		parent.put(i, i);
 		
-		if (source == null || sink == null)
-			return parent;
-				
-		list.add(source);
-		
-		while (!list.isEmpty())
-		{
-			sort(list);
-			Vertex<K> v = list.get(0);
-			list.remove(0);
+		while (!list.isEmpty()) {
+			K v = list.remove(0);
 			
-			for (K w : v.getAdjacence()) {
-				if (! parent.containsKey(w)) {
-					parent.put(adj.get(w), v);
-					
-					if (!complete && w == sink.getId())
-						return parent;
-					
-					list.add(adj.get(w));
+			for (K w : adj.get(v).getAdjacence()) {
+				if (!parent.containsKey(w)) {
+					parent.put(w, v);
+					list.add(w);
 				}
 			}
 		}
 		
 		return parent;
+		
 	}
 
 	protected void sort(List<Vertex<K>> list2) {

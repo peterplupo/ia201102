@@ -12,10 +12,11 @@ public class MazeFitnessFunction implements FitnessFunction<Maze> {
 	@Override
 	public double eval(Maze maze) {
 		MazeWalker mazeWalker = new MazeWalker(maze);
+		
 		if (mazeWalker.hasFinished()) {
-			return (int)round(100 * pow(E,-abs(1 - (mazeWalker.pathSize()/80)))); //normal curve with max on 80 steps * 40
-		} else {
-			return 0;
+			return (int)round(100 * pow(E,-abs(1 - (mazeWalker.pathSize()/80)))); //gaussian curve with max on 80 steps * 40
 		}
+		
+		return 0;
 	}
 }
