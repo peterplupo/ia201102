@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 public class Position {
 	static LinkedHashMap<Integer, LinkedHashMap<Integer, Position>> instances;
 	
-	int i;
-	int j;
+	final int row;
+	final int column;
 	
 	public static Position get(int i, int j) {
 		if (instances == null)
@@ -33,40 +33,40 @@ public class Position {
 	}
 	
 	private Position(int i, int j) {
-		this.i = i;
-		this.j = j;
+		this.row = i;
+		this.column = j;
 	}
 	
 	public Position getNorth() {
-		return new Position(this.i-1, this.j);
+		return get(this.row-1, this.column);
 	}
 	
 	public Position getSouth() {
-		return new Position(this.i+1, this.j);
+		return get(this.row+1, this.column);
 	}
 	
 	public Position getEast() {
-		return new Position(this.i, this.j+1);
+		return get(this.row, this.column+1);
 	}
 	
 	public Position getWest() {
-		return new Position(this.i, this.j-1);
+		return get(this.row, this.column-1);
 	}
 	
 	public int getColumn() {
-		return j;
+		return column;
 	}
 	
 	public int getRow() {
-		return i;
+		return row;
 	}
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("(");
-		sb.append(i);
+		sb.append(row);
 		sb.append(",");
-		sb.append(j);
+		sb.append(column);
 		sb.append(")");
 		return sb.toString();
 	}
@@ -75,8 +75,8 @@ public class Position {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + i;
-		result = prime * result + j;
+		result = prime * result + row;
+		result = prime * result + column;
 		return result;
 	}
 
@@ -89,9 +89,9 @@ public class Position {
 		if (getClass() != obj.getClass())
 			return false;
 		Position other = (Position) obj;
-		if (i != other.i)
+		if (row != other.row)
 			return false;
-		if (j != other.j)
+		if (column != other.column)
 			return false;
 		return true;
 	}
