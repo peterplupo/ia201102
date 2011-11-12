@@ -8,8 +8,8 @@ import java.util.Map;
 public class Search<K> implements SearchStrategy<K> {
 	enum VertexState {VISITED, EXPLORED};
 	protected Map<K, K> parent;
-	protected K i;
-	protected K j;
+	protected K source;
+	protected K sink;
 
 	public Search(List<K> list) {
 		this.parent = new LinkedHashMap<K, K>();
@@ -20,16 +20,16 @@ public class Search<K> implements SearchStrategy<K> {
 	}
 	
 	@Override
-	public Map<K, K> search(Map<K, Vertex<K>> adj, K i, K j) {
+	public Map<K, K> search(Map<K, Vertex<K>> adj, K source, K sink) {
 		List<K> list = new ArrayList<K>();
-		this.i = i;
-		this.j = j;
+		this.source = source;
+		this.sink = sink;
 		
 		sort(list);
 		
-		list.add(i);
+		list.add(source);
 		parent.clear();
-		parent.put(i, i);
+		parent.put(source, source);
 		
 		while (!list.isEmpty()) {
 			K v = list.remove(0);

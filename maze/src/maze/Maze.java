@@ -58,7 +58,6 @@ public class Maze {
 				Position end = new Position(j2, size-1);
 				
 				if (graph.hasPath(begin, end)) {
-					System.out.println(Arrays.toString(graph.getPath(begin, end).toArray()));
 					this.valid = true;
 					this.begin = begin;
 					this.end = end;
