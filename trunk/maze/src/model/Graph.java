@@ -123,7 +123,7 @@ public class Graph<K> {
 		
 		Vertex<K> v = adj.get(vId);
 		
-		for (K wId : v.getAdjacence()) {
+		for (K wId : v.getAdjacency()) {
 			Vertex<K> w = adj.get(wId);
 			w.removeEdge(vId);
 		}
@@ -137,7 +137,7 @@ public class Graph<K> {
 		
 		for (Map.Entry<K, Vertex<K>> entry : adj.entrySet()) {
 			sb.append(entry.getKey()+"->");
-			for (K adjacence : entry.getValue().getAdjacence()) {
+			for (K adjacence : entry.getValue().getAdjacency()) {
 				sb.append(adjacence+",");
 			}
 			sb.append("\n");
