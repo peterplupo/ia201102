@@ -63,7 +63,7 @@ public class MazeWalker {
 
 			@Override
 			public int compare(Position p1, Position p2) {
-				return p1.getRow() - p2.getRow() + p1.getColumn() - p2.getColumn();
+				return p1.getColumn() - p2.getColumn() + p1.getRow() - p2.getRow();
 			}
 		});
 		
