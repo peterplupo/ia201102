@@ -40,7 +40,7 @@ public class Maze {
 		for (int i = 1; i < size-1; i++) {
 			for (int j = 1; j < size-1; j++) {
 				// edges that go forward
-				if (j+1 < size-1 && random.nextInt(4) == 0)
+				if (j+1 < size-1 && random.nextInt(1) == 0)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
 				// edges that go downward

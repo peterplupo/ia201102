@@ -47,7 +47,12 @@ public class GeneticMazeSelector {
 					population.put(maze, fitness.eval(maze));
 					++i;
 				}
+				
+				if (i % 50 == 0) {
+					System.gc();
+				}
 			}
+			System.gc();
 		}
 		
 		logger.info("Initial mazes generated and added to the population.");
@@ -142,7 +147,7 @@ public class GeneticMazeSelector {
 		for (double fitness : population.values()) {
 			fitnessSum += fitness;
 		}
-		
+		System.out.println("FITNESS "+fitnessSum);
 		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
 		Collections.sort(sortedByFitness, new Comparator<Maze>() {
 
@@ -190,7 +195,7 @@ public class GeneticMazeSelector {
 			
 		});
 		
-		//higher than 88 means the agent has completed it between 70 and 90 steps.
-		return function.eval(selected) >= 88;
+		//higher than 82 means the agent has completed it between 70 and 90 steps.
+		return function.eval(selected) >= 82;
 	}
 }
