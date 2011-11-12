@@ -11,7 +11,6 @@ public class MazeWorm implements Runnable {
 	
 	private static Logger logger = Logger.getLogger(MazeWorm.class);
 	
-	private static Integer swarmSize = 0;
 	private static double populationChange = 0.5;
 	private static Random rand = new Random();
 	private static double horizontalProbability = 0.7;
@@ -21,6 +20,8 @@ public class MazeWorm implements Runnable {
 	private static int crossLimit = 3;
 	private static MazeCreationListener listener;
 	private static long swarmAverage = 3;
+	
+	private static Integer swarmSize = 0;
 	private static Position ending;
 	
 	public static void setUp(double populationChange, double horizontalProbability, double forwardProbability,
@@ -34,6 +35,8 @@ public class MazeWorm implements Runnable {
 		MazeWorm.maze = maze;
 		MazeWorm.crossLimit = crossLimit;
 		MazeWorm.listener = listener;
+		MazeWorm.swarmSize = 0;
+		MazeWorm.ending = null;
 		logger.debug("Swarm average is " + swarmAverage + ".");
 	}
 
@@ -62,7 +65,8 @@ public class MazeWorm implements Runnable {
 				return current.getWest();
 			}
 		} else {
-			if ((direction > northProbability && current.getRow() != 1) || (direction < northProbability && current.getRow() != maze.getSize()-2)) {
+			//vertical
+			if ((direction < northProbability && current.getRow() >= 1) || (direction < northProbability && current.getRow() <= maze.getSize()-2)) {
 				return current.getNorth();
 			} else {
 				return current.getSouth();
@@ -127,7 +131,9 @@ public class MazeWorm implements Runnable {
 		if (swarmSize == 0) {
 			logger.debug("Maze is done.");
 			listener.notifyMazeFinished(ending);
-			listener.notifyAll();
+			synchronized (listener) {
+				listener.notify();
+			}
 		}
 	}
 	

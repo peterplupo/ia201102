@@ -52,10 +52,13 @@ public class Maze implements MazeCreationListener {
 		MazeWorm.setUp(0.5, 0.7, 0.4, 0.5, this, 3, this);
 		MazeWorm.startWorm(beginning);
 		try {
-			Thread.currentThread().wait();
+			synchronized(this) {
+				wait();
+			}
 		} catch (InterruptedException e) {
 			logger.error("Error waiting for maze creation notification.", e);
 		}
+		
 		validate();
 	}
 	
@@ -78,13 +81,9 @@ public class Maze implements MazeCreationListener {
 	}
 	
 	public void validate() {
-		validate(new Search<Position>());
-	}
-	
-	public void validate(SearchStrategy<Position> strategy) {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.ending, strategy) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
+		if (graph.hasPath(this.beginning, this.ending, new Search<Position>()) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
 			this.valid = true;
 		}
 	}
