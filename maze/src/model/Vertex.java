@@ -37,7 +37,7 @@ public class Vertex<K> implements Slot<K> {
 		adj.clear();
 	}
 	
-	public Set<K> getAdjacence() {
+	public Set<K> getAdjacency() {
 		return adj;
 	}
 

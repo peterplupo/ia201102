@@ -1,18 +1,19 @@
 package agent;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 
 import maze.Maze;
+import maze.Slot;
 import model.Position;
 
 public class MazeWalker {
-	private static enum SpotState {VISITED, EXPLORED};
+	private static MazeWalker instance;
 	
 	//environment
 	private Maze maze;
@@ -20,20 +21,37 @@ public class MazeWalker {
 	//internal state
 	private Position current;
 	private Stack<Position> stack;
-	private LinkedHashMap<Position, SpotState> spotState;
+	private Set<Position> visitedSlots;
 	
 	//performance (path size)
-	private LinkedList<Position> path;
+	private List<Position> path;
+	
+	public static MazeWalker getInstance(Maze maze) {
+		if (instance == null) {
+			return new MazeWalker(maze);
+		}
+		instance.adjustStructures(maze);
+		return instance;
+	}
 	
 	public MazeWalker(Maze maze) {
 		this.maze = maze;
 		this.stack = new Stack<Position>();
 		this.path = new LinkedList<Position>();
-		this.spotState = new LinkedHashMap<Position, SpotState>();
+		this.visitedSlots = new LinkedHashSet<Position>();
 		
 		current = maze.getBeginning();
 		stack.push(current);
-		walk();
+	}
+	
+	private void adjustStructures(Maze maze) {
+		this.maze = maze;
+		
+		path.clear();
+		visitedSlots.clear();
+		stack.clear();
+		current = maze.getBeginning();
+		stack.push(current);
 	}
 
 	//actuator
@@ -41,41 +59,67 @@ public class MazeWalker {
 		current = stack.peek();
 		path.add(current);
 		
-		if (!spotState.containsKey(current)) {
-			spotState.put(current, SpotState.VISITED);
+		if (!visitedSlots.contains(current)) {
+			visitedSlots.add(current);
 		}
 			
-		List<Position> adjacence = sortPositions(new ArrayList<Position>(maze.getSlot(current).getAdjacence()));
+		List<Position> adjacency = sortPositions();
 		
-		int notVisited = 0;
-		for (Position adjacent : adjacence) {
-			if (!spotState.containsKey(adjacent)) {
+		boolean notVisited = false;
+		for (Position adjacent : adjacency) {
+			if (!visitedSlots.contains(adjacent)) {
 				stack.push(adjacent);
-				++notVisited;
+				notVisited = true;
 				break;
 			}
 		}
-		if (notVisited == 0) {
-			spotState.put(current, SpotState.EXPLORED);
+		if (notVisited) {
 			stack.pop();
 		}
 	}
 	
-	private List<Position> sortPositions(List<Position> adjacence) {
-		Collections.sort(adjacence, new Comparator<Position>() {
-
-			@Override
-			public int compare(Position p1, Position p2) {
-				return 2*(p1.getColumn() - p2.getColumn()) + p1.getRow() - p2.getRow();
-			}
-		});
+	private List<Position> sortPositions() {
+		Slot<Position> slot = maze.getSlot(current);
+		List<Position> adjacency = new ArrayList<Position>();
 		
-		return adjacence;
+		if (slot != null) {
+			if (slot.getAdjacency().contains(current.getWest())) {
+				adjacency.add(current.getWest());
+			}
+			boolean north = slot.getAdjacency().contains(current.getNorth());
+			boolean south = slot.getAdjacency().contains(current.getSouth());
+			if (north && south) {
+				
+				Random random = new Random();
+				if (random.nextInt(2) == 0) {
+					adjacency.add(current.getNorth());
+					adjacency.add(current.getSouth());
+				} else {
+					adjacency.add(current.getSouth());
+					adjacency.add(current.getNorth());
+				}
+			} else if (north) {
+				adjacency.add(current.getNorth());
+			} else if (south) {
+				adjacency.add(current.getSouth());
+			}
+			
+			if (slot.getAdjacency().contains(current.getEast())) {
+				adjacency.add(current.getEast());
+			}
+		}
+		
+		return adjacency;
 	}
 
 	public void walk() {
+		int i = 0;
 		while (!stack.empty() && current.getColumn() != maze.getSize()-1) {
 			step();
+			++i;
+			if (i >= 30) {
+				break;
+			}
 		}
 	}
 	
@@ -94,7 +138,7 @@ public class MazeWalker {
 		return path.size();
 	}
 	
-	public LinkedList<Position> getPath() {
+	public List<Position> getPath() {
 		return path;
 	}
 }

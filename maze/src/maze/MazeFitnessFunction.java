@@ -1,6 +1,6 @@
 package maze;
 
-import static java.lang.Math.E;
+import static java.lang.Math.exp;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 import model.FitnessFunction;
@@ -10,14 +10,14 @@ public class MazeFitnessFunction implements FitnessFunction<Maze> {
 
 	@Override
 	public double eval(Maze maze) {
-		MazeWalker mazeWalker = new MazeWalker(maze);
+		MazeWalker mazeWalker = MazeWalker.getInstance(maze);
+		mazeWalker.walk();
+		System.out.println("MazeWalker: PATH "+ mazeWalker.getPath());
+//		if (mazeWalker.hasFinished()) {
+//			// gaussian curve with max on 80 steps ~= 100 points, 70 (or 90) steps ~= 82
+//			return 173.2/sqrt(3)*exp(-pow(mazeWalker.pathSize()-80,2)/512); 
+//		}
 		
-		/*if (mazeWalker.hasFinished())*/ {
-//			return round(100 * pow(E,-abs(1 - (mazeWalker.pathSize()/80))));
-			System.out.println("PATH "+mazeWalker.getPath());
-			return 173.2*pow(E,-pow(mazeWalker.pathSize()-80,2)/512)/sqrt(3); //gaussian curve with max on 80 steps ~= 100 points, 70 (or 90) steps ~= 82
-		}
-		
-		//return 0;
+		return 173.2/sqrt(3)*exp(-pow(mazeWalker.pathSize()-20,2)/512);//return 0.0;
 	}
 }

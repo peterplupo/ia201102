@@ -53,13 +53,15 @@ public class GeneticMazeSelector {
 					discarded++;
 				}
 				
-				if (discarded % 500 == 0) {
-					logger.info("\tDiscarded so far: " + discarded + ".");
-					logger.info("\tGenerated so far: " + i + ".");
+				if (discarded % 1000 == 0) {
 					System.gc();
 				}
 			}
 			System.gc();
+			
+			for (Maze maze : population.keySet()) System.out.println(maze);
+			for (double fitnessv : population.values()) System.out.println(fitnessv);
+			System.out.println("DISCARDED: "+discarded);
 		}
 		
 		logger.info("Initial mazes generated and added to the population.");
