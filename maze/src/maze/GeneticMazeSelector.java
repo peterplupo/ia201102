@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import model.Position;
+import static model.Position.*;
 
 import org.apache.log4j.Logger;
 
@@ -115,9 +116,9 @@ public class GeneticMazeSelector {
 		for (int i = 0; i < maze.getSize(); ++i) {
 			if (random.nextFloat() < mutationProbability) {
 				int j = random.nextInt(maze.getSize());
-				Slot<Position> slot = maze.getSlot(maze.id(i, j));
+				Slot<Position> slot = maze.getSlot(get(i, j));
 				if (slot == null) {
-					maze.addSlot(new Position(i, j));
+					maze.addSlot(get(i, j));
 				} else {
 					// TODO: maze.removeSlot(new Position(i, j));
 				}

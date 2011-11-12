@@ -1,10 +1,34 @@
 package model;
 
+import java.util.LinkedHashMap;
+
 public class Position {
+	static LinkedHashMap<Integer, LinkedHashMap<Integer, Position>> instances;
+	
 	int i;
 	int j;
 	
-	public Position(int i, int j) {
+	public static Position get(int i, int j) {
+		if (instances == null)
+			instances = new LinkedHashMap<Integer, LinkedHashMap<Integer, Position>>();
+		
+		LinkedHashMap<Integer, Position> line = null;
+		Position position = null;
+		
+		if (!instances.containsKey(i)) {
+			line = new LinkedHashMap<Integer, Position>();
+			instances.put(i, line);
+		}
+		
+		if (!line.containsKey(j)) {
+			position = new Position(i, j);
+			line.put(j, position);
+		}
+		
+		return position;
+	}
+	
+	private Position(int i, int j) {
 		this.i = i;
 		this.j = j;
 	}

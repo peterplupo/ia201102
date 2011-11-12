@@ -7,6 +7,7 @@ import java.util.Random;
 
 import model.Graph;
 import model.Position;
+import static model.Position.*;
 import model.Search;
 import model.SearchStrategy;
 
@@ -31,10 +32,6 @@ public class Maze {
 		validate();
 	}
 	
-	public Position id(int i, int j) {
-		return new Position(i, j);
-	}
-	
 	public Slot<Position> getSlot(Position position) {
 		return graph.getVertex(position);
 	}
@@ -46,22 +43,22 @@ public class Maze {
 				// edges that go forward
 				boolean forward = random.nextInt(2) == 0;
 				if (j+1 < size-1 && forward)
-					graph.addEdge(id(i, j), id(i, j+1));
+					graph.addEdge(get(i, j), get(i, j+1));
 				
 				// edges that go downward
 				if (i+1 < size-1 && (!forward || random.nextInt(8) == 0))
-					graph.addEdge(id(i, j), id(i+1, j));
+					graph.addEdge(get(i, j), get(i+1, j));
 			}
 		}
 		
 		int row = random.nextInt(size-1);
 		
-		graph.addEdge(id(row, 0), id(row, 1));
-		this.beginning = new Position(row, 0);
+		graph.addEdge(get(row, 0), get(row, 1));
+		this.beginning = get(row, 0);
 		
 		row = random.nextInt(size-1);
-		graph.addEdge(id(row, size-2), id(row, size-1));
-		this.end = new Position(row, size-1);
+		graph.addEdge(get(row, size-2), get(row, size-1));
+		this.end = get(row, size-1);
 	}
 	
 	public void addSlot(Position p) {
@@ -148,7 +145,7 @@ public class Maze {
 			builder.append(paddedNumber +  " ");
 			columns.append(" " + paddedNumber);
 			for (int j = 0; j < size; j++) {
-				if (graph.hasVertex(id(i, j))) {
+				if (graph.hasVertex(get(i, j))) {
 					builder.append('.');
 				}
 				else {
