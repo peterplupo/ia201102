@@ -4,8 +4,6 @@ import junit.framework.TestCase;
 import model.Graph;
 import model.Position;
 
-import org.junit.Test;
-
 public class TestMaze extends TestCase {
 
 	private Maze maze;
@@ -18,7 +16,9 @@ public class TestMaze extends TestCase {
 	protected void setUp() throws Exception {
 		Graph<Position> graph = new Graph<Position>();
 		this.maze = new Maze(graph, 5);
-		
+	}
+	
+	public void testCustomMaze1() {
 		maze.addSlot(id(0,2));
 		maze.addSlot(id(1,2));
 		maze.addSlot(id(1,3));
@@ -34,10 +34,7 @@ public class TestMaze extends TestCase {
 		maze.addSlot(id(4,0));
 		maze.addSlot(id(4,4));
 		maze.validate();
-	}
-	
-	@Test
-	public void testPrint() {
 		System.out.println(maze);
+		assertTrue(maze.isValid());
 	}
 }

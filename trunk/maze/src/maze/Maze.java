@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import model.AStarSearch;
 import model.Graph;
 import model.Position;
 import model.Search;
+import model.SearchStrategy;
 
 public class Maze {
 	private Graph<Position> graph;
@@ -16,9 +16,21 @@ public class Maze {
 	private boolean valid;
 	private Position beginning;
 	private Position end;
-	private Search<Position> search;
-	private AStarSearch aStarSearch;
 
+	public Maze(int size) {
+		this.graph = new Graph<Position>();
+		this.size = size;
+		
+		fillIn();
+		validate();
+	}
+	
+	public Maze(Graph<Position> graph, int size) {
+		this.graph = graph;
+		this.size = size;
+		validate();
+	}
+	
 	public Position id(int i, int j) {
 		return new Position(i, j);
 	}
@@ -27,18 +39,7 @@ public class Maze {
 		return graph.getVertex(position);
 	}
 	
-	public Maze(int size) {
-		this.graph = new Graph<Position>();
-		this.search = new Search<Position>();
-		this.aStarSearch = new AStarSearch();
-		this.size = size;
-		
-		fillIn();
-		validate();
-	}
-	
 	private void fillIn() {
-
 		Random random = new Random();
 		for (int i = 1; i < size-1; i++) {
 			for (int j = 1; j < size-1; j++) {
@@ -63,20 +64,33 @@ public class Maze {
 		this.end = new Position(row, size-1);
 	}
 	
+	public void addSlot(Position p) {
+		graph.addVertex(p);
+		
+		if (graph.hasVertex(p.getNorth()))
+			graph.addEdge(p, p.getNorth());
+		
+		if (graph.hasVertex(p.getSouth()))
+			graph.addEdge(p, p.getSouth());
+		
+		if (graph.hasVertex(p.getEast()))
+			graph.addEdge(p, p.getEast());
+		
+		if (graph.hasVertex(p.getWest()))
+			graph.addEdge(p, p.getWest());
+	}
+	
 	public void validate() {
+		validate(new Search<Position>());
+	}
+	
+	public void validate(SearchStrategy<Position> strategy) {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.end, search) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
+		if (graph.hasPath(this.beginning, this.end, strategy) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
 			this.valid = true;
 		}
 	}
-	
-	public Maze(Graph<Position> graph, int size) {
-		this.graph = graph;
-		this.size = size;
-		validate();
-	}
-
 	
 	public Maze merge(Maze maze) {
 		List<Position> belongToEither = new ArrayList<Position>();
@@ -107,6 +121,23 @@ public class Maze {
 		return graph.hasVertex(p);
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public Position getBeginning() {
+		return beginning;
+	}
+	
+	public Position getEnd() {
+		return end;
+	}
+	
+	public boolean isValid() {
+		return valid;
+	}
+	
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		StringBuilder columns = new StringBuilder();
@@ -130,37 +161,5 @@ public class Maze {
 		columns.append("\n");
 		builder.insert(0, columns);
 		return builder.toString();
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public void addSlot(Position p) {
-		graph.addVertex(p);
-		
-		if (graph.hasVertex(p.getNorth()))
-			graph.addEdge(p, p.getNorth());
-		
-		if (graph.hasVertex(p.getSouth()))
-			graph.addEdge(p, p.getSouth());
-		
-		if (graph.hasVertex(p.getEast()))
-			graph.addEdge(p, p.getEast());
-		
-		if (graph.hasVertex(p.getWest()))
-			graph.addEdge(p, p.getWest());
-	}
-
-	public Position getBeginning() {
-		return beginning;
-	}
-	
-	public Position getEnd() {
-		return end;
-	}
-	
-	public boolean isValid() {
-		return valid;
 	}
 }

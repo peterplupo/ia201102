@@ -13,7 +13,7 @@ public class Vertex<K> implements Slot<K> {
 
 	public Vertex(K vertexId) {
 		this.id = vertexId;
-		this.adj = new LinkedHashSet<K>();
+		this.adj = new LinkedHashSet<K>(4);
 	}
 
 	public K getId() {
