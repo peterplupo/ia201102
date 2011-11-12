@@ -33,7 +33,7 @@ public class GeneticMazeSelector {
 	}
 	
 	public void generateRandomPopulation(int populationSize, int mazeSize) {
-		logger.info("Generating " + populationSize + "square mazes of side " + mazeSize + "." );
+		logger.info("Generating " + populationSize + " square mazes of side " + mazeSize + "." );
 		
 		//Fitness evaluation
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
