@@ -18,12 +18,12 @@ public class MazeFitnessFunction implements FitnessFunction<Maze> {
 		
 		MazeWalker mazeWalker = MazeWalker.getInstance(maze);
 		mazeWalker.walk();
-		logger.info("MazeWalker: PATH "+ mazeWalker.getPath());
+		logger.info("MazeWalker: PATH "+ mazeWalker.pathSize());
 //		if (mazeWalker.hasFinished()) {
 //			// gaussian curve with max on 80 steps ~= 100 points, 70 (or 90) steps ~= 82
 //			return 173.2/sqrt(3)*exp(-pow(mazeWalker.pathSize()-80,2)/512); 
 //		}
 		
-		return 173.2/sqrt(3)*exp(-pow(mazeWalker.pathSize()-20,2)/512);//return 0.0;
+		return 173.2/sqrt(3)*exp(-pow(mazeWalker.pathSize()-80,2)/512);//return 0.0;
 	}
 }
