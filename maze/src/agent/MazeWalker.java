@@ -12,7 +12,7 @@ import maze.Maze;
 import model.Position;
 
 public class MazeWalker {
-	enum SpotState {VISITED, EXPLORED};
+	private static enum SpotState {VISITED, EXPLORED};
 	
 	//environment
 	private Maze maze;
