@@ -56,7 +56,7 @@ public class Graph<K> {
 		return hasPath(i, j, new Search<K>());
 	}
 
-	public boolean hasPath(K source, K sink, Search<K> strategy) {
+	public boolean hasPath(K source, K sink, SearchStrategy<K> strategy) {
 		if (adj.size() == 0)
 			return false;
 
@@ -69,7 +69,7 @@ public class Graph<K> {
 		return getPath(i, j, new Search<K>());
 	}
 
-	public List<K> getPath(K source, K sink, Search<K> strategy) {
+	public List<K> getPath(K source, K sink, SearchStrategy<K> strategy) {
 		Map<K, K> tree = strategy.search(adj, source, sink);
 		LinkedList<K> path = new LinkedList<K>();
 
