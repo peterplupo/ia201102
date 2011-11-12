@@ -10,7 +10,6 @@ import java.util.Random;
 import model.Graph;
 import model.Position;
 import model.Search;
-import model.SearchStrategy;
 
 import org.apache.log4j.Logger;
 
@@ -49,7 +48,7 @@ public class Maze implements MazeCreationListener {
 		graph.addEdge(get(row, 0), get(row, 1));
 		this.beginning = get(row, 0);
 		
-		MazeWorm.setUp(0.5, 0.7, 0.4, 0.5, this, 3, this);
+		MazeWorm.setUp(0.5, 0.86, 0.8, 0.5, this, 3, this);
 		MazeWorm.startWorm(beginning);
 		try {
 			synchronized(this) {
