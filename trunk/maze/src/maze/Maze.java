@@ -1,11 +1,11 @@
 package maze;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import model.AStarSearch;
 import model.Graph;
 import model.Position;
 
@@ -15,6 +15,7 @@ public class Maze {
 	private boolean valid;
 	private Position begin;
 	private Position end;
+	private AStarSearch search;
 
 	public Position id(int i, int j) {
 		return new Position(i, j);
@@ -26,6 +27,7 @@ public class Maze {
 	
 	public Maze(int size) {
 		this.graph = new Graph<Position>();
+		this.search = new AStarSearch();
 		this.size = size;
 		
 		fillIn();
@@ -57,7 +59,7 @@ public class Maze {
 				Position begin = new Position(j1, 0);
 				Position end = new Position(j2, size-1);
 				
-				if (graph.hasPath(begin, end)) {
+				if (graph.hasPath(begin, end, search)) {
 					this.valid = true;
 					this.begin = begin;
 					this.end = end;

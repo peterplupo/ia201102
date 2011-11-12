@@ -53,6 +53,7 @@ public class Graph<K> {
 	}
 
 	public boolean hasPath(K i, K j) {
+		
 		return hasPath(i, j, new Search<K>(new LinkedList<K>()));
 	}
 

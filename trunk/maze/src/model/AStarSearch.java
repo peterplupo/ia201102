@@ -2,14 +2,15 @@ package model;
 
 import static java.lang.Math.abs;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class AStarSearch extends Search<Position> implements SearchStrategy<Position> {
 	
-	public AStarSearch(List<Position> list) {
-		super(list);
+	public AStarSearch() {
+		super(new ArrayList<Position>());
 	}
 
 	@Override
