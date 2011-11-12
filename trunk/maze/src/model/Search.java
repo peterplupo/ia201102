@@ -1,34 +1,31 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Search<K> implements SearchStrategy<K> {
 	enum VertexState {VISITED, EXPLORED};
-	private Map<K, VertexState> state;
-	private Map<K, K> parent;
-	private Set<K> list;
-//	private boolean complete;
+	protected Map<K, K> parent;
+	protected K i;
+	protected K j;
 
 	public Search(List<K> list) {
-		//this.list = list;
-//		this.complete = false;
 		this.parent = new LinkedHashMap<K, K>();
 	}
 	
 	public Search(List<K> list, boolean complete) {
-		//this.list = list;
-//		this.complete = complete;
 		this.parent = new LinkedHashMap<K, K>();
 	}
 	
 	@Override
 	public Map<K, K> search(Map<K, Vertex<K>> adj, K i, K j) {
 		List<K> list = new ArrayList<K>();
+		this.i = i;
+		this.j = j;
+		
+		sort(list);
 		
 		list.add(i);
 		parent.clear();
@@ -49,6 +46,6 @@ public class Search<K> implements SearchStrategy<K> {
 		
 	}
 
-	protected void sort(List<Vertex<K>> list2) {
+	protected void sort(List<K> list2) {
 	}
 }
