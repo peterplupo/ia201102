@@ -41,14 +41,19 @@ public class GeneticMazeSelector {
 		
 		{
 			int i = 0;
+			int discarded = 0;
 			while (i < populationSize) {
 				Maze maze = new Maze(mazeSize);
 				if (maze.isValid()) {
 					population.put(maze, fitness.eval(maze));
 					++i;
+				} else {
+					discarded++;
 				}
 				
-				if (i % 50 == 0) {
+				if (discarded % 500 == 0) {
+					logger.info("\tDiscarded so far: " + discarded + ".");
+					logger.info("\tGenerated so far: " + i + ".");
 					System.gc();
 				}
 			}

@@ -43,16 +43,19 @@ public class MazeWalker {
 		
 		if (!spotState.containsKey(current)) {
 			spotState.put(current, SpotState.VISITED);
+		}
 			
-			List<Position> adjacence = sortPositions(new ArrayList<Position>(maze.getSlot(current).getAdjacence()));
-			
-			for (Position adjacent : adjacence) {
-				if (!spotState.containsKey(adjacent)) {
-					stack.push(adjacent);
-					break;
-				}
+		List<Position> adjacence = sortPositions(new ArrayList<Position>(maze.getSlot(current).getAdjacence()));
+		
+		int notVisited = 0;
+		for (Position adjacent : adjacence) {
+			if (!spotState.containsKey(adjacent)) {
+				stack.push(adjacent);
+				++notVisited;
+				break;
 			}
-		} else if (spotState.get(current) == SpotState.VISITED) {
+		}
+		if (notVisited == 0) {
 			spotState.put(current, SpotState.EXPLORED);
 			stack.pop();
 		}
@@ -63,7 +66,7 @@ public class MazeWalker {
 
 			@Override
 			public int compare(Position p1, Position p2) {
-				return p1.getColumn() - p2.getColumn() + p1.getRow() - p2.getRow();
+				return 2*(p1.getColumn() - p2.getColumn()) + p1.getRow() - p2.getRow();
 			}
 		});
 		
