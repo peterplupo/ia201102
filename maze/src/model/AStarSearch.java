@@ -8,36 +8,36 @@ import java.util.List;
 
 public class AStarSearch extends Search<Position> {
 	
-	public AStarSearch(List<Vertex<Position>> list, Position j) {
+	public AStarSearch(List<Position> list, Position j) {
 		super(list);
 	}
 	
 	@Override
-	protected void sort(List<Vertex<Position>> positions) {
-		Collections.sort(positions, new Comparator<Vertex<Position>>() {
+	protected void sort(List<Position> positions) {
+		Collections.sort(positions, new Comparator<Position>() {
 			@Override
-			public int compare(Vertex<Position> o1, Vertex<Position> o2) {
+			public int compare(Position o1, Position o2) {
 				return aStarFunction(o1).compareTo(aStarFunction(o2));
 			}
 			
 		});
 	}
 	
-	private Integer aStarFunction(Vertex<Position> v) {
-		return cost(v) + getManhattanDistance(v.getId(), j);
+	private Integer aStarFunction(Position v) {
+		return cost(v) + getManhattanDistance(v, j);
 	}
 	
 	
-	private int cost(Vertex<Position> v) {
+	private int cost(Position v) {
 		int cost = 0;
 		do {
 			v = parent.get(v);
 			cost++;
-		} while (v.getId() != i);
+		} while (v != i);
 		return cost;
 	}
 
-	public AStarSearch(List<Vertex<Position>> list, boolean complete) {
+	public AStarSearch(List<Position> list, boolean complete) {
 		super(list, complete);
 	}
 
