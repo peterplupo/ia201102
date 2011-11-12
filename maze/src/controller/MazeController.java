@@ -12,7 +12,7 @@ public class MazeController {
 	public static void main(String[] args) {
 		logger.info("Creating random mazes.");
 		//parameters are: size of mazes population, size of mazes, percentage of selected elite, mutation probability.
-		GeneticMazeSelector selector = new GeneticMazeSelector(100, 10, 0.30f, 0.001f);
+		GeneticMazeSelector selector = new GeneticMazeSelector(100, 50, 0.30f, 0.001f);
 		
 		logger.info("Generate as many generations as needed until a maze compliant with the criteria is selected");
 		while (!selector.hasSelectedMaze()) {
