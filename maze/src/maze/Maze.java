@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import model.AStarSearch;
 import model.Graph;
 import model.Position;
 import model.Search;
@@ -16,6 +17,7 @@ public class Maze {
 	private Position beginning;
 	private Position end;
 	private Search<Position> search;
+	private AStarSearch aStarSearch;
 
 	public Position id(int i, int j) {
 		return new Position(i, j);
@@ -27,7 +29,8 @@ public class Maze {
 	
 	public Maze(int size) {
 		this.graph = new Graph<Position>();
-		this.search = new Search<Position>();//new AStarSearch();
+		this.search = new Search<Position>();
+		this.aStarSearch = new AStarSearch();
 		this.size = size;
 		
 		fillIn();
@@ -62,7 +65,7 @@ public class Maze {
 	public void validate() {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.end, search)) {
+		if (graph.hasPath(this.beginning, this.end, search) ){// && graph.hasPath(this.beginning, this.end, aStarSearch)) {
 			this.valid = true;
 		}
 	}

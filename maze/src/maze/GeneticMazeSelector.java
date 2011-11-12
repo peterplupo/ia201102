@@ -114,7 +114,7 @@ public class GeneticMazeSelector {
 				if (slot == null) {
 					maze.addSlot(new Position(i, j));
 				} else {
-					// a ser implementado: maze.removeSlot(new Position(i, j));
+					// TODO: maze.removeSlot(new Position(i, j));
 				}
 			}
 		}
