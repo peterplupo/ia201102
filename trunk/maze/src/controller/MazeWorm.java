@@ -66,10 +66,18 @@ public class MazeWorm implements Runnable {
 			}
 		} else {
 			//vertical
-			if ((direction < northProbability && current.getRow() >= 1) || (direction < northProbability && current.getRow() <= maze.getSize()-2)) {
-				return current.getNorth();
+			if (direction < northProbability) {
+				if (current.getRow() != 1) {
+					return current.getNorth();
+				} else {
+					return current.getSouth();
+				}
 			} else {
-				return current.getSouth();
+				if (current.getRow() != maze.getSize()-2) {
+					return current.getSouth();
+				} else {
+					return current.getNorth();
+				}
 			}
 		}
 			
@@ -86,7 +94,7 @@ public class MazeWorm implements Runnable {
 	}
 
 	private boolean alive() {
-		if (deathCounter == crossLimit || current.getColumn() == maze.getSize()-1) {
+		if ((deathCounter >= crossLimit && ending != null) || ending == null && current.getColumn() == maze.getSize()-1) {
 			logger.debug("Death by too many crossings or reached the end of the maze. Worm #" + Thread.currentThread().getId() + ".");
 			ending = current;
 			synchronized (swarmSize) {
@@ -95,10 +103,7 @@ public class MazeWorm implements Runnable {
 			return false;
 		} else {
 			if (rand.nextDouble() < populationChange) {
-				double swarmControl;
-				synchronized (swarmSize) {
-					swarmControl = swarmSize/swarmAverage;
-				}
+				double swarmControl = swarmSize/swarmAverage;
 				if (rand.nextDouble() < swarmControl && ending != null) {
 					logger.debug("Death by overpopulation. Worm #" + Thread.currentThread().getId() + ".");
 					synchronized (swarmSize) {

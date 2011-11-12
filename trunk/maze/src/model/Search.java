@@ -25,8 +25,6 @@ public class Search<K> implements SearchStrategy<K> {
 		parent.clear();
 		parent.put(source, source);
 		
-		System.out.println(sink);
-		
 		while (!list.isEmpty()) {
 			K v = list.remove(0);
 			

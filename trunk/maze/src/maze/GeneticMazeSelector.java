@@ -29,10 +29,6 @@ public class GeneticMazeSelector {
 		selected = null;
 	}
 	
-	public GeneticMazeSelector(int populationSize) {
-		generateRandomPopulation(populationSize, 50);
-	}
-	
 	public void generateRandomPopulation(int populationSize, int mazeSize) {
 		logger.info("Generating " + populationSize + " square mazes of side " + mazeSize + ". It may (probably will) take a while (probably too long)." );
 		
@@ -42,29 +38,18 @@ public class GeneticMazeSelector {
 		
 		{
 			int i = 0;
-			int discarded = 0;
 			while (i < populationSize) {
 				Maze maze = new Maze(mazeSize);
 				maze.fillIn();
+				logger.info("Maze generated:\n" + maze);
 				if (maze.isValid()) {
 					population.put(maze, fitness.eval(maze));
 					++i;
-				} else {
-					discarded++;
-				}
-				
-				if (discarded % 1000 == 0) {
-					System.gc();
 				}
 			}
-			System.gc();
-			
-			for (Maze maze : population.keySet()) System.out.println(maze);
-			for (double fitnessv : population.values()) System.out.println(fitnessv);
-			System.out.println("DISCARDED: "+discarded);
 		}
 		
-		logger.info("Initial mazes generated and added to the population.");
+		logger.info("Mazes generated and added to the first generation.");
 	}
 	
 	public void updatePopulation(List<Maze> generation) {
