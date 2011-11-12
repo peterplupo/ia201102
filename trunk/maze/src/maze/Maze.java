@@ -36,8 +36,8 @@ public class Maze {
 	
 	private void fillIn() {
 		Random rand = new Random();
-		for (int i = 1; i < size - 1; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < size; i++) {
+			for (int j = 1; j < size - 1; j++) {
 				if (j+1 < size && rand.nextInt(8) == 0)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
@@ -45,10 +45,10 @@ public class Maze {
 					graph.addEdge(id(i, j), id(i+1, j));
 			}
 		}
-		int jBegin = rand.nextInt(size);
-		graph.addEdge(id(0, jBegin), id(1, jBegin));
-		int jEnd = rand.nextInt(size);
-		graph.addEdge(id(size-2, jEnd), id(size-1, jEnd));
+		int iBegin = rand.nextInt(size);
+		graph.addEdge(id(iBegin, 0), id(iBegin, 1));
+		int iEnd = rand.nextInt(size);
+		graph.addEdge(id(iEnd, size-2), id(iEnd, size-1));
 	}
 	
 	public void validate() {
