@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -39,7 +38,7 @@ public class Vertex<K> implements Slot<K> {
 	}
 	
 	public Set<K> getAdjacence() {
-		return Collections.unmodifiableSet(adj);
+		return adj;
 	}
 
 	@Override

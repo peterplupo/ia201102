@@ -28,10 +28,12 @@ public class Graph<K> {
 		return sum / 2;
 	}
 
-	public void addVertex(K i) {
+	public boolean addVertex(K i) {
 		if (!adj.containsKey(i)) {
 			adj.put(i, new Vertex<K>(i));
+			return true;
 		}
+		return false;
 	}
 
 	public void addEdge(K i, K j) {
@@ -57,13 +59,11 @@ public class Graph<K> {
 	}
 
 	public boolean hasPath(K source, K sink, SearchStrategy<K> strategy) {
-		
 		if (adj.size() == 0)
 			return false;
-		
+
 		if (!adj.containsKey(source) || !adj.containsKey(sink))
 			return false;
-		
 		return strategy.search(adj, source, sink).containsKey(sink);
 	}
 
