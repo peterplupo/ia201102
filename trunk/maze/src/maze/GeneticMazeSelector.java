@@ -42,10 +42,10 @@ public class GeneticMazeSelector {
 				Maze maze = new Maze(mazeSize);
 				maze.fillIn();
 				logger.info("Maze generated:\n" + maze);
-//				if (maze.isValid()) {
+				if (maze.isValid()) {
 					population.put(maze, fitness.eval(maze));
 					++i;
-//				}
+				}
 			}
 		}
 		
