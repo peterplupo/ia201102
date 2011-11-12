@@ -43,7 +43,7 @@ public class Maze {
 		for (int i = 1; i < size-1; i++) {
 			for (int j = 1; j < size-1; j++) {
 				// edges that go forward
-				if (j+1 < size-1 && random.nextInt(1) == 0)
+				if (j+1 < size-1 && random.nextInt(2) == 0)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
 				// edges that go downward
@@ -108,22 +108,26 @@ public class Maze {
 
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(valid ? "valid\n" : "invalid\n");
-		builder.append("  0 1 2 3 4\n");
+		StringBuilder columns = new StringBuilder();
+		columns.append(valid ? "valid\n" : "invalid\n");
+		columns.append("  ");
 		for (int i = 0; i < size; i++) {
-			builder.append(i + " ");
+			String paddedNumber = i > 9 ? ""+i : "0"+i; 
+			builder.append(paddedNumber +  " ");
+			columns.append(" " + paddedNumber);
 			for (int j = 0; j < size; j++) {
 				if (graph.hasVertex(id(i, j))) {
 					builder.append('.');
 				}
 				else {
-					builder.append('X');
+					builder.append("X");
 				}
-				builder.append(' ');
+				builder.append("  ");
 			}
-			builder.append('\n');
+			builder.append("\n");
 		}
-		
+		columns.append("\n");
+		builder.insert(0, columns);
 		return builder.toString();
 	}
 
