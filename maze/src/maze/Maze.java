@@ -58,7 +58,7 @@ public class Maze implements MazeCreationListener {
 			logger.error("Error waiting for maze creation notification.", e);
 		}
 		
-//		validate();
+		validate();
 	}
 	
 	public boolean addSlot(Position p) {
