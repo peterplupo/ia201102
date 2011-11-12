@@ -43,11 +43,12 @@ public class Maze {
 		for (int i = 1; i < size-1; i++) {
 			for (int j = 1; j < size-1; j++) {
 				// edges that go forward
-				if (j+1 < size-1 && random.nextInt(2) == 0)
+				boolean forward = random.nextInt(2) == 0;
+				if (j+1 < size-1 && forward)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
 				// edges that go downward
-				if (i+1 < size-1 && random.nextInt(8) == 0)
+				if (i+1 < size-1 && (!forward || random.nextInt(8) == 0))
 					graph.addEdge(id(i, j), id(i+1, j));
 			}
 		}
@@ -65,7 +66,7 @@ public class Maze {
 	public void validate() {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.end, search) ){// && graph.hasPath(this.beginning, this.end, aStarSearch)) {
+		if (graph.hasPath(this.beginning, this.end, search) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
 			this.valid = true;
 		}
 	}

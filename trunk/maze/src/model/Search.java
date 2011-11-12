@@ -17,8 +17,6 @@ public class Search<K> implements SearchStrategy<K> {
 		this.source = source;
 		this.sink = sink;
 		
-		sort(list);
-		
 		list.add(source);
 		parent.clear();
 		parent.put(source, source);
@@ -32,6 +30,8 @@ public class Search<K> implements SearchStrategy<K> {
 					list.add(w);
 				}
 			}
+			
+			sort(list);
 		}
 		
 		return parent;
