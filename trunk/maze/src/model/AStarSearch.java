@@ -6,12 +6,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class AStarSearch extends Search<Position> {
+public class AStarSearch extends Search<Position> implements SearchStrategy<Position> {
 	
-	public AStarSearch(List<Position> list, Position j) {
+	public AStarSearch(List<Position> list) {
 		super(list);
 	}
-	
+
 	@Override
 	protected void sort(List<Position> positions) {
 		Collections.sort(positions, new Comparator<Position>() {
@@ -24,7 +24,7 @@ public class AStarSearch extends Search<Position> {
 	}
 	
 	private Integer aStarFunction(Position v) {
-		return cost(v) + getManhattanDistance(v, j);
+		return cost(v) + getManhattanDistance(v, sink);
 	}
 	
 	
@@ -33,12 +33,8 @@ public class AStarSearch extends Search<Position> {
 		do {
 			v = parent.get(v);
 			cost++;
-		} while (v != i);
+		} while (v != source);
 		return cost;
-	}
-
-	public AStarSearch(List<Position> list, boolean complete) {
-		super(list, complete);
 	}
 
 	private int getManhattanDistance(Position i, Position j) {
