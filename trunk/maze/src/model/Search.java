@@ -7,13 +7,9 @@ import java.util.Map;
 
 public class Search<K> implements SearchStrategy<K> {
 	enum VertexState {VISITED, EXPLORED};
-	protected Map<K, K> parent;
+	protected Map<K, K> parent = new LinkedHashMap<K, K>();
 	protected K source;
 	protected K sink;
-
-	public Search() {
-		this.parent = new LinkedHashMap<K, K>();
-	}
 	
 	@Override
 	public Map<K, K> search(Map<K, Vertex<K>> adj, K source, K sink) {

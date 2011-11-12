@@ -8,10 +8,6 @@ import java.util.List;
 
 public class AStarSearch extends Search<Position> implements SearchStrategy<Position> {
 	
-	public AStarSearch() {
-		super();
-	}
-
 	@Override
 	protected void sort(List<Position> positions) {
 		Collections.sort(positions, new Comparator<Position>() {

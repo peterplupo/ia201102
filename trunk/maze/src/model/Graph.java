@@ -55,14 +55,13 @@ public class Graph<K> {
 	public boolean hasPath(K i, K j) {
 		return hasPath(i, j, new Search<K>());
 	}
-	
+
 	public boolean hasPath(K source, K sink, Search<K> strategy) {
 		if (adj.size() == 0)
 			return false;
 
 		if (!adj.containsKey(source) || !adj.containsKey(sink))
 			return false;
-
 		return strategy.search(adj, source, sink).containsKey(sink);
 	}
 
