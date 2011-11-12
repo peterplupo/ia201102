@@ -28,11 +28,11 @@ public class Maze {
 		this.graph = new Graph<Position>();
 		this.size = size;
 		
-		feelIn();
+		fillIn();
 		validate();
 	}
 	
-	private void feelIn() {
+	private void fillIn() {
 		Random rand = new Random();
 		for (int i = 1; i < size - 1; i++) {
 			for (int j = 0; j < size; j++) {
