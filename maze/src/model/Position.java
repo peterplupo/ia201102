@@ -26,11 +26,11 @@ public class Position {
 	}
 	
 	public int getColumn() {
-		return i;
+		return j;
 	}
 	
 	public int getRow() {
-		return j;
+		return i;
 	}
 	
 	public String toString() {

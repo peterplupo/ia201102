@@ -39,10 +39,21 @@ public class GeneticMazeSelector {
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
 		population = new LinkedHashMap<Maze, Double>();
 		
-		for (int i = 0; i < populationSize; i++) {
-			Maze maze = new Maze(mazeSize);
-			population.put(maze, fitness.eval(maze));
+		{
+			int i = 0;
+			while (i < populationSize) {
+				Maze maze = new Maze(mazeSize);
+				if (maze.isValid()) {
+					population.put(maze, fitness.eval(maze));
+					++i;
+				}
+			}
 		}
+		
+//		for (int i = 0; i < populationSize; i++) {
+//			Maze maze = new Maze(mazeSize);
+//			population.put(maze, fitness.eval(maze));
+//		}
 		logger.info("Initial mazes generated and added to the population.");
 	}
 	
