@@ -18,11 +18,15 @@ public class Position {
 		if (!instances.containsKey(i)) {
 			line = new LinkedHashMap<Integer, Position>();
 			instances.put(i, line);
+		} else {
+			line = instances.get(i);
 		}
 		
 		if (!line.containsKey(j)) {
 			position = new Position(i, j);
 			line.put(j, position);
+		} else {
+			position = line.get(j);
 		}
 		
 		return position;

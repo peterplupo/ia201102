@@ -26,6 +26,7 @@ public class Search<K> implements SearchStrategy<K> {
 			
 			for (K w : adj.get(v).getAdjacence()) {
 				if (!parent.containsKey(w)) {
+					System.out.println(w + "->" + v);
 					parent.put(w, v);
 					list.add(w);
 				}
