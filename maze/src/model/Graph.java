@@ -53,14 +53,9 @@ public class Graph<K> {
 	}
 
 	public boolean hasPath(K i, K j) {
-		
-		return hasPath(i, j, new Search<K>(new LinkedList<K>()));
+		return hasPath(i, j, new Search<K>());
 	}
-
-	public List<K> getPath(K i, K j) {
-		return getPath(i, j, new Search<K>(new LinkedList<K>()));
-	}
-
+	
 	public boolean hasPath(K source, K sink, Search<K> strategy) {
 		if (adj.size() == 0)
 			return false;
@@ -69,6 +64,10 @@ public class Graph<K> {
 			return false;
 
 		return strategy.search(adj, source, sink).containsKey(sink);
+	}
+
+	public List<K> getPath(K i, K j) {
+		return getPath(i, j, new Search<K>());
 	}
 
 	public List<K> getPath(K source, K sink, Search<K> strategy) {

@@ -11,11 +11,7 @@ public class Search<K> implements SearchStrategy<K> {
 	protected K source;
 	protected K sink;
 
-	public Search(List<K> list) {
-		this.parent = new LinkedHashMap<K, K>();
-	}
-	
-	public Search(List<K> list, boolean complete) {
+	public Search() {
 		this.parent = new LinkedHashMap<K, K>();
 	}
 	

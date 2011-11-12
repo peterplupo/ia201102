@@ -1,11 +1,11 @@
 package maze;
 
-import model.FitnessFunction;
-import agent.MazeWalker;
+import static java.lang.Math.E;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
-import static java.lang.Math.E;
 import static java.lang.Math.round;
+import model.FitnessFunction;
+import agent.MazeWalker;
 
 public class MazeFitnessFunction implements FitnessFunction<Maze> {
 

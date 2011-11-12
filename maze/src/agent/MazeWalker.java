@@ -27,13 +27,14 @@ public class MazeWalker {
 		this.path = new LinkedList<Position>();
 		this.spotState = new LinkedHashMap<Position, SpotState>();
 		
-		current = maze.getBegin();
-		stack.add(current);
+		current = maze.getBeginning();
+		stack.push(current);
+		walk();
 	}
 
 	//actuator
 	public void step() {
-		current = stack.get(0);
+		current = stack.pop();//.peek();
 		path.add(current);
 		
 		if (!spotState.containsKey(current)) {
@@ -41,17 +42,17 @@ public class MazeWalker {
 			
 			for (Position adjacent : maze.getSlot(current).getAdjacence()) {
 				if (!spotState.containsKey(adjacent)) {
-					stack.add(adjacent);
+					stack.push(adjacent);
 				}
 			}
 		} else if (spotState.get(current) == SpotState.VISITED) {
 			spotState.put(current, SpotState.EXPLORED);
-			stack.remove(0);
+			//stack.pop();
 		}
 	}
 	
 	public void walk() {
-		while (!stack.empty() || current.getColumn() == maze.getSize()-1) {
+		while (!stack.empty() || current.getColumn() != maze.getSize()-1) {
 			step();
 		}
 	}

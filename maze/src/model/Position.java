@@ -10,19 +10,19 @@ public class Position {
 	}
 	
 	public Position getNorth() {
-		return new Position(this.i, this.j-1);
+		return new Position(this.i-1, this.j);
 	}
 	
 	public Position getSouth() {
-		return new Position(this.i, this.j+1);
-	}
-	
-	public Position getEast() {
 		return new Position(this.i+1, this.j);
 	}
 	
+	public Position getEast() {
+		return new Position(this.i, this.j+1);
+	}
+	
 	public Position getWest() {
-		return new Position(this.i-1, this.j);
+		return new Position(this.i, this.j-1);
 	}
 	
 	public int getColumn() {
