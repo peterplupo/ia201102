@@ -43,12 +43,12 @@ public class Maze implements MazeCreationListener {
 	
 	void fillIn() {
 		Random random = new Random();
-		int row = random.nextInt(size-1);
+		int row = random.nextInt(size-2) + 1;
 		
 		graph.addEdge(get(row, 0), get(row, 1));
 		this.beginning = get(row, 0);
 		
-		MazeWorm.setUp(0.5, 0.86, 0.8, 0.5, this, 3, this);
+		MazeWorm.setUp(0.4, 0.5, 0.4, 0.3, this, 3, this);
 		MazeWorm.startWorm(beginning);
 		try {
 			synchronized(this) {
@@ -58,7 +58,7 @@ public class Maze implements MazeCreationListener {
 			logger.error("Error waiting for maze creation notification.", e);
 		}
 		
-		validate();
+//		validate();
 	}
 	
 	public boolean addSlot(Position p) {
