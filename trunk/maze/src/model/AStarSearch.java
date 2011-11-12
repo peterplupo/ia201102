@@ -2,7 +2,6 @@ package model;
 
 import static java.lang.Math.abs;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 public class AStarSearch extends Search<Position> implements SearchStrategy<Position> {
 	
 	public AStarSearch() {
-		super(new ArrayList<Position>());
+		super();
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class AStarSearch extends Search<Position> implements SearchStrategy<Posi
 	}
 
 	private int getManhattanDistance(Position i, Position j) {
-		return j.getColumn() - i.getColumn() + abs(j.getRow() - i.getRow());
+		return abs(j.getColumn() - i.getColumn()) + abs(j.getRow() - i.getRow());
 	}
 	
 }

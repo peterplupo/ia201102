@@ -50,10 +50,6 @@ public class GeneticMazeSelector {
 			}
 		}
 		
-//		for (int i = 0; i < populationSize; i++) {
-//			Maze maze = new Maze(mazeSize);
-//			population.put(maze, fitness.eval(maze));
-//		}
 		logger.info("Initial mazes generated and added to the population.");
 	}
 	

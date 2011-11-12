@@ -5,17 +5,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import model.AStarSearch;
 import model.Graph;
 import model.Position;
+import model.Search;
 
 public class Maze {
 	private Graph<Position> graph;
 	private int size;
 	private boolean valid;
-	private Position begin;
+	private Position beginning;
 	private Position end;
-	private AStarSearch search;
+	private Search<Position> search;
 
 	public Position id(int i, int j) {
 		return new Position(i, j);
@@ -27,7 +27,7 @@ public class Maze {
 	
 	public Maze(int size) {
 		this.graph = new Graph<Position>();
-		this.search = new AStarSearch();
+		this.search = new Search<Position>();//new AStarSearch();
 		this.size = size;
 		
 		fillIn();
@@ -35,37 +35,35 @@ public class Maze {
 	}
 	
 	private void fillIn() {
-		Random rand = new Random();
-		for (int i = 0; i < size; i++) {
-			for (int j = 1; j < size - 1; j++) {
-				if (j+1 < size && rand.nextInt(8) == 0)
+
+		Random random = new Random();
+		for (int i = 1; i < size-1; i++) {
+			for (int j = 1; j < size-1; j++) {
+				// edges that go forward
+				if (j+1 < size-1 && random.nextInt(4) == 0)
 					graph.addEdge(id(i, j), id(i, j+1));
 				
-				if (i+1 < size && rand.nextInt(4) == 0)
+				// edges that go downward
+				if (i+1 < size-1 && random.nextInt(8) == 0)
 					graph.addEdge(id(i, j), id(i+1, j));
 			}
 		}
-		int iBegin = rand.nextInt(size);
-		graph.addEdge(id(iBegin, 0), id(iBegin, 1));
-		int iEnd = rand.nextInt(size);
-		graph.addEdge(id(iEnd, size-2), id(iEnd, size-1));
+		
+		int row = random.nextInt(size-1);
+		
+		graph.addEdge(id(row, 0), id(row, 1));
+		this.beginning = new Position(row, 0);
+		
+		row = random.nextInt(size-1);
+		graph.addEdge(id(row, size-2), id(row, size-1));
+		this.end = new Position(row, size-1);
 	}
 	
 	public void validate() {
 		this.valid = false;
 		
-		out: for (int j1 = 0; j1 < size; j1++) {
-			for (int j2 = 0; j2 < size; j2++) {
-				Position begin = new Position(j1, 0);
-				Position end = new Position(j2, size-1);
-				
-				if (graph.hasPath(begin, end, search)) {
-					this.valid = true;
-					this.begin = begin;
-					this.end = end;
-					break out;
-				}
-			}
+		if (graph.hasPath(this.beginning, this.end, search)) {
+			this.valid = true;
 		}
 	}
 	
@@ -75,7 +73,7 @@ public class Maze {
 		validate();
 	}
 
-
+	
 	public Maze merge(Maze maze) {
 		List<Position> belongToEither = new ArrayList<Position>();
 		
@@ -146,8 +144,8 @@ public class Maze {
 			graph.addEdge(p, p.getWest());
 	}
 
-	public Position getBegin() {
-		return begin;
+	public Position getBeginning() {
+		return beginning;
 	}
 	
 	public Position getEnd() {
