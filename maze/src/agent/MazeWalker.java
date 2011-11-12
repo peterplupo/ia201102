@@ -65,15 +65,15 @@ public class MazeWalker {
 			
 		List<Position> adjacency = sortPositions();
 		
-		boolean notVisited = false;
+		boolean allNeighborsVisited = true;
 		for (Position adjacent : adjacency) {
 			if (!visitedSlots.contains(adjacent)) {
 				stack.push(adjacent);
-				notVisited = true;
+				allNeighborsVisited = false;
 				break;
 			}
 		}
-		if (notVisited) {
+		if (allNeighborsVisited) {
 			stack.pop();
 		}
 	}
