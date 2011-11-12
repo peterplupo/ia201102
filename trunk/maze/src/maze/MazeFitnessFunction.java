@@ -14,7 +14,7 @@ public class MazeFitnessFunction implements FitnessFunction<Maze> {
 		
 		/*if (mazeWalker.hasFinished())*/ {
 //			return round(100 * pow(E,-abs(1 - (mazeWalker.pathSize()/80))));
-			System.out.println("PATH SIZE "+mazeWalker.pathSize());
+			System.out.println("PATH "+mazeWalker.getPath());
 			return 173.2*pow(E,-pow(mazeWalker.pathSize()-80,2)/512)/sqrt(3); //gaussian curve with max on 80 steps ~= 100 points, 70 (or 90) steps ~= 82
 		}
 		
