@@ -16,7 +16,7 @@ public class Maze {
 	private int size;
 	private boolean valid;
 	private Position beginning;
-	private Position end;
+	private Position ending;
 
 	public Maze(int size) {
 		this.graph = new Graph<Position>();
@@ -58,7 +58,7 @@ public class Maze {
 		
 		row = random.nextInt(size-1);
 		graph.addEdge(get(row, size-2), get(row, size-1));
-		this.end = get(row, size-1);
+		this.ending = get(row, size-1);
 	}
 	
 	public void addSlot(Position p) {
@@ -84,7 +84,7 @@ public class Maze {
 	public void validate(SearchStrategy<Position> strategy) {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.end, strategy) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
+		if (graph.hasPath(this.beginning, this.ending, strategy) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
 			this.valid = true;
 		}
 	}
@@ -127,7 +127,7 @@ public class Maze {
 	}
 	
 	public Position getEnd() {
-		return end;
+		return ending;
 	}
 	
 	public boolean isValid() {
@@ -138,6 +138,7 @@ public class Maze {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		StringBuilder columns = new StringBuilder();
+		
 		columns.append(valid ? "valid\n" : "invalid\n");
 		columns.append("  ");
 		for (int i = 0; i < size; i++) {
@@ -158,5 +159,21 @@ public class Maze {
 		columns.append("\n");
 		builder.insert(0, columns);
 		return builder.toString();
+	}
+
+	public boolean hasSlot(Position position) {
+		return graph.hasVertex(position);
+	}
+
+	public boolean hasPath(Position source, Position sink) {
+		return graph.hasPath(source, sink);
+	}
+
+	public void setBeginning(Position position) {
+		this.beginning = position;
+	}
+
+	public void setEnding(Position position) {
+		this.ending = position;
 	}
 }

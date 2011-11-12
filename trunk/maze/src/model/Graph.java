@@ -57,11 +57,13 @@ public class Graph<K> {
 	}
 
 	public boolean hasPath(K source, K sink, SearchStrategy<K> strategy) {
+		
 		if (adj.size() == 0)
 			return false;
-
+		
 		if (!adj.containsKey(source) || !adj.containsKey(sink))
 			return false;
+		
 		return strategy.search(adj, source, sink).containsKey(sink);
 	}
 

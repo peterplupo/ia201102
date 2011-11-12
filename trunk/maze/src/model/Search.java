@@ -5,7 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 public class Search<K> implements SearchStrategy<K> {
+	private static Logger logger = Logger.getLogger(Search.class);
+	
 	enum VertexState {VISITED, EXPLORED};
 	protected Map<K, K> parent = new LinkedHashMap<K, K>();
 	protected K source;
@@ -26,7 +30,6 @@ public class Search<K> implements SearchStrategy<K> {
 			
 			for (K w : adj.get(v).getAdjacence()) {
 				if (!parent.containsKey(w)) {
-					System.out.println(w + "->" + v);
 					parent.put(w, v);
 					list.add(w);
 				}
@@ -35,10 +38,15 @@ public class Search<K> implements SearchStrategy<K> {
 			sort(list);
 		}
 		
-		return parent;
+		logger.debug("aeee!");
+		for (Map.Entry<K, K> pair : parent.entrySet()) {
+			logger.debug(pair.getKey() + "->" + pair.getValue());
+		}
 		
+		return parent;
 	}
 
 	protected void sort(List<K> list2) {
+		
 	}
 }
