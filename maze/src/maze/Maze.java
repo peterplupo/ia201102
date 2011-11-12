@@ -1,5 +1,7 @@
 package maze;
 
+import static model.Position.get;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,11 +9,18 @@ import java.util.Random;
 
 import model.Graph;
 import model.Position;
-import static model.Position.*;
 import model.Search;
 import model.SearchStrategy;
 
-public class Maze {
+import org.apache.log4j.Logger;
+
+import controller.MazeCreationListener;
+import controller.MazeWorm;
+
+public class Maze implements MazeCreationListener {
+	
+	Logger logger = Logger.getLogger(Maze.class);
+	
 	private Graph<Position> graph;
 	private int size;
 	private boolean valid;
@@ -21,9 +30,6 @@ public class Maze {
 	public Maze(int size) {
 		this.graph = new Graph<Position>();
 		this.size = size;
-		
-		fillIn();
-		validate();
 	}
 	
 	public Maze(Graph<Position> graph, int size) {
@@ -36,33 +42,25 @@ public class Maze {
 		return graph.getVertex(position);
 	}
 	
-	private void fillIn() {
+	void fillIn() {
 		Random random = new Random();
-		for (int i = 1; i < size-1; i++) {
-			for (int j = 1; j < size-1; j++) {
-				// edges that go forward
-				boolean forward = random.nextInt(2) == 0;
-				if (j+1 < size-1 && forward)
-					graph.addEdge(get(i, j), get(i, j+1));
-				
-				// edges that go downward
-				if (i+1 < size-1 && (!forward || random.nextInt(8) == 0))
-					graph.addEdge(get(i, j), get(i+1, j));
-			}
-		}
-		
 		int row = random.nextInt(size-1);
 		
 		graph.addEdge(get(row, 0), get(row, 1));
 		this.beginning = get(row, 0);
 		
-		row = random.nextInt(size-1);
-		graph.addEdge(get(row, size-2), get(row, size-1));
-		this.ending = get(row, size-1);
+		MazeWorm.setUp(0.5, 0.7, 0.4, 0.5, this, 3, this);
+		MazeWorm.startWorm(beginning);
+		try {
+			Thread.currentThread().wait();
+		} catch (InterruptedException e) {
+			logger.error("Error waiting for maze creation notification.", e);
+		}
+		validate();
 	}
 	
-	public void addSlot(Position p) {
-		graph.addVertex(p);
+	public boolean addSlot(Position p) {
+		boolean added = graph.addVertex(p);
 		
 		if (graph.hasVertex(p.getNorth()))
 			graph.addEdge(p, p.getNorth());
@@ -75,6 +73,8 @@ public class Maze {
 		
 		if (graph.hasVertex(p.getWest()))
 			graph.addEdge(p, p.getWest());
+		
+		return added;
 	}
 	
 	public void validate() {
@@ -138,7 +138,6 @@ public class Maze {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		StringBuilder columns = new StringBuilder();
-		
 		columns.append(valid ? "valid\n" : "invalid\n");
 		columns.append("  ");
 		for (int i = 0; i < size; i++) {
@@ -160,6 +159,7 @@ public class Maze {
 		builder.insert(0, columns);
 		return builder.toString();
 	}
+	
 
 	public boolean hasSlot(Position position) {
 		return graph.hasVertex(position);
@@ -175,5 +175,10 @@ public class Maze {
 
 	public void setEnding(Position position) {
 		this.ending = position;
+	}
+
+	@Override
+	public void notifyMazeFinished(Position ending) {
+		this.ending  = ending;
 	}
 }

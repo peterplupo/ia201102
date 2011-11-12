@@ -45,6 +45,7 @@ public class GeneticMazeSelector {
 			int discarded = 0;
 			while (i < populationSize) {
 				Maze maze = new Maze(mazeSize);
+				maze.fillIn();
 				if (maze.isValid()) {
 					population.put(maze, fitness.eval(maze));
 					++i;
