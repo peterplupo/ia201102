@@ -83,8 +83,8 @@ public class MazeWalker {
 		List<Position> adjacency = new ArrayList<Position>();
 		
 		if (slot != null) {
-			if (slot.getAdjacency().contains(current.getWest())) {
-				adjacency.add(current.getWest());
+			if (slot.getAdjacency().contains(current.getEast())) {
+				adjacency.add(current.getEast());
 			}
 			boolean north = slot.getAdjacency().contains(current.getNorth());
 			boolean south = slot.getAdjacency().contains(current.getSouth());
@@ -104,8 +104,8 @@ public class MazeWalker {
 				adjacency.add(current.getSouth());
 			}
 			
-			if (slot.getAdjacency().contains(current.getEast())) {
-				adjacency.add(current.getEast());
+			if (slot.getAdjacency().contains(current.getWest())) {
+				adjacency.add(current.getWest());
 			}
 		}
 		
@@ -117,8 +117,8 @@ public class MazeWalker {
 		while (!stack.empty() && current.getColumn() != maze.getSize()-1) {
 			step();
 			++i;
-			if (i >= 30) {
-				break;
+			if (i >= 1000) {
+				System.gc();
 			}
 		}
 	}

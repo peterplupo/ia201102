@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 
 import model.Position;
@@ -141,6 +142,7 @@ public class GeneticMazeSelector {
 		for (double fitness : population.values()) {
 			fitnessSum += fitness;
 		}
+		
 		System.out.println("FITNESS "+fitnessSum);
 		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
 		Collections.sort(sortedByFitness, new Comparator<Maze>() {
@@ -150,14 +152,22 @@ public class GeneticMazeSelector {
 				return population.get(o1).compareTo(population.get(o2));
 			}
 		});
+		double factor = 1.0 / (population.get(sortedByFitness.get(0)) / fitnessSum);System.out.println("FACTOR "+factor);
+		
 		List<Maze> matingPool = new ArrayList<Maze>();
 		int populationSize = population.size();
-		for (Maze maze : sortedByFitness) {
+		ListIterator<Maze> it = sortedByFitness.listIterator(sortedByFitness.size());
+		while (it.hasPrevious()) {
+			Maze maze = it.previous();
 			if (populationSize <= 0) {
 				break;
 			}
 			
-			int numberOfInstances = (int) (population.get(maze) / fitnessSum) * population.size();
+			int numberOfInstances = (int) (/*factor * */(population.get(maze) / fitnessSum) * population.size());
+			
+//			if (numberOfInstances > (int) 0.25*populationSize) {
+//				numberOfInstances = (int) 0.25*populationSize;
+//			}
 			
 			for (int i = 0; i < numberOfInstances; i++) {
 				matingPool.add(maze);
