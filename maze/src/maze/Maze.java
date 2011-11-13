@@ -61,7 +61,7 @@ public class Maze implements MazeCreationListener {
 		validate();
 	}
 	
-	public boolean addSlot(Position p) {
+	public synchronized boolean addSlot(Position p) {
 		boolean added = graph.addVertex(p);
 		
 		if (graph.hasVertex(p.getNorth()))

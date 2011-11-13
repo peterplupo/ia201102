@@ -27,7 +27,7 @@ public class Search<K> implements SearchStrategy<K> {
 		
 		while (!list.isEmpty()) {
 			K v = list.remove(0);
-			
+			if (adj.get(v) == null) System.out.println(v);
 			for (K w : adj.get(v).getAdjacency()) {
 				if (!parent.containsKey(w)) {
 					parent.put(w, v);
