@@ -9,16 +9,18 @@
 		</layout>
 	</appender>
 
-	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
-		<param name="File" value="messages.log" />
+	<appender name="rollingFileAppender" class="org.apache.log4j.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="messages.%d{yyyy-MM}.log" />
+		</rollingPolicy>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%p (%F:%L): %m%n" />
 		</layout>
 	</appender>
-	
+
 	<root>
 		<priority value="info" />
-		<appender-ref ref="fileAppender" />
+		<appender-ref ref="console" />
 	</root>
 
 </log4j:configuration>
