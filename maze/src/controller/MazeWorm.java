@@ -44,7 +44,9 @@ public class MazeWorm implements Runnable {
 	private int deathCounter;
 	
 	public MazeWorm(Position beginning) {
-		maze.addSlot(beginning);
+		synchronized(maze) {
+			maze.addSlot(beginning);
+		}
 		synchronized (swarmSize) {
 			swarmSize++;
 		}
