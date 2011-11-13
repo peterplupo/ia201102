@@ -48,7 +48,8 @@ public class Maze implements MazeCreationListener {
 		graph.addEdge(get(row, 0), get(row, 1));
 		this.beginning = get(row, 0);
 		
-		MazeWorm.setUp(0.4, 0.5, 0.4, 0.3, this, 3, this);
+		MazeWorm.setUp(0.4, 5, this, 3, this);
+		
 		MazeWorm.startWorm(beginning);
 		try {
 			synchronized(this) {
@@ -82,7 +83,7 @@ public class Maze implements MazeCreationListener {
 	public void validate() {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.ending, new Search<Position>()) /*&& graph.hasPath(this.beginning, this.end, aStarSearch)*/) {
+		if (graph.hasPath(this.beginning, this.ending, new Search<Position>()) ){// && graph.hasPath(this.beginning, this.ending, new AStarSearch())) {
 			this.valid = true;
 		}
 	}

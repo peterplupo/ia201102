@@ -1,5 +1,7 @@
 package maze;
 
+import static model.Position.get;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,7 +11,6 @@ import java.util.ListIterator;
 import java.util.Random;
 
 import model.Position;
-import static model.Position.*;
 
 import org.apache.log4j.Logger;
 
@@ -142,8 +143,7 @@ public class GeneticMazeSelector {
 		for (double fitness : population.values()) {
 			fitnessSum += fitness;
 		}
-		
-		System.out.println("FITNESS "+fitnessSum);
+
 		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
 		Collections.sort(sortedByFitness, new Comparator<Maze>() {
 
@@ -152,7 +152,6 @@ public class GeneticMazeSelector {
 				return population.get(o1).compareTo(population.get(o2));
 			}
 		});
-		double factor = 1.0 / (population.get(sortedByFitness.get(0)) / fitnessSum);System.out.println("FACTOR "+factor);
 		
 		List<Maze> matingPool = new ArrayList<Maze>();
 		int populationSize = population.size();
