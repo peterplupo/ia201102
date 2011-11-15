@@ -31,9 +31,11 @@ public class Maze implements MazeCreationListener {
 		this.size = size;
 	}
 	
-	public Maze(Graph<Position> graph, int size) {
+	public Maze(Graph<Position> graph, int size, Position beginning, Position ending) {
 		this.graph = graph;
 		this.size = size;
+		this.beginning = beginning;
+		this.ending = ending;
 		validate();
 	}
 	
@@ -89,8 +91,38 @@ public class Maze implements MazeCreationListener {
 	}
 	
 	public Maze merge(Maze maze) {
-		List<Position> belongToEither = new ArrayList<Position>();
+		List<Position> positions = new ArrayList<Position>();
 		
+		Random random = new Random();
+		int column = random.nextInt(size);
+		
+		for (Position position : graph.getVertexKeys()) {
+			if (position.getColumn() >= 0 && position.getColumn() < column) {
+				positions.add(position);
+			}
+		}
+		
+		for (int j = column; j < size; ++j) {
+			for (int i = 0; i < size; ++i) {
+				if (maze.containsSlot(get(i, j))) {
+					positions.add(get(i, j));
+				}
+			}
+		}
+		
+		Maze child = new Maze(size);
+		for (Position position : positions) {
+			child.addSlot(position);
+		}
+		child.setBeginning(this.beginning);
+		child.setEnding(maze.getEnd());
+		
+		return child;
+	}
+	
+	public Maze merge2(Maze maze) {
+		List<Position> belongToEither = new ArrayList<Position>();
+
 		for (Position p : graph.getVertexKeys()) {
 			if (maze.containsSlot(p)) {
 				belongToEither.add(p);
@@ -107,7 +139,7 @@ public class Maze implements MazeCreationListener {
 			merged = Graph.addSubGraph(0, column, graph);
 			merged = Graph.addSubGraph(column, size, merged, maze.graph);
 			
-			return new Maze(merged, size);
+			return new Maze(merged, size, this.beginning, this.ending);
 		}
 		
 		return this;

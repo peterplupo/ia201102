@@ -41,7 +41,9 @@ public class MazeWalker {
 		this.visitedSlots = new LinkedHashSet<Position>();
 		
 		current = maze.getBeginning();
-		stack.push(current);
+		if (current != null){
+			stack.push(current);
+		}
 	}
 	
 	private void adjustStructures(Maze maze) {
@@ -51,7 +53,9 @@ public class MazeWalker {
 		visitedSlots.clear();
 		stack.clear();
 		current = maze.getBeginning();
-		stack.push(current);
+		if (current != null){
+			stack.push(current);
+		}
 	}
 
 	//actuator
@@ -67,7 +71,7 @@ public class MazeWalker {
 		
 		boolean allNeighborsVisited = true;
 		for (Position adjacent : adjacency) {
-			if (!visitedSlots.contains(adjacent)) {
+			if (adjacent != null && !visitedSlots.contains(adjacent)) {
 				stack.push(adjacent);
 				allNeighborsVisited = false;
 				break;
@@ -80,7 +84,7 @@ public class MazeWalker {
 	
 	private List<Position> sortPositions() {
 		Slot<Position> slot = maze.getSlot(current);
-		List<Position> adjacency = new ArrayList<Position>();
+		List<Position> adjacency = new ArrayList<Position>(4);
 		
 		if (slot != null) {
 			if (slot.getAdjacency().contains(current.getEast())) {
@@ -117,8 +121,9 @@ public class MazeWalker {
 		while (!stack.empty() && current.getColumn() != maze.getSize()-1) {
 			step();
 			++i;
-			if (i >= 1000) {
+			if (i > 300) {
 				System.gc();
+				break;
 			}
 		}
 	}

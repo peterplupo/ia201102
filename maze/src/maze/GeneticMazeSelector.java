@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Random;
 
 import model.Position;
@@ -43,9 +44,10 @@ public class GeneticMazeSelector {
 			while (i < populationSize) {
 				Maze maze = new Maze(mazeSize);
 				maze.fillIn();
-				logger.info("Maze generated:\n" + maze);
-				if (maze.isValid()) {
-					population.put(maze, fitness.eval(maze));
+				//logger.info("Maze generated:\n" + maze);
+				double fitnessValue;// = fitness.eval(maze);
+				if (maze.isValid() && (fitnessValue = fitness.eval(maze)) < 987) {logger.info("Maze generated: "+fitnessValue);
+					population.put(maze, fitnessValue);
 					++i;
 				}
 			}
@@ -54,46 +56,61 @@ public class GeneticMazeSelector {
 		logger.info("Mazes generated and added to the first generation.");
 	}
 	
-	public void updatePopulation(List<Maze> generation) {
-		MazeFitnessFunction fitness = new MazeFitnessFunction();
-		for (Maze maze : generation) {
-			population.put(maze, fitness.eval(maze));
-		}
+	public void updatePopulation(Map<Maze, Double> generation) {
+		population.putAll(generation);
 	}
 	
 	private void startNewPopulation() {
 		population = new LinkedHashMap<Maze, Double>();
 	}
 	
-	public List<Maze> getElite() {
-		List<Maze> selected = new ArrayList<Maze>(population.keySet());
-		
-		Collections.sort(selected, new Comparator<Maze>() {
+	public Map<Maze, Double> getElite() {
+		List<Maze> mazes = new ArrayList<Maze>(population.keySet());
+		Collections.sort(mazes, new Comparator<Maze>() {
 
 			@Override
 			public int compare(Maze m1, Maze m2) {
-				return (int)(population.get(m1) - population.get(m2));
+				return population.get(m1).compareTo(population.get(m2));
 			}
 			
 		});
-		return selected.subList(0, eliteSize);
+		
+		Map<Maze, Double> elite = new LinkedHashMap<Maze, Double>();
+		for (Maze maze : mazes.subList(mazes.size()-eliteSize, mazes.size())) {
+			elite.put(maze, population.get(maze));
+		}
+		
+		return elite;
 	}
 	
-	public List<Maze> crossoverGeneration(List<Maze> matingPool) {
+	public Map<Maze, Double> crossoverGeneration(List<Maze> matingPool) {
 		MazeFitnessFunction fitness = new MazeFitnessFunction();
-		List<Maze> crossoverPopulation = new ArrayList<Maze>();
+		Map<Maze, Double> crossoverPopulation = new LinkedHashMap<Maze, Double>();
 		Random random = new Random();
 		
 		while (crossoverPopulation.size() < populationSize - eliteSize) {
 			Maze parent0 = matingPool.get(random.nextInt(matingPool.size()));
+			//PRINT PARENT0
+			System.out.println("PARENT0 "+population.get(parent0));
 			Maze parent1 = matingPool.get(random.nextInt(matingPool.size()));
+			//PRINT PARENT1
+			System.out.println("PARENT1 "+population.get(parent1));
 			
 			Maze child = parent0.merge(parent1);
-			
 			mutation(child);
-			
-			if (fitness.eval(child) > 0) {
-				crossoverPopulation.add(child);
+			double fitnessValue = fitness.eval(child);
+			if (fitnessValue > 458) {
+				crossoverPopulation.put(child, fitnessValue);
+				//PRINT
+				System.out.println("OK");System.out.println();
+			}
+			child = parent1.merge(parent0);
+			mutation(child);
+			fitnessValue = fitness.eval(child);
+			if (fitnessValue > 458) {
+				crossoverPopulation.put(child, fitnessValue);
+				//PRINT
+				System.out.println("OK");System.out.println();
 			}
 		}
 		
@@ -108,7 +125,7 @@ public class GeneticMazeSelector {
 				int j = random.nextInt(maze.getSize());
 				Slot<Position> slot = maze.getSlot(get(i, j));
 				if (slot == null) {
-					maze.addSlot(get(i, j));
+					maze.addSlot(get(i, j));System.out.println("MUTATION");
 				} else {
 					// TODO: maze.removeSlot(new Position(i, j));
 				}
@@ -120,10 +137,13 @@ public class GeneticMazeSelector {
 		logger.info("Generating a new generation");
 		
 		logger.info("\t getting the elite group.");
-		List<Maze> elite = getElite();
+		Map<Maze, Double> elite = getElite();
 		
 		logger.info("\t getting the mating pool.");
 		List<Maze> matingPool = getMatingPool();
+		
+		logger.info("\t crossing over, mutating and generating new children from mating pool.");
+		Map<Maze, Double> crossover = crossoverGeneration(matingPool);
 		
 		logger.info("\t wiping the current population and starting a new one.");
 		startNewPopulation();
@@ -131,11 +151,14 @@ public class GeneticMazeSelector {
 		logger.info("\t adding the elite group");
 		updatePopulation(elite);
 		
-		logger.info("\t crossing over, mutating and generating new children from mating pool.");
-		List<Maze> crossover = crossoverGeneration(matingPool);
-		
 		logger.info("\t adding new children to the next generation.");
 		updatePopulation(crossover);
+		
+		//PRINT
+		System.out.print("FITNESS ");
+		for (Double v : population.values()) {
+			System.out.print(v+" ");
+		}System.out.println();
 	}
 
 	private List<Maze> getMatingPool() {
@@ -143,7 +166,8 @@ public class GeneticMazeSelector {
 		for (double fitness : population.values()) {
 			fitnessSum += fitness;
 		}
-
+		//PRINT
+		System.out.println("FITNESS SUM "+fitnessSum);
 		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
 		Collections.sort(sortedByFitness, new Comparator<Maze>() {
 
@@ -153,28 +177,52 @@ public class GeneticMazeSelector {
 			}
 		});
 		
-		List<Maze> matingPool = new ArrayList<Maze>();
-		int populationSize = population.size();
-		ListIterator<Maze> it = sortedByFitness.listIterator(sortedByFitness.size());
-		while (it.hasPrevious()) {
-			Maze maze = it.previous();
-			if (populationSize <= 0) {
+		ListIterator<Maze> it = sortedByFitness.listIterator(0);
+		int fitnessValues = populationSize;
+		while (it.hasNext()) {
+			if (population.get(it.next()) < fitnessSum / populationSize) {
+				--fitnessValues;
+			} else {
 				break;
 			}
+		}
+		
+		List<Maze> matingPool;
+		if (fitnessValues > 0) {
+			matingPool = new ArrayList<Maze>();
+			int matingPoolSize = this.populationSize;
 			
-			int numberOfInstances = (int) (/*factor * */(population.get(maze) / fitnessSum) * population.size());
+			Maze maze = it.previous();
+			it.next();
+			//PRINT
+			System.out.println("FIRST MAZE " + population.get(maze) + " THRESHOLD " + fitnessSum / populationSize + " " + it.previousIndex());
 			
-//			if (numberOfInstances > (int) 0.25*populationSize) {
-//				numberOfInstances = (int) 0.25*populationSize;
-//			}
-			
-			for (int i = 0; i < numberOfInstances; i++) {
-				matingPool.add(maze);
-				--populationSize;
-				if (populationSize == 0) {
+			double factor = (double) populationSize / fitnessValues;
+			//PRINT
+			System.out.println("FACTOR "+factor);
+			for(;;) {
+				if (matingPoolSize <= 0) {
+					break;
+				}
+				
+				int numberOfInstances = (int) (factor * (population.get(maze) / fitnessSum) * populationSize);
+				
+				for (int i = 0; i < numberOfInstances; i++) {
+					matingPool.add(maze);
+					--matingPoolSize;
+					if (matingPoolSize <= 0) {
+						break;
+					}
+				}
+				
+				if (it.hasNext()) {
+					maze = it.next();
+				} else {
 					break;
 				}
 			}
+		} else {
+			matingPool = new ArrayList<Maze>(population.keySet());
 		}
 		
 		return matingPool;
@@ -185,8 +233,6 @@ public class GeneticMazeSelector {
 	}
 
 	public boolean hasSelectedMaze() {
-		MazeFitnessFunction function = new MazeFitnessFunction();
-		
 		logger.info("Checking if the highest evaluated maze complies with the 70-90 steps constraint.");
 		
 		selected = Collections.max(population.keySet(), new Comparator<Maze>() {
@@ -198,7 +244,7 @@ public class GeneticMazeSelector {
 			
 		});
 		
-		//higher than 82 means the agent has completed it between 70 and 90 steps.
-		return function.eval(selected) >= 82;
+		//higher than 987 means the agent has completed it between 70 and 90 steps.
+		return population.get(selected) >= 987;
 	}
 }
