@@ -5,10 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 public class Search<K> implements SearchStrategy<K> {
-	private static Logger logger = Logger.getLogger(Search.class);
 	
 	enum VertexState {VISITED, EXPLORED};
 	protected Map<K, K> parent = new LinkedHashMap<K, K>();
@@ -36,11 +33,6 @@ public class Search<K> implements SearchStrategy<K> {
 			}
 			
 			sort(list);
-		}
-		
-		logger.debug("aeee!");
-		for (Map.Entry<K, K> pair : parent.entrySet()) {
-			logger.debug(pair.getKey() + "->" + pair.getValue());
 		}
 		
 		return parent;
