@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import model.AStarSearch;
 import model.Graph;
 import model.Position;
 import model.Search;
@@ -85,7 +86,7 @@ public class Maze implements MazeCreationListener {
 	public void validate() {
 		this.valid = false;
 		
-		if (graph.hasPath(this.beginning, this.ending, new Search<Position>()) ){// && graph.hasPath(this.beginning, this.ending, new AStarSearch())) {
+		if (graph.hasPath(this.beginning, this.ending, new Search<Position>()) && graph.hasPath(this.beginning, this.ending, new AStarSearch())) {
 			this.valid = true;
 		}
 	}

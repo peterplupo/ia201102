@@ -188,7 +188,7 @@ public class MazeWorm implements Runnable {
 			Thread.yield();
 		}
 		if (swarmSize == 0) {
-			logger.debug("Maze is done.");
+			logger.info("Maze generated.");
 			listener.notifyMazeFinished(ending);
 			synchronized (listener) {
 				listener.notify();

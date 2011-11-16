@@ -44,9 +44,9 @@ public class GeneticMazeSelector {
 			while (i < populationSize) {
 				Maze maze = new Maze(mazeSize);
 				maze.fillIn();
-				//logger.info("Maze generated:\n" + maze);
 				double fitnessValue;// = fitness.eval(maze);
-				if (maze.isValid() && (fitnessValue = fitness.eval(maze)) < 987) {logger.info("Maze generated: "+fitnessValue);
+				if (maze.isValid() && (fitnessValue = fitness.eval(maze)) < 987) {
+					logger.debug("Maze generated: "+fitnessValue);
 					population.put(maze, fitnessValue);
 					++i;
 				}

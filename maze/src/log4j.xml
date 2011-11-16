@@ -18,8 +18,12 @@
 		</layout>
 	</appender>
 
+	<logger name="controller.MazeWorm">
+        <level value="info"/>
+    </logger>
+
 	<root>
-		<priority value="info" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
 	</root>
 
