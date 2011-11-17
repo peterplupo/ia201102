@@ -95,7 +95,7 @@ public class Maze implements MazeCreationListener {
 		List<Position> positions = new ArrayList<Position>();
 		
 		Random random = new Random();
-		int column = random.nextInt(size);
+		int column = 5 + random.nextInt(size-10); // a value between 5 and size-6
 		
 		for (Position position : graph.getVertexKeys()) {
 			if (position.getColumn() >= 0 && position.getColumn() < column) {
