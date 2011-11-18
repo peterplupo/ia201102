@@ -44,7 +44,7 @@ public class GeneticMazeSelector {
 			while (i < populationSize) {
 				Maze maze = new Maze(mazeSize);
 				maze.fillIn();
-				double fitnessValue;// = fitness.eval(maze);
+				double fitnessValue;
 				if (maze.isValid() && (fitnessValue = fitness.eval(maze)) < 987) {
 					logger.debug("Maze generated: "+fitnessValue);
 					population.put(maze, fitnessValue);
@@ -99,6 +99,7 @@ public class GeneticMazeSelector {
 			Maze child = parent0.merge(parent1);
 			mutation(child);
 			double fitnessValue = fitness.eval(child);
+			// mazes with size 0 or size >= 160 are not added
 			if (fitnessValue > 458) {
 				crossoverPopulation.put(child, fitnessValue);
 				//PRINT
@@ -107,6 +108,7 @@ public class GeneticMazeSelector {
 			child = parent1.merge(parent0);
 			mutation(child);
 			fitnessValue = fitness.eval(child);
+			// mazes with path size 0 or path size >= 160 are not added
 			if (fitnessValue > 458) {
 				crossoverPopulation.put(child, fitnessValue);
 				//PRINT
@@ -126,8 +128,6 @@ public class GeneticMazeSelector {
 				Slot<Position> slot = maze.getSlot(get(i, j));
 				if (slot == null) {
 					maze.addSlot(get(i, j));System.out.println("MUTATION");
-				} else {
-					// TODO: maze.removeSlot(new Position(i, j));
 				}
 			}
 		}
@@ -153,12 +153,6 @@ public class GeneticMazeSelector {
 		
 		logger.info("\t adding new children to the next generation.");
 		updatePopulation(crossover);
-		
-		//PRINT
-		System.out.print("FITNESS ");
-		for (Double v : population.values()) {
-			System.out.print(v+" ");
-		}System.out.println();
 	}
 
 	private List<Maze> getMatingPool() {
@@ -166,8 +160,7 @@ public class GeneticMazeSelector {
 		for (double fitness : population.values()) {
 			fitnessSum += fitness;
 		}
-		//PRINT
-		System.out.println("FITNESS SUM "+fitnessSum);
+		
 		List<Maze> sortedByFitness = new ArrayList<Maze>(population.keySet());
 		Collections.sort(sortedByFitness, new Comparator<Maze>() {
 
@@ -194,18 +187,13 @@ public class GeneticMazeSelector {
 			
 			Maze maze = it.previous();
 			it.next();
-			//PRINT
-			System.out.println("FIRST MAZE " + population.get(maze) + " THRESHOLD " + fitnessSum / populationSize + " " + it.previousIndex());
 			
-			double factor = (double) populationSize / fitnessValues;
-			//PRINT
-			System.out.println("FACTOR "+factor);
 			for(;;) {
 				if (matingPoolSize <= 0) {
 					break;
 				}
 				
-				int numberOfInstances = (int) (factor * (population.get(maze) / fitnessSum) * populationSize);
+				int numberOfInstances = (int) ((population.get(maze) / fitnessSum) * populationSize);
 				
 				for (int i = 0; i < numberOfInstances; i++) {
 					matingPool.add(maze);
