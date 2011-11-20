@@ -171,8 +171,7 @@ public class Maze implements MazeCreationListener {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		StringBuilder columns = new StringBuilder();
-		columns.append(valid ? "valid\n" : "invalid\n");
-		columns.append("  ");
+		columns.append("\n  ");
 		for (int i = 0; i < size; i++) {
 			String paddedNumber = i > 9 ? ""+i : "0"+i; 
 			builder.append(paddedNumber +  " ");

@@ -100,6 +100,7 @@ public class MazeWorm implements Runnable {
 			}
 		}
 		
+//		Worm behavior - no square turns
 //		double direction = rand.nextDouble();
 //		if (direction > horizontalProbability) {
 //			if (direction > forwardProbability || current.getColumn() == 1) {
@@ -189,7 +190,7 @@ public class MazeWorm implements Runnable {
 			Thread.yield();
 		}
 		if (swarmSize == 0) {
-			logger.info("Maze generated.");
+			logger.info("\t maze generated.");
 			listener.notifyMazeFinished(ending);
 			synchronized (listener) {
 				listener.notify();
