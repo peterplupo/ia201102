@@ -117,7 +117,7 @@ public class GeneticMazeSelector {
 				Slot<Position> slot = maze.getSlot(get(i, j));
 				if (slot == null) {
 					maze.addSlot(get(i, j));
-					logger.info("\t\t a mutation has occurred.");
+					logger.info("\t\t\t a mutation has occurred.");
 				}
 			}
 		}

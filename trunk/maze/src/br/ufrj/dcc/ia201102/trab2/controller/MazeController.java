@@ -18,7 +18,7 @@ public class MazeController {
 	//percentage of selected elite (to be carried unchanged to the next generation)
 	private static float eliteRate = 0.2f;
 	//chance of a mutation occur on a gene (maze column)
-	private static float mutationProbability = 0.005f;
+	private static float mutationProbability = 0.002f;
 	
 	public static void main(String[] args) {
 		logger.info("Creating random mazes.");
@@ -30,6 +30,6 @@ public class MazeController {
 		
 		Maze maze = selector.getSelectedMaze();
 		new MazeFitnessFunction().eval(maze);
-		logger.info("Selected maze:" + maze.toString());
+		logger.info("Selected maze:" + maze);
 	}
 }
