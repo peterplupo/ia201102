@@ -31,5 +31,6 @@ public class MazeController {
 		Maze maze = selector.getSelectedMaze();
 		new MazeFitnessFunction().eval(maze);
 		logger.info("Selected maze:" + maze);
+		logger.info("It works! I'm... \"aMazed\"!");
 	}
 }
