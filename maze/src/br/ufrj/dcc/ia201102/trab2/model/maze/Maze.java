@@ -181,7 +181,7 @@ public class Maze implements MazeCreationListener {
 					builder.append('.');
 				}
 				else {
-					builder.append("X");
+					builder.append('X');
 				}
 				builder.append("  ");
 			}
