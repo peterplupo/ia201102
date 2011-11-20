@@ -1,11 +1,12 @@
-package controller;
+package br.ufrj.dcc.ia201102.trab2.controller;
 
 import java.util.Random;
 
-import maze.Maze;
-import model.Position;
 
 import org.apache.log4j.Logger;
+
+import br.ufrj.dcc.ia201102.trab2.model.Position;
+import br.ufrj.dcc.ia201102.trab2.model.maze.Maze;
 
 public class MazeWorm implements Runnable {
 	

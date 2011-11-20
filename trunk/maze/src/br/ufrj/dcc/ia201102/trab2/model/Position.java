@@ -1,4 +1,4 @@
-package model;
+package br.ufrj.dcc.ia201102.trab2.model;
 
 import java.util.LinkedHashMap;
 

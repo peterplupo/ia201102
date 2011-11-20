@@ -1,4 +1,4 @@
-package maze;
+package br.ufrj.dcc.ia201102.trab2.model.maze;
 
 import java.util.Set;
 

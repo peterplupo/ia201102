@@ -1,12 +1,13 @@
-package maze;
+package br.ufrj.dcc.ia201102.trab2.model.maze;
 
 import static java.lang.Math.exp;
 import static java.lang.Math.pow;
-import model.FitnessFunction;
 
 import org.apache.log4j.Logger;
 
-import agent.MazeWalker;
+import br.ufrj.dcc.ia201102.trab2.agent.MazeWalker;
+import br.ufrj.dcc.ia201102.trab2.model.FitnessFunction;
+
 
 public class MazeFitnessFunction implements FitnessFunction<Maze> {
 

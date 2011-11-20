@@ -1,9 +1,10 @@
-package model;
+package br.ufrj.dcc.ia201102.trab2.model;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import maze.Slot;
+import br.ufrj.dcc.ia201102.trab2.model.maze.Slot;
+
 
 public class Vertex<K> implements Slot<K> {
 

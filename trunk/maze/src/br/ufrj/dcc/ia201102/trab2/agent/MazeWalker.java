@@ -1,4 +1,4 @@
-package agent;
+package br.ufrj.dcc.ia201102.trab2.agent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -8,9 +8,10 @@ import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 
-import maze.Maze;
-import maze.Slot;
-import model.Position;
+import br.ufrj.dcc.ia201102.trab2.model.Position;
+import br.ufrj.dcc.ia201102.trab2.model.maze.Maze;
+import br.ufrj.dcc.ia201102.trab2.model.maze.Slot;
+
 
 public class MazeWalker {
 	private static MazeWalker instance;
