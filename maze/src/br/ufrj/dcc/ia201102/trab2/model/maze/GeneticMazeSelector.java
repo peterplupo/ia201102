@@ -1,6 +1,6 @@
-package maze;
+package br.ufrj.dcc.ia201102.trab2.model.maze;
 
-import static model.Position.get;
+import static br.ufrj.dcc.ia201102.trab2.model.Position.get;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,9 +11,10 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Random;
 
-import model.Position;
 
 import org.apache.log4j.Logger;
+
+import br.ufrj.dcc.ia201102.trab2.model.Position;
 
 public class GeneticMazeSelector {
 	private LinkedHashMap<Maze, Double> population;
@@ -90,11 +91,7 @@ public class GeneticMazeSelector {
 		
 		while (crossoverPopulation.size() < populationSize - eliteSize) {
 			Maze parent0 = matingPool.get(random.nextInt(matingPool.size()));
-			//PRINT PARENT0
-			System.out.println("PARENT0 "+population.get(parent0));
 			Maze parent1 = matingPool.get(random.nextInt(matingPool.size()));
-			//PRINT PARENT1
-			System.out.println("PARENT1 "+population.get(parent1));
 			
 			Maze child = parent0.merge(parent1);
 			mutation(child);
@@ -102,8 +99,6 @@ public class GeneticMazeSelector {
 			// mazes with size 0 or size >= 160 are not added
 			if (fitnessValue > 458) {
 				crossoverPopulation.put(child, fitnessValue);
-				//PRINT
-				System.out.println("OK");System.out.println();
 			}
 			child = parent1.merge(parent0);
 			mutation(child);
@@ -111,8 +106,6 @@ public class GeneticMazeSelector {
 			// mazes with path size 0 or path size >= 160 are not added
 			if (fitnessValue > 458) {
 				crossoverPopulation.put(child, fitnessValue);
-				//PRINT
-				System.out.println("OK");System.out.println();
 			}
 		}
 		
@@ -127,7 +120,7 @@ public class GeneticMazeSelector {
 				int j = random.nextInt(maze.getSize());
 				Slot<Position> slot = maze.getSlot(get(i, j));
 				if (slot == null) {
-					maze.addSlot(get(i, j));System.out.println("MUTATION");
+					maze.addSlot(get(i, j));
 				}
 			}
 		}

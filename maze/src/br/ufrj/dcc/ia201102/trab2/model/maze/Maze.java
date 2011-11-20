@@ -1,21 +1,22 @@
-package maze;
+package br.ufrj.dcc.ia201102.trab2.model.maze;
 
-import static model.Position.get;
+import static br.ufrj.dcc.ia201102.trab2.model.Position.get;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import model.AStarSearch;
-import model.Graph;
-import model.Position;
-import model.Search;
 
 import org.apache.log4j.Logger;
 
-import controller.MazeCreationListener;
-import controller.MazeWorm;
+import br.ufrj.dcc.ia201102.trab2.controller.MazeCreationListener;
+import br.ufrj.dcc.ia201102.trab2.controller.MazeWorm;
+import br.ufrj.dcc.ia201102.trab2.model.AStarSearch;
+import br.ufrj.dcc.ia201102.trab2.model.Graph;
+import br.ufrj.dcc.ia201102.trab2.model.Position;
+import br.ufrj.dcc.ia201102.trab2.model.Search;
+
 
 public class Maze implements MazeCreationListener {
 	
